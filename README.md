@@ -1,6 +1,6 @@
 # How to build it:
   ## MacOS
-  If you are using MacOS, you need to install `mactex` first:
+  First, you need to install `mactex`:
   ```bash
   brew cask install mactex
   ```
