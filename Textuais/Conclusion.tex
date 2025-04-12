@@ -1,0 +1,53 @@
+\chapter{Conclusion} \label{chap:conclusion}
+
+This work presented a framework designed to address a wide range of matching and grouping problems, with a focus on flexibility, accessibility, and practical applications for industry. Through a modular design and support for various optimization techniques, including both exact and heuristic methods, the framework provides an effective tool for developers tackling complex matching problems across diverse contexts.
+
+\section{Contributions}
+    This work makes several contributions to the field of matching and grouping problems, each designed to enhance the flexibility, applicability, and efficiency of solving these problems in real-world scenarios. The contributions outlined below highlight the definition of a metaheuritics to solve grouping problem, the development of a framework that integrates various optimization techniques, a new algorithm for the minimum quota bipartite matching problem and gathering information about the current state of matching problems articles.
+    \subsection{Metaheuristic}
+    A contribution of this work is the mapping of grouping problems to a genetic algorithm (GA) approach. By developing a structured method for representing grouping problems within the genetic algorithm framework, this work provides a foundation for solving complex, NP-hard problems that may not be feasible with exact algorithms. This contribution enables approximate solutions through GA for various types of grouping problems, expanding the framework's capacity to handle cases where computational efficiency and flexibility are prioritized over exact solutions.
+
+
+    \subsection{Framework}
+        The proposed framework represents a flexible and extensible tool designed for a variety of matching problems. By allowing users to define problem-specific constraints, costs, and preferences, the framework accommodates both standard and customized matching configurations. This adaptability enables its application across multiple domains, from resource allocation to scheduling, and makes it suitable for developers with varying levels of expertise in optimization.
+    
+        \subsubsection{Limitations}
+            Despite its versatility, the framework has some limitations. One significant limitation is the requirement for users to implement their own fitness function to define problem-specific optimization criteria. This requires familiarity with both the framework and the underlying optimization principles, which may be a barrier for some users.
+            
+            Additionally, the framework currently provides only three solvers. Although these cover a range of matching problems, users must add new solvers if they require support for problems with unique "statistics" or specific geometries not handled by the existing options. Expanding the solver library could enhance the framework's applicability to a broader array of problems.
+
+    \subsection{Fair Matching Algorithm}
+        The present work introduced an approach to the bipartite matching problem with the inclusion of minimum quotas, aiming to promote fairness in resource allocation. The proposed mapping for the Minimum Cost Maximum Flow (MCMF) problem, adapted to consider quotas, proved valid in the experiments conducted.
+
+        In this work, we focus on the fair allocation of resources in scenarios where supply ($U$) exceeds demand ($V$).
+        Without loss of generality, swapping the sets $U$ and $V$ allows deploying our strategy in cases where demand exceeds supply.
+        
+        Nevertheless, it is important to highlight that there are several areas to be explored in future work. Verifying the effectiveness and significance of the quotas in different contexts is an open field, requiring more in-depth analyses and broader experiments. Additionally, the implementation must be subjected to rigorous testing to ensure the correctness of the code, as well as performance optimization.
+        
+        Other research directions include investigating alternative approaches for the definition and application of quotas, as well as exploring machine learning techniques to optimize quota selection in different scenarios. Refining the proposed model and analyzing its applicability across various domains also represent valuable opportunities for future research.
+        
+        In summary, this work is an initial step toward understanding and applying quotas in the context of bipartite matching, but there is a vast area to be explored in pursuit of a more comprehensive understanding and improvement of the proposed approach.
+        
+        \subsubsection{Advantages}
+        
+        One of the fundamental advantages of this approach is the ability to employ any MCMF algorithm, even those that are not exact. This flexibility is particularly beneficial, as the different existing implementation methods place varying importance on the trade-off between execution time and solution accuracy.
+        
+        Furthermore, there is the opportunity to use distributed techniques to solve the MCMF problem, broadening the available options for addressing it.
+        Depending on the chosen algorithm, it is not necessary to have all relationships between the elements of each set precalculated, which can reduce memory usage and processing time.
+        
+        In summary, the approach offers great flexibility, allowing it to be computed by various algorithms, thus providing a wide range of options for solving the problem.
+        
+        \subsubsection{Future Work}
+        
+        In future work, we will explore the concept of fairness in relation to more than two sets. 
+        For example, in the timetable problem, one may be required to match rooms, modules, lectures, and students' timetables subjected to constraints based on fair allocation principles.
+        In another future work, we will study the application of fairness in bipartite graphs based on maximum quota principles.
+
+
+\subsection{Review of Recent Developments in Matching Problems and Algorithms}
+
+    This work also conducted a preliminary review of recent advancements in matching problems, focusing on contributions made since 2021. Through a comprehensive search of relevant studies, we identified developments in matching algorithms and problem types. After filtering the studies by language and relevance, we examined the most prominent topics that emerged from the remaining works. This review highlights the continued evolution of the field and contributes to the understanding of cutting-edge solutions and their potential applications in industry.
+
+
+\section{Future Work}
+    Future work could focus on several areas to enhance the framework's capabilities and usability. One priority is to expand the library of built-in solvers to cover a wider variety of matching problems, reducing the need for users to implement custom solvers for specific configurations. Another area for improvement is the automation of fitness functions or the development of built-in options that cover common optimization criteria, making the framework more accessible to non-expert users. Furthermore, optimizing the metaheuristic solver to better handle large datasets and incorporating support for multi-criteria optimization in fair matching could make the framework even more robust and versatile.

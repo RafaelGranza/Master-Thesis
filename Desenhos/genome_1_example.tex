@@ -1,0 +1,109 @@
+\begin{figure}[!ht]
+        \centering
+        \begin{subfigure}{0.45\textwidth}
+            \centering
+            \resizebox{\textwidth}{!}{%
+            \begin{circuitikz}
+                \tikzstyle{every node}=[font=\LARGE]
+                
+                \draw [, line width=1pt ] (9,13.25) circle (0.75cm) node {$x_1$};
+                \draw [, line width=1pt ] (20.25,15.25) circle (0.75cm) node {$x_2$};
+                \draw [, line width=1pt ] (11.5,5.75) circle (0.75cm) node {$x_3$};
+                \draw [, line width=1pt ] (15.25,12.25) circle (0.75cm) node {$x_4$};
+                \draw [, line width=1pt ] (21.25,10.25) circle (0.75cm) node {$x_5$};
+                \draw [, line width=1pt ] (16.5,7) circle (0.75cm) node {$x_6$};
+                \draw [, line width=1pt ] (8,9.75) circle (0.75cm) node {$x_7$};
+                
+                \draw [ color={rgb,255:red,0; green,85; blue,255}, line width=1pt, dashed, ultra thick] (7.75,14.25) -- (7.5,12.25);
+                \draw [ color={rgb,255:red,0; green,85; blue,255}, line width=1pt, dashed, ultra thick] (17,5) .. controls (20,7.75) and (20.25,7.75) .. (23.25,10.5);
+                \draw [ color={rgb,255:red,0; green,85; blue,255}, line width=1pt, dashed, ultra thick] (23.25,10.5) .. controls (22,11.25) and (22.25,11.25) .. (21.25,12);
+                \draw [ color={rgb,255:red,0; green,85; blue,255}, line width=1pt, dashed, ultra thick] (21.25,12) .. controls (18,10.25) and (18.25,10.25) .. (15,8.75);
+                \draw [ color={rgb,255:red,0; green,85; blue,255}, line width=1pt, dashed, ultra thick] (15,8.75) .. controls (12,11.75) and (12.25,11.75) .. (9.25,15);
+                \draw [ color={rgb,255:red,0; green,85; blue,255}, line width=1pt, dashed, ultra thick] (9.25,15) .. controls (8.25,14.5) and (8.5,14.5) .. (7.75,14.25);
+                \draw [ color={rgb,255:red,0; green,85; blue,255}, line width=1pt, dashed, ultra thick] (7.5,12.25) -- (10.25,8.25);
+                \draw [ color={rgb,255:red,0; green,85; blue,255}, line width=1pt, dashed, ultra thick] (10.25,8.25) -- (10.25,3);
+                \draw [ color={rgb,255:red,0; green,85; blue,255}, line width=1pt, dashed, ultra thick] (10.25,3) -- (17,5);
+                
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, line width=1pt, loosely dotted, ultra thick] (12.25,4.75) .. controls (14.5,8.25) and (14.75,8.25) .. (17,12);
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, line width=1pt, loosely dotted, ultra thick] (17,12) .. controls (19.75,13.25) and (20,13.25) .. (22.75,14.5);
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, line width=1pt, loosely dotted, ultra thick] (22.75,14.5) .. controls (21.5,15.75) and (21.75,15.75) .. (20.75,17);
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, line width=1pt, loosely dotted, ultra thick] (20.75,17) .. controls (16.75,14.5) and (17,14.5) .. (13.25,12.25);
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, line width=1pt, loosely dotted, ultra thick] (13.25,12.25) .. controls (11.25,8.25) and (11.5,8.25) .. (9.5,4.5);
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, line width=1pt, loosely dotted, ultra thick] (9.5,4.5) .. controls (10.5,4.25) and (10.75,4.25) .. (12,4);
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, line width=1pt, loosely dotted, ultra thick] (12,4) .. controls (12,4.25) and (12.25,4.25) .. (12.25,4.75);
+                
+                \draw [ color={rgb,255:red,0; green,143; blue,2}, line width=1pt, loosely dashdotted, ultra thick] (6.75,7.75) .. controls (6,9.25) and (6.25,9.25) .. (5.75,10.75);
+                \draw [ color={rgb,255:red,0; green,143; blue,2}, line width=1pt, loosely dashdotted, ultra thick] (5.75,10.75) .. controls (13.75,14.5) and (14,14.5) .. (22.25,18.5);
+                \draw [ color={rgb,255:red,0; green,143; blue,2}, line width=1pt, loosely dashdotted, ultra thick] (22.25,18.5) .. controls (23.25,13.5) and (23.5,13.5) .. (24.5,8.5);
+                \draw [ color={rgb,255:red,0; green,143; blue,2}, line width=1pt, loosely dashdotted, ultra thick] (24.5,8.5) .. controls (23.25,7.75) and (23.5,7.75) .. (22.5,7);
+                \draw [ color={rgb,255:red,0; green,143; blue,2}, line width=1pt, loosely dashdotted, ultra thick] (6.75,7.75) .. controls (12.75,9.75) and (13,9.75) .. (19,12);
+                \draw [ color={rgb,255:red,0; green,143; blue,2}, line width=2pt, loosely dashdotted, ultra thick] (19,12) .. controls (20.5,9.5) and (20.75,9.5) .. (22.5,7);
+
+            \end{circuitikz}
+            }%
+            \caption{} 
+            \label{fig:set_cover_genome_1}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.45\textwidth}
+            \centering
+            \resizebox{0.38\textwidth}{!}{%
+                \begin{circuitikz}
+                    \tikzstyle{every node}=[font=\LARGE]
+                    
+                    % Linha 1 (000)
+                    \draw  (5.8,11.3) rectangle (6.8,10.3) node[pos=.5] {$0$};
+                    \draw  (6.8,11.3) rectangle (7.8,10.3) node[pos=.5] {$0$};
+                    \draw  (7.8,11.3) rectangle (8.8,10.3) node[pos=.5] {$0$};
+                    \node[right] at (8.8,10.8) { = \{$\emptyset$\}};
+        
+                    % Linha 2 (001)
+                    \draw  (5.8,9.2) rectangle (6.8,8.2) node[pos=.5] {$0$};
+                    \draw  (6.8,9.2) rectangle (7.8,8.2) node[pos=.5] {$0$};
+                    \draw  (7.8,9.2) rectangle (8.8,8.2) node[pos=.5] {$1$};
+                    \node[right] at (8.8,8.7) { = \{$s_3$\}};
+        
+                    % Linha 3 (010)
+                    \draw  (5.8,7.2) rectangle (6.8,6.2) node[pos=.5] {$0$};
+                    \draw  (6.8,7.2) rectangle (7.8,6.2) node[pos=.5] {$1$};
+                    \draw  (7.8,7.2) rectangle (8.8,6.2) node[pos=.5] {$0$};
+                    \node[right] at (8.8,6.7) { = \{$s_2$\}};
+        
+                    % Linha 4 (011)
+                    \draw  (5.8,5.2) rectangle (6.8,4.2) node[pos=.5] {$0$};
+                    \draw  (6.8,5.2) rectangle (7.8,4.2) node[pos=.5] {$1$};
+                    \draw  (7.8,5.2) rectangle (8.8,4.2) node[pos=.5] {$1$};
+                    \node[right] at (8.8,4.7) { = \{$s_2, s_3$\}};
+        
+                    % Linha 5 (100)
+                    \draw  (5.8,3.2) rectangle (6.8,2.2) node[pos=.5] {$1$};
+                    \draw  (6.8,3.2) rectangle (7.8,2.2) node[pos=.5] {$0$};
+                    \draw  (7.8,3.2) rectangle (8.8,2.2) node[pos=.5] {$0$};
+                    \node[right] at (8.8,2.7) { = \{$s_1$\}};
+        
+                    % Linha 6 (101)
+                    \draw  (5.8,1.2) rectangle (6.8,0.2) node[pos=.5] {$1$};
+                    \draw  (6.8,1.2) rectangle (7.8,0.2) node[pos=.5] {$0$};
+                    \draw  (7.8,1.2) rectangle (8.8,0.2) node[pos=.5] {$1$};
+                    \node[right] at (8.8,0.7) { = \{$s_1, s_3$\}};
+        
+                    % Linha 7 (110)
+                    \draw  (5.8,-1.2) rectangle (6.8,-2.2) node[pos=.5] {$1$};
+                    \draw  (6.8,-1.2) rectangle (7.8,-2.2) node[pos=.5] {$1$};
+                    \draw  (7.8,-1.2) rectangle (8.8,-2.2) node[pos=.5] {$0$};
+                    \node[right] at (8.8,-1.7) { = \{$s_1, s_2$\}};
+        
+                    % Linha 8 (111)
+                    \draw  (5.8,-3.2) rectangle (6.8,-4.2) node[pos=.5] {$1$};
+                    \draw  (6.8,-3.2) rectangle (7.8,-4.2) node[pos=.5] {$1$};
+                    \draw  (7.8,-3.2) rectangle (8.8,-4.2) node[pos=.5] {$1$};
+                    \node[right] at (8.8,-3.7) { = \{$s_1, s_2, s_3$\}};
+        
+                \end{circuitikz}
+            }%
+            \caption{} 
+            \label{fig:genome_1_example}
+        \end{subfigure}
+        \caption{Example of a chromosome from a problem where the allowed Grouping Objects are predefined. (a) Allowed Grouping Objects are $s_1$, $s_2$, and $s_3$. (b) Chromosome binary representation. Each line is a different chromosome that represents the selected groups.} 
+        \label{fig:genome_1}
+    \end{figure}

@@ -1,0 +1,101 @@
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \scalebox{0.6}{%
+        \begin{tikzpicture}[scale=0.4]
+            \begin{class}{Worker}{0, 6}
+                \attribute {id : String}
+            \end{class}
+            \begin{class}{Job}{15, 6}
+                \attribute {id : String}
+            \end{class}
+
+            \begin{class}{Grouping}{7.5, -2}
+                \attribute {id : String}
+                \attribute {JobId : String}
+                \attribute {WorkerId : String}
+            \end{class}
+            \association {Worker}{}{1..1}{Grouping}{0..1}{}
+            \association {Grouping}{}{1..1}{Job}{1..1}{}
+        \end{tikzpicture}
+        }
+        \caption{Job Assignment Problem.}
+        \label{fig:uml_job_matching_problem}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \scalebox{0.6}{%
+        \begin{tikzpicture}[scale=0.4]
+            \begin{class}{Room}{0, 6}
+                \attribute {id : String}
+            \end{class}
+            \begin{class}{Fund}{16, 6}
+                \attribute {id : String}
+            \end{class}
+            \begin{class}{Project}{0, -3.5}
+                \attribute {id : String}
+            \end{class}
+            \begin{class}{Grouping}{16, -2}
+                \attribute {id : String}
+                \attribute {roomId : String}
+                \attribute {fundId : String}
+                \attribute {projectId : String}
+            \end{class}
+            \association {Room}{}{1..N}{Grouping}{0..1}{}
+            \association {Grouping}{}{0..N}{Fund}{0..N}{}
+            \association {Project}{}{1..1}{Grouping}{1..1}{}
+        \end{tikzpicture}
+        }
+        \caption{Resource Allocation Problem.}
+        \label{fig:uml_resorce_allocation_problem}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \scalebox{0.6}{%
+        \begin{tikzpicture}[scale=0.4]
+            \begin{class}{User}{0, 6}
+                \attribute {id : String}
+            \end{class}
+            \begin{class}{Item}{15, 6}
+                \attribute {id : String}
+            \end{class}
+
+            \begin{class}{Grouping}{7.5, -2}
+                \attribute {id : String}
+                \attribute {UserId : String}
+                \attribute {ItemrId : String}
+            \end{class}
+            \association {User}{}{1..1}{Grouping}{1..1}{}
+            \association {Grouping}{}{1..1}{Item}{1..N}{}
+        \end{tikzpicture}
+        }
+        \caption{User-Item recommendation Problem.}
+        \label{fig:uml_recomendation_problem}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \scalebox{0.6}{%
+        \begin{tikzpicture}[scale=0.4]
+            \begin{class}{Image}{0, 6}
+                \attribute {id : String}
+            \end{class}
+
+            \begin{class}{Grouping}{0, -2}
+                \attribute {id : String}
+                \attribute {image1Id : String}
+                \attribute {image2Id : String}
+            \end{class}
+            \association {Image}{}{2..2}{Grouping}{0..1}{}
+        \end{tikzpicture}
+        }
+        \caption{Image Matching Problem.}
+        \label{fig:uml_image_matching_problem}
+    \end{subfigure}
+    
+    \caption{Visualizing Grouping Problems as a relational diagram.}
+    \label{fig:examples_grouping_as_relations}
+\end{figure}

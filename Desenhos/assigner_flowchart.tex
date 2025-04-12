@@ -1,0 +1,53 @@
+\definecolor{adaee4ed-88c8-5b21-a9e7-31316ebef86f}{RGB}{255, 255, 255}
+\definecolor{f3551e38-74df-57e2-b793-83d7fe876c85}{RGB}{0, 0, 0}
+\definecolor{0b71a967-1f15-55a5-9bb9-70efa7b4fc58}{RGB}{51, 51, 51}
+\definecolor{70af333d-4869-5f2a-97ca-9904a9fce6c3}{RGB}{255, 255, 255}
+\definecolor{5856d031-3da1-575c-834e-c77e9e438c62}{RGB}{0, 0, 0}
+
+\tikzstyle{c5610da3-5598-50aa-b141-78500324a30c} = [rectangle, rounded corners, text width=4cm, minimum height=1cm, text centered, font=\normalsize, color=0b71a967-1f15-55a5-9bb9-70efa7b4fc58, draw=f3551e38-74df-57e2-b793-83d7fe876c85, line width=1, fill=adaee4ed-88c8-5b21-a9e7-31316ebef86f]
+
+\tikzstyle{62e98c06-79c2-5a04-aeb6-076755d5465e} = [diamond, text width=2cm, text centered, font=\normalsize, color=0b71a967-1f15-55a5-9bb9-70efa7b4fc58, draw=f3551e38-74df-57e2-b793-83d7fe876c85, line width=1, fill=70af333d-4869-5f2a-97ca-9904a9fce6c3]
+
+\tikzstyle{7be24b85-97d0-5b76-ba9e-d94005dca8f2} = [thick, draw=5856d031-3da1-575c-834e-c77e9e438c62, line width=2, ->, >=stealth]
+
+
+\begin{figure}[!ht]
+    \centering
+    \scalebox{0.6}{%
+        \begin{tikzpicture}[node distance=2.5cm]
+            \centering
+            \node (e7a1f4bb-66b5-433e-b798-2d76642f9da8) [c5610da3-5598-50aa-b141-78500324a30c] {Start};
+            \node (1c3eea52-adcd-41c9-a8ed-1bd194dab4e8) [62e98c06-79c2-5a04-aeb6-076755d5465e, below of=e7a1f4bb-66b5-433e-b798-2d76642f9da8, yshift=-0.5cm] {2 Elements at each Grouping?};
+            
+            \node (b9080e40-57f0-43b3-b78f-b40298fe0b83) [62e98c06-79c2-5a04-aeb6-076755d5465e, below right of=1c3eea52-adcd-41c9-a8ed-1bd194dab4e8, yshift=-0.5cm, xshift=2cm] {Are there Preferences?};
+            
+            \node (7f3b2db4-0741-4d32-aa43-84d42604d957) [62e98c06-79c2-5a04-aeb6-076755d5465e, below left of=b9080e40-57f0-43b3-b78f-b40298fe0b83, yshift=-0.5cm, xshift=-2cm] {Are there Ranks?};
+            
+            \node (8fc44ab5-5e5e-4354-a909-806d2f3e494a) [62e98c06-79c2-5a04-aeb6-076755d5465e, right of=7f3b2db4-0741-4d32-aa43-84d42604d957, xshift=8cm] {Are there Costs?};
+            
+            \node (d8a39a87-1b0e-4d35-9e1d-eda5964f6268) [c5610da3-5598-50aa-b141-78500324a30c, below left of=7f3b2db4-0741-4d32-aa43-84d42604d957, yshift=-0.5cm, xshift=-1cm] {Hungarian Algorithm};
+            
+            \node (bee77f50-dddf-46a5-9dca-ce03d4871c4d) [c5610da3-5598-50aa-b141-78500324a30c, right of=d8a39a87-1b0e-4d35-9e1d-eda5964f6268, xshift=3cm] {Binary Search + Hungarian Algorithm};
+            
+            \node (233a4f92-7e74-4f97-9a1b-b4d8842e0cce) [c5610da3-5598-50aa-b141-78500324a30c, right of=bee77f50-dddf-46a5-9dca-ce03d4871c4d, xshift=2cm] {Stable Marriage Algorithm};
+            
+            \node (2b5fc8e9-0a88-4abb-9e5b-aaa676180d01) [c5610da3-5598-50aa-b141-78500324a30c, below left of=d8a39a87-1b0e-4d35-9e1d-eda5964f6268, xshift=-1cm] {Metaheuristic Solver};
+        
+        
+        
+        
+            
+            \draw [7be24b85-97d0-5b76-ba9e-d94005dca8f2] (e7a1f4bb-66b5-433e-b798-2d76642f9da8) --  (1c3eea52-adcd-41c9-a8ed-1bd194dab4e8);
+            \draw [7be24b85-97d0-5b76-ba9e-d94005dca8f2] (1c3eea52-adcd-41c9-a8ed-1bd194dab4e8) -| node[anchor=west] {Yes} (b9080e40-57f0-43b3-b78f-b40298fe0b83);
+            \draw [7be24b85-97d0-5b76-ba9e-d94005dca8f2] (b9080e40-57f0-43b3-b78f-b40298fe0b83) -| node[anchor=west] {Yes} (8fc44ab5-5e5e-4354-a909-806d2f3e494a);
+            \draw [7be24b85-97d0-5b76-ba9e-d94005dca8f2] (b9080e40-57f0-43b3-b78f-b40298fe0b83) -| node[anchor=east] {No} (7f3b2db4-0741-4d32-aa43-84d42604d957);
+            \draw [7be24b85-97d0-5b76-ba9e-d94005dca8f2] (1c3eea52-adcd-41c9-a8ed-1bd194dab4e8) -| node[anchor=east] {No} (2b5fc8e9-0a88-4abb-9e5b-aaa676180d01);
+            \draw [7be24b85-97d0-5b76-ba9e-d94005dca8f2] (7f3b2db4-0741-4d32-aa43-84d42604d957) -| node[anchor=east] {No} (d8a39a87-1b0e-4d35-9e1d-eda5964f6268);
+            \draw [7be24b85-97d0-5b76-ba9e-d94005dca8f2] (7f3b2db4-0741-4d32-aa43-84d42604d957) -| node[anchor=west] {Yes} (bee77f50-dddf-46a5-9dca-ce03d4871c4d);
+            \draw [7be24b85-97d0-5b76-ba9e-d94005dca8f2] (8fc44ab5-5e5e-4354-a909-806d2f3e494a.east) |- node[anchor=west] {Yes} (2b5fc8e9-0a88-4abb-9e5b-aaa676180d01);
+            \draw [7be24b85-97d0-5b76-ba9e-d94005dca8f2] (8fc44ab5-5e5e-4354-a909-806d2f3e494a) -| node[anchor=east] {No} (233a4f92-7e74-4f97-9a1b-b4d8842e0cce);
+        \end{tikzpicture}
+    }
+    \caption{Example of a possible flowchart for the Assigner. The solvers shown here are explained at Section \ref{sec:solvers}.}
+    \label{fig:flow_chart}
+\end{figure}

@@ -1,0 +1,152 @@
+
+
+\chapter{Designing a pipeline for solving grouping problems} \label{chap:design}
+
+    Grouping problems are a common challenge in various fields, requiring an effective and efficient approach for their resolution. To achieve this, it is essential to represent these problems in both a simple and generic manner. Simplicity ensures ease of understanding, while a generic approach guarantees that the representation can encompass the majority of grouping problems encountered.
+    
+    In this chapter, we propose using the SCF (Set Coverage Framework), which uses the Set Cover problem (see Section \ref{WSC}) as the foundational representation for all grouping problems. The optimization version of the Set Cover problem is NP-Hard, indicating that any decidable grouping problem can be reduced to it \cite{garey1979computers}. This approach provides a unified framework that simplifies the conceptualization and handling of diverse grouping problems.
+    
+    To manage the specific properties of each problem, we introduce statistics that can identify the nuances of the problem, such as the number of groups, whether the problem is weight-based or capacity-based, whether an object is unique or can be in multiple groups, and other relevant attributes. These statistics allow for the customization and fine-tuning of the problem representation, facilitating the reduction of complex problems to simpler forms, potentially even to P problems, enabling the use of specialized solvers \cite{ieee_survey}.
+    
+    Furthermore, we discuss the application of a metaheuristic solver for the SCF problem, capable of handling all cases, including those where problem reduction is not feasible \cite{ren2021matching}. This solver ensures a robust and versatile solution approach, even for the most challenging instances.
+    
+    This chapter aims to lay the groundwork for a systematic pipeline in solving grouping problems, offering a comprehensive representation and a flexible, powerful solution mechanism.
+    
+    \section{Grouping problems as the Set Cover Framework}
+
+        The Set Cover Framework is a way to represent grouping problems as the the Set Cover problem (see Section \ref{WSC}) and its variants thorough objects and its relations, since they are straightforward to be represented in this manner as shown in Figures \ref{fig:set_coverage_framework_1} and \ref{fig:set_coverage_framework_2}.
+        %
+        The weighted version of the Set Cover can consider the weights as being defined and computed based on the relation of those objects.
+
+        In addition, every decidable grouping problem can be seen as a set cover problem.
+        While it sounds as a bold statement, this is in fact, a trivial one, due to the fact that the decision version of the Set-cover is a NP-Complete problem \cite{karp1972reducibility}.
+        %
+        It implicates that any decidable grouping problem can theoretically be reduced to it \cite{garey1979computers}.
+
+        \input{Desenhos/set_coverage_framework}
+        
+    
+        \subsection{Representation}
+             As the main purpose of Grouping Problems is to group objects, they can intuitively be represent as a relational diagram. Figure \ref{fig:examples_grouping_as_relations} shows how to represent several grouping problems earlier discussed in Chapter \ref{chap:grouping_problems}.
+             %
+             Note that the grouping problems can always be represented as a many-to-many relation. Here we do not refer to the many-to-many matching from Chapter \ref{chap:grouping_problems}, but we refer to the many-to-many object relation, explained at Section \ref{sec:orm}.
+
+             \input{Desenhos/examples_grouping_as_relations}     
+             
+            It is important to also properly define the geometry (dimension) of the relations, as they can represent different problems, as shown in Figure \ref{fig:relation_geometry}.
+
+             \input{Desenhos/relation_geometry}            
+
+            
+            As we discussed before, sets can be collections of instances, which do not necessarily belong to the same class, which represent relationships among these instances. Using this parallel, it is possible to see a Set Cover Problem and its variants as a relational diagram too, for instance, Figure \ref{fig:3_classes} is the relational diagram version of the set cover problem shown at Figure \ref{fig:set_coverage_framework_1}, while Figure \ref{fig:1_class} is the relational diagram version of the set cover problem shown at Figure \ref{fig:set_coverage_framework_2}.
+
+            \input{Desenhos/3_classes}
+
+            To summarize, the SCF is the way to represent the grouping problems as relation between objects, which is also the same way one can represent a set cover problem. It permits the representation of every decidable grouping problem \cite{garey1979computers} and also makes it more practical to understand and use it, since the object relation paradigm is already well established in the industrial environment.
+
+            The solution for a grouping problem in the SCF can be represented as a list of grouping objects.
+                
+
+        \subsection{Statistics}
+            Depending on the problem, each grouping can encapsulate various statistics such as costs, capacities, number of elements, qualities, and validity, among other characteristics relevant to the grouping problem. At the SCF  the statistics are attributes of the \textit{Grouping} class.
+            
+            It is crucial for these statistics to be well-defined beforehand for a specific problem. Depending on the nature of the problem, these statistics can either be computed on-demand or predefined, depending upon whether preferences are implicit or explicit. Figure \ref{fig:statistics} shows how this statistics can be represented.
+
+            \input{Desenhos/example_statistics}
+    
+            At Figure \ref{fig:stat_stable}, showing the Stable Marriage Problem, a grouping represents potential relationships between pairs, where the statistics of these groupings reflect preferences. In the context of the Job Assignment Problem, at Figure \ref{fig:stat_assignment}, a grouping represents potential assignments between workers and jobs, with the statistics indicating the costs associated with each assignment.
+
+        \subsection{Objective Function} \label{sec:obj_func}
+
+            In optimization problems, the objective function is a mathematical expression that quantifies what needs to be optimized. The goal of an optimization problem is to find the values (variables) that either maximize (fitness function) or minimize (cost function) the result of this function, subject to certain constraints.
+            
+            Formally, if \( x \) represents a vector of decision variables, the objective function \( f(x) \) is a function mapping the decision variables \( x \) to a real number. The optimization process involves finding the values of \( x \) that either maximize or minimize \( f(x) \), depending on the problem.
+            
+            In the case of this work, the objective function is computed based on the statistics of every grouping used in a possible solution for a given problem.
+            Lets assume a possible solution is a list of groupings $L$. An objective function could be like the Algorithm \ref{algo:example_obj_func}.
+
+            \input{Algorithms/pseudo_code_example}
+
+            Algorithms \ref{algo:job_assign_obj_func} and \ref{algo:stbl_marriage_obj_func} show a possible objective function for the job assignment and stable marriage problems, respectively. They have very different behavior, while Algorithm \ref{algo:job_assign_obj_func} focus on finding low cost assignments and wants to minimizes the function, Algorithm \ref{algo:stbl_marriage_obj_func} focus to find the biggest amount of stable matchings through maximizing the function.
+
+            \input{Algorithms/pseudo_code_job_assignment}
+            \input{Algorithms/pseudo_code_stable_marriage}
+
+            Note in Algorithm \ref{algo:job_assign_obj_func} the return of infinity in lines 2 and 7 enforce hard constraints, respectively, all jobs must be assigned (lines 1-3) and each assignment must have a single worker and single job (lines 6-8). Soft constraints could be implemented by increasing the value of sum with a penalty values instead of returning infinity.
+
+            Similarly, Algorithm \ref{algo:stbl_marriage_obj_func} enforces hard constraints by returning zero (maximum function) in lines 3, 8 and 16.
+    
+        \subsection{Problem Specification and Configurations}
+            As a lot of grouping problems have similar characteristics as shown in Chapter \ref{chap:grouping_problems}. Due to this observation, it is possible to create template statistics with a default behavior. Such as:
+            \begin{itemize}
+                \item \textbf{Cost:} it defines the cost to make a grouping. Usually the objective is to minimize the sum of the costs, while having the bigger amount of grouping (priority one).
+                \item \textbf{Preference:} it is based on preferences of objects. Have the greater amount of groupings while respecting preferences of objects, where none objet wants to switch to a different grouping.
+                \item \textbf{Usage Limit:} it defines how many different groupings an element can be part of.
+                \item \textbf{Ranking:} it defines how similar objects are, maximize the average ranking.
+
+            \end{itemize}
+        
+    \section{Pipeline}
+    Translating grouping problems to the SCF (Set-Cover Framework) is not sufficient; it is also crucial to solve the underlying optimization problems. 
+    However, each grouping problem presents its own characteristics, which in turn can be better tackled with a particular solver.
+    Furthermore, for different solvers, different internal representations of the problem are required.
+    To address these problems, a specialized pipeline is employed. 
+    Figure \ref{fig:pipeline} illustrates a pipeline that demonstrates how a grouping problem, represented using the SCF framework, can be assigned to a specialist solver and then returned to the same SCF representation.
+    First the SFC is sent to the assigner, that will choose a solver based on the statistics of the problem, each solver is an specialized algorithm with a converter to convert the SCF to the expected input format to the algorithm, after that a normalizer will get the output of the algorithm and translate it again to the SCF, outputting a list of groupings objects. 
+
+    \input{Desenhos/pipeline}
+
+    \subsection{Assigner}
+        Since the problems are represented using the SCF, one might assume that only NP-hard solutions are available. However, due to the information stored in the statistics, it is sometimes possible to reduce the problem to a simpler one.
+
+        The assigner gathers information from the statistics and metadata from the grouping to identify a specific and specialized solver for that particular grouping problem, if no one is available, a metaheuristic one is assigned.
+
+        Figure \ref{fig:flow_chart} shows a simplified version of the assigner; a more advanced assigner can be implemented in future works.
+
+        \input{Desenhos/assigner_flowchart}
+
+    \subsection{Solvers}
+    
+        According to the problem identified by the assigner, it is important to have algorithm-specific solvers. In cases where there is no predefined specification for the problem, a metaheuristic algorithm based on genetic algorithms will be used to solve the problem.
+
+        Algorithm-specific solvers are tailored to solve particular types of problems more efficiently than general-purpose solvers. One such solver is the Hungarian algorithm, which is used for finding the optimal assignment in a bipartite graph \cite{kuhn1955hungarian}. This algorithm ensures that the total cost of the assignment is minimized, making it particularly effective for solving assignment problems where each element in one set must be matched with an element in another set at minimal cost.
+
+        For cases where the objective is to minimize the maximum difference among the matchings, a combination of binary search and the Hungarian algorithm is employed \cite{land1974automatic}. The binary search is used to find the optimal threshold, and for each threshold value, the Hungarian algorithm determines if a valid matching exists within that threshold. This combined approach allows for efficient minimization of the maximum difference among the matchings.
+
+        Another important algorithm-specific solver is the Stable Matching Algorithm, also known as the Stable Marriage algorithm \cite{gale1962college}. This algorithm is used for finding stable matchings, where there are no two elements that would both prefer each other over their current matches. The Stable Marriage algorithm is widely applied in scenarios such as matching students to schools or residents to hospitals, ensuring that the matchings are stable and no participants have an incentive to deviate from their assigned matches.
+            
+       \subsection{Metaheuristic Solver: Genetic Algorithm}
+            In situations where no specialized solver is available, a metaheuristic approach, such as a genetic algorithm, is used. This method attempts to find a near-optimal solution by mimicking the process of natural selection, iteratively improving the solution through processes such as selection, crossover, and mutation \cite{holland1992adaptation}. Section \ref{sec:ga} gives a better understanding on how the genetic algorithm works.
+
+        \subsubsection{Gene and Chromosome Representation} \label{sec:gene}
+            The design allows the user to enter two types of input, the allowed Grouping Objects, or all instances of classes that can be part of the groupings.
+            %%
+            
+            %%
+            For the first case, the chromosome is a bit mask $b$ of size $n$, where $n$ is the number of allowed Grouping Objects. The $i$-th bit in $b$ indicates whether or not the $i$-th grouping object is selected at that solution option. Figure \ref{fig:genome_1} shows an example of it.
+            %%
+
+            \input{Desenhos/genome_1_example}
+
+            %%
+            For the second case, the chromosome is a list of $n$ bit masks (a matrix). 
+            Therefore, we have a predefined maximum of $n$ grouping.
+            % Each group has its own bit mask, and each mask will be of size $m$, where $m$ is the number of instances available. 
+            Each bit mask, of size $m$, represents a grouping, where
+            $m$ is the number of instances available. 
+            %In this case, we assume we have a fixed number of $n$ groupings, and each 
+            The $i$-th bit of the $j$-th bit mask indicates whether the $i$-th instance is part of the $j$-th grouping. 
+            Therefore, the chromosome is a matrix of size $n\times m$. 
+            This can generate invalid groupings, so they need to be checked after mutations and cross-overs. Figure \ref{fig:genome_2} shows an example of it.
+
+            \input{Desenhos/genome_2_example}
+
+            These representations are not optimized, but can cover all the cases.
+    
+            As these representations are binary, there is no need to elaborate new mutations and crossovers, since the literature already implements many operations (e.g. single-point crossover, multi-point crossover, flip mutation) \cite{galib}.
+
+        
+     \subsection{Mapping Inputs and Outputs of Solvers}
+        Each $Solver$ needs to translate the input from the SCF to something that its optimization algorithm can comprehend and optimize. It adapts the SCF to the particular requirements of the algorithm. This step is essential for making the data usable by the algorithm in question, as different algorithms may have unique input formats or requirements.
+
+        On the other hand, there is also need to translate the output to a SCF, ensuring consistency and compatibility with the SCF representation. It outputs a list of groupings, which optimizes the grouping problem. This final step ensures that the results are presented in a organized manner, facilitating further applications.

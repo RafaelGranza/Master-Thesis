@@ -1,0 +1,54 @@
+\resizebox{0.5\textwidth}{!}{%
+ \begin{tikzpicture}[xscale=0.45,yscale=1.05]
+   \tikzstyle{style} = [circle, draw, ultra thick, minimum size=45pt, inner sep=0pt, text centered]
+
+
+      \draw
+        (-10.909, 0.0) node[style, draw=black] (0){Source}
+        (-2.909, 5.0) node[style, draw=red, dashed] (1){$u$$_1$}
+        (-2.909, 3.0) node[style, draw=red, dashed] (2){$u$$_2$}
+        (-2.909, 1.0) node[style, draw=red, dashed] (3){$u$$_3$}
+        (-2.909, -1) node[style, draw=red, dashed] (4){$u$$_4$}
+        (-2.909, -3.0) node[style, draw=red, dashed] (5){$u$$_5$}
+        (-2.909, -5.0) node[style, draw=red, dashed] (6){$u$$_6$}
+        (5.091, 4) node[style, draw=blue, dotted] (7){$v$$_1$}
+        (5.091, -4.0) node[style, draw=blue, dotted] (8){$v$$_3$}
+        (5.091, 0) node[style, draw=blue, dotted] (9){$v$$_2$}
+        (13.091, 0.0) node[style, draw=black] (10){Sink};
+
+  %   \tikzstyle{style} = [circle, draw, fill, minimum size=45pt, inner sep=0pt, text centered]
+
+
+      % \draw
+      %   (-10.909, 0.0) node[style, fill=cyan] (0){Source}
+      %   (-2.909, 5.0) node[style, fill=brown] (1){$u$$_1$}
+      %   (-2.909, 3.0) node[style, fill=brown] (2){$u$$_2$}
+      %   (-2.909, 1.0) node[style, fill=brown] (3){$u$$_3$}
+      %   (-2.909, -1) node[style, fill=brown] (4){$u$$_4$}
+      %   (-2.909, -3.0) node[style, fill=brown] (5){$u$$_5$}
+      %   (-2.909, -5.0) node[style, fill=brown] (6){$u$$_6$}
+      %   (5.091, 4) node[style, fill=orange] (7){$v$$_1$}
+      %   (5.091, -4.0) node[style, fill=orange] (8){$v$$_3$}
+      %   (5.091, 0) node[style, fill=orange] (9){$v$$_2$}
+      %   (13.091, 0.0) node[style, fill=cyan] (10){Sink};
+    
+  \begin{scope}[-]
+    \draw[lightgray, text=black, font=\footnotesize] (0) to node[midway, sloped, ] {1 - 0} (1);
+    \draw[lightgray, text=black, font=\footnotesize] (0) to node[midway, sloped, ] {1 - 0} (2);
+    \draw[lightgray, text=black, font=\footnotesize] (0) to node[midway, sloped, ] {1 - 0} (3);
+    \draw[lightgray, text=black, font=\footnotesize] (0) to node[midway, sloped, ] {1 - 0} (4);
+    \draw[lightgray, text=black, font=\footnotesize] (0) to node[midway, sloped, ] {1 - 0} (5);
+    \draw[lightgray, text=black, font=\footnotesize] (0) to node[midway, sloped, ] {1 - 0} (6);
+    \draw[lightgray, text=black, font=\footnotesize] (1) to node[midway, sloped, ] {1 - 1} (7);
+    \draw[lightgray, text=black, font=\footnotesize] (2) to node[midway, sloped, ] {1 - 7} (9);
+    \draw[lightgray, text=black, font=\footnotesize] (3) to node[midway, sloped, ] {1 - 7} (9);
+    \draw[lightgray, text=black, font=\footnotesize] (4) to node[midway, sloped, ] {1 - 1} (8);
+    \draw[lightgray, text=black, font=\footnotesize] (5) to node[midway, sloped, ] {1 - 10} (9);
+    \draw[lightgray, text=black, font=\footnotesize] (5) to node[midway, sloped, ] {1 - 10} (8);
+    \draw[lightgray, text=black, font=\footnotesize] (6) to node[midway, sloped, ] {1 - 10} (7);
+    \draw[lightgray, text=black, font=\footnotesize] (7) to node[midway, sloped, ] {1 - 0} (10);
+    \draw[lightgray, text=black, font=\footnotesize] (8) to node[midway, sloped, ] {1 - 0} (10);
+    \draw[lightgray, text=black, font=\footnotesize] (9) to node[midway, sloped, ] {1 - 0} (10);
+  \end{scope}
+\end{tikzpicture}
+}%

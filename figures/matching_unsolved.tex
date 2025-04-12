@@ -1,0 +1,119 @@
+ % \begin{tikzpicture}[scale=0.8]
+ %      \draw
+ %        (-9.0, 0.0) node[draw=black,style] (0){$Source$}
+ %        (-5.745, 1.085) node[draw=purple, loosely dotted,style] (1){$q_0$}
+ %        (-5.745, 0.0) node[draw=purple, loosely dotted,style] (2){$q_1$}
+ %        (-5.745, -1.085) node[draw=gray,style] (3){$r$}
+ %        (0.766, 0.0) node[draw=red, dashed,style] (4){$u_1$}
+ %        (0.766, -1.085) node[draw=red, dashed,style] (5){$u_2$}
+ %        (0.766, 1.085) node[draw=red, dashed,style] (6){$u_0$}
+ %        (-2.489, 1.085) node[draw=green!50!black, dashdotted,style] (7){$P_{u_0}$}
+ %        (-2.489, 0.0) node[draw=green!50!black, dashdotted,style] (8){$P_{u_1}$}
+ %        (-2.489, -1.085) node[draw=green!50!black, dashdotted,style] (9){$P_{u_2}$}
+ %        (4.021, 2.713) node[draw=blue, dotted,style] (10){$v_0$}
+ %        (4.021, 1.627.5) node[draw=blue, dotted,style] (11){$v_1$}
+ %        (4.021, 0.543) node[draw=blue, dotted,style] (12){$v_2$}
+ %        (4.021, -0.543) node[draw=blue, dotted,style] (13){$v_3$}
+ %        (4.021, -1.627.5) node[draw=blue, dotted,style] (14){$v_4$}
+ %        (4.021, -2.713) node[draw=blue, dotted,style] (15){$v_5$}
+ %        (7.277, 0.0) node[draw=black,style] (16){$Target$};
+ %      \begin{scope}[-]
+ %        \draw[lightgray, text=black, font=\footnotesize] (0) to node[] {$n_{q_0}$ ; 0} (1);
+ %        \draw[lightgray, text=black, font=\footnotesize] (0) to node[] {$n_{q_1}$ ; 0} (2);
+ %        \draw[lightgray, text=black, font=\footnotesize] (0) to node[] {$n_{r}$ ; 0} (3);
+ %        \draw[lightgray, text=black, font=\footnotesize] (1) to node[] {1 ; 0} (7);
+ %        \draw[lightgray, text=black, font=\footnotesize] (2) to (8);
+ %        \draw[lightgray, text=black, font=\footnotesize] (3) to node[] {1 ; 0} (8);
+ %        \draw[lightgray, text=black, font=\footnotesize] (3) to node[] {1 ; 0} (9);
+ %        \draw[lightgray, text=black, font=\footnotesize] (3) to node[] {1 ; 0} (7);
+ %        \draw[lightgray, text=black, font=\footnotesize] (4) to node[] {1 ; 0} (8);
+ %        \draw[lightgray, text=black, font=\footnotesize] (4) to  (14);
+ %        \draw[lightgray, text=black, font=\footnotesize] (4) to  (13);
+ %        \draw[lightgray, text=black, font=\footnotesize] (4) to  (12);
+ %        \draw[lightgray, text=black, font=\footnotesize] (4) to (11);
+ %        \draw[lightgray, text=black, font=\footnotesize] (5) to node[] {1 ; 0} (9);
+ %        \draw[lightgray, text=black, font=\footnotesize] (5) to (14);
+ %        \draw[lightgray, text=black, font=\footnotesize] (5) to  (13);
+ %        \draw[lightgray, text=black, font=\footnotesize] (5) to node[] {$M_{u_2 v_5}$} (15);
+ %        \draw[lightgray, text=black, font=\footnotesize] (5) to node[] {1 ; $M_{u_1 v_2}$} (11);
+ %        \draw[lightgray, text=black, font=\footnotesize] (6) to node[] {1 ; 0} (7);
+ %        \draw[lightgray, text=black, font=\footnotesize] (6) to node[] {1 ; $M_{u_0 v_0}$} (10);
+ %        \draw[lightgray, text=black, font=\footnotesize] (6) to node[] {1 ; $M_{u_1 v_3}$} (14);
+ %        \draw[lightgray, text=black, font=\footnotesize] (10) to node[] {1 ; 0} (16);
+ %        \draw[lightgray, text=black, font=\footnotesize] (11) to node[] {1 ; 0} (16);
+ %        \draw[lightgray, text=black, font=\footnotesize] (12) to node[] {1 ; 0} (16);
+ %        \draw[lightgray, text=black, font=\footnotesize] (13) to node[] {1 ; 0} (16);
+ %        \draw[lightgray, text=black, font=\footnotesize] (14) to node[] {1 ; 0} (16);
+ %        \draw[lightgray, text=black, font=\footnotesize] (15) to node[] {1 ; 0} (16);
+ %      \end{scope}
+ %    \end{tikzpicture}
+
+    \resizebox{0.7\textwidth}{!}{%
+      \begin{tikzpicture} [xscale=0.45, yscale=1.05]
+        \tikzstyle{style} = [circle, draw, ultra thick, minimum size=45pt, inner sep=0pt, text centered]
+        \tikzstyle{no_border} = [circle, minimum size=45pt, inner sep=0pt, text centered, opacity=0.5]
+        \tikzstyle{layerlabel}=[text width=5cm, align=center, font=\Large]
+
+        
+       \draw
+        (-20.0, 7.5) node[layerlabel] (-1){Layer 1}
+        (-12.0, 7.5) node[layerlabel] (-1){Layer 2}
+        (-4.0, 7.5) node[layerlabel] (-1){Layer 3}
+        (4.0, 7.5) node[layerlabel] (-1){Layer 4}
+        (12.0, 7.5) node[layerlabel] (-1){Layer 5}
+        (20.0, 7.5) node[layerlabel] (-1){Layer 6}
+        
+        (-20.0, 0.0) node[draw=black,style] (0){Source}
+        (-12.0, 2.0) node[draw=purple, loosely dashdotted,style] (1){$q_1$}
+        (-12.0, 0.0) node[draw=purple, loosely dashdotted,style] (2){$q_2$}
+        (-12.0, -2.0) node[draw=lightgray,loosely dotted,style] (3){$wc$}
+        (4.0, 5.0) node[draw=red, dashed,style] (4){$u_1$}
+        (4.0, 3.0) node[draw=red, dashed,style] (5){$u_2$}
+        (4.0, 1.0) node[draw=red, dashed,style] (6){$u_3$}
+        (4.0, -1.0) node[draw=red, dashed,style] (7){$u_4$}
+        (4.0, -3.0) node[draw=red, dashed,style] (8){$u_5$}
+        (4.0, -5.0) node[draw=red, dashed,style] (9){$u_6$}
+        (-4.0, 5.0) node[draw=green!50!black, dashdotted,style] (10){$p_1$}
+        (-4.0, 3.0) node[draw=green!50!black, dashdotted,style] (11){$p_2$}
+        (-4.0, 1.0) node[draw=green!50!black, dashdotted,style] (12){$p_3$}
+        (-4.0, -1.0) node[draw=green!50!black, dashdotted,style] (13){$p_4$}
+        (-4.0, -3.0) node[draw=green!50!black, dashdotted,style] (14){$p_5$}
+        (-4.0, -5.0) node[draw=green!50!black, dashdotted,style] (15){$p_6$}
+        (12.0, 3.0) node[draw=blue, dotted,style] (16){$v_1$}
+        (12.0, -3.0) node[draw=blue, dotted,style] (17){$v_3$}
+        (12.0, 0.0) node[draw=blue, dotted,style] (18){$v_2$}
+        (20.0, 0.0) node[draw=black,style] (19){Sink};
+      \begin{scope}[-]
+        \draw[lightgray, text=black, font=\footnotesize] (0) to node[] {$n_{q_1}$ ; 0} (1);
+        \draw[lightgray, text=black, font=\footnotesize] (0) to node[] {$n_{q_2}$ ; 0} (2);
+        \draw[lightgray, text=black, font=\footnotesize] (0) to node[] {$n_{WC}$ ; 0} (3);
+        \draw[lightgray, text=black, font=\footnotesize] (1) to node[] {1 ; 0} (10);
+        \draw[lightgray, text=black, font=\footnotesize] (1) to node[] {1 ; 0} (11);
+        \draw[lightgray, text=black, font=\footnotesize] (1) to node[] {1 ; 0} (12);
+        % \draw[lightgray, text=black, font=\footnotesize] (2) to node[] {1 ; 0} (13);
+        \draw[lightgray, text=black, font=\footnotesize] (2) to node[] {1 ; 0} (14);
+        \draw[lightgray, text=black, font=\footnotesize] (3) to node[] {1 ; 0} (10);
+        \draw[lightgray, text=black, font=\footnotesize] (3) to node[] {1 ; 0} (11);
+        \draw[lightgray, text=black, font=\footnotesize] (3) to node[] {1 ; 0} (12);
+        \draw[lightgray, text=black, font=\footnotesize] (3) to node[] {1 ; 0} (13);
+        \draw[lightgray, text=black, font=\footnotesize] (3) to node[] {1 ; 0} (15);
+        \draw[lightgray, text=black, font=\footnotesize] (3) to node[] {1 ; 0} (14);
+        \draw[lightgray, text=black, font=\footnotesize] (4) to node[] {1 ; 0} (10);
+        \draw[lightgray, text=black, font=\footnotesize] (4) to node[] {1 ; $C_{u_1 v_1}$} (16);
+        \draw[lightgray, text=black, font=\footnotesize] (5) to node[] {1 ; 0} (11);
+        \draw[lightgray, text=black, font=\footnotesize] (5) to node[] {1 ; $C_{u_2 v_2}$} (18);
+        \draw[lightgray, text=black, font=\footnotesize] (6) to node[] {1 ; 0} (12);
+        \draw[lightgray, text=black, font=\footnotesize] (6) to node[] {1 ; $C_{u_3 v_2}$} (18);
+        \draw[lightgray, text=black, font=\footnotesize] (7) to node[] {1 ; 0} (13);
+        \draw[lightgray, text=black, font=\footnotesize] (7) to node[] {1 ; $C_{u_4 v_3}$} (17);
+        \draw[lightgray, text=black, font=\footnotesize] (9) to node[] {1 ; 0} (15);
+        \draw[lightgray, text=black, font=\footnotesize] (8) to node[] {1 ; $C_{u_5 v_2}$} (18);
+        \draw[lightgray, text=black, font=\footnotesize] (8) to node[] {1 ; $C_{u_5 v_3}$} (17);
+        \draw[lightgray, text=black, font=\footnotesize] (8) to node[] {1 ; 0} (14);
+        \draw[lightgray, text=black, font=\footnotesize] (9) to node[] {1 ; $C_{u_6 v_1}$} (16);
+        \draw[lightgray, text=black, font=\footnotesize] (16) to node[] {1 ; 0} (19);
+        \draw[lightgray, text=black, font=\footnotesize] (17) to node[] {1 ; 0} (19);
+        \draw[lightgray, text=black, font=\footnotesize] (18) to node[] {1 ; 0} (19);
+      \end{scope}
+    \end{tikzpicture}
+    }%

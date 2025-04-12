@@ -1,0 +1,388 @@
+
+\chapter{Framework} \label{chap:framework}
+
+    Building upon the ideas presented in Chapter \ref{chap:design}, we outline how an initial C++ framework can be implemented. In this chapter, we demonstrate the construction process, focusing on a problem-agnostic approach. To maintain generality, some classes have been mocked, allowing us to emphasize the framework's core design principles rather than problem-specific details.
+    
+
+    \section{Representing Relations}
+        % To represent the relations, we provide the class         \textit{GroupingRule}, which stores each classes that can be part of a Grouping, the specifications, and also represents the geometry of the Grouping, i.e. how many relations each object can be part of, can ahve and so on. 
+        To represent the relations rules, as defined in Section \ref{sec:relation_rules}, we provide the class \textit{GroupingRule} (see Script \ref{script:groupingrule}).
+        The \textit{GroupingRule} provides methods to define the classes that can be part of a \textit{Grouping}, the specifications, and also represents the rules of a specific \textit{Grouping} (see Script \ref{script:groupingrule}). The \textit{GroupingRule} also has a vector of \textit{Relation}, these variables represent how to specify the cardinality of all relations of the \textit{Grouping}. Script \ref{script:relation} explains it in more details.
+        
+        In Section \ref{sec:examples}, we will provide examples of how to create these rules using the \textit{GroupingRule} class.
+        
+        \begin{lstlisting}[language=C++, caption={\textit{GroupingRule} class that defines valid \textit{Groupings} and its specifications.}, label={script:groupingrule}]
+class GroupingRule {
+private:
+public:
+    std::vector<Relation> relations;
+    GroupingRule() {};
+    explicit GroupingRule(std::vector<Relation> &relations);
+        
+    bool allow_arbitrary_fitness    = false;
+    
+    bool weight_based               = false;
+    bool cost_based                 = false;
+    bool preference_based           = false;
+    
+    int grouping_max_size           = -1;
+    int grouping_min_size           = -1;    
+
+    template <typename T>
+    void add_relation(const T &obj, const std::pair<int, int> &group_limits, const std::pair<int, int> &other_limits);
+
+    const std::vector<Relation>& get_relations() const;
+    bool intances_belong_to_a_single_grouping(); 
+    bool does_grouping_respect(std::vector<Grouping>& g);
+    void add_groupings(std::vector<Grouping> groupings);       
+    virtual float fitness(std::vector<Grouping> groupings);
+};
+        \end{lstlisting}
+
+
+\begin{lstlisting}[language=C++, caption={The \textit{Relation} class defines a list of entity's classes. Each entry in the vector defines the cardinality of the class in the group using four values: the source's Minimum and Maximum Multiplicity and the target's Minimum and Maximum Multiplicity.}, label={script:relation}]
+class Relation {
+public:
+    Object* target;     // The target entity (can be anything, like Job, Worker, etc.)
+                        // The source Object is always the Grouping
+    
+    int source_min, source_max;  // Cardinality of the source
+    int target_min, target_max;  // Cardinality of the target
+
+    Relation(
+        int source_min, 
+        int source_max, 
+        Object* target, 
+        int target_min, 
+        int target_max
+    ) : source(source), 
+        source_min(source_min), 
+        source_max(source_max), 
+        target(target), 
+        target_min(target_min), 
+        target_max(target_max) {}
+};
+\end{lstlisting}
+
+
+
+
+    %One can see some examples of how to create a \textit{GroupingRule} at Section \ref{sec:examples}.
+    The \textit{Grouping} class serves as a flexible container for objects, as demonstrated in Script \ref{script:grouping}. It represents the elements (instances) that are grouped together. Importantly, these objects can be instances of any class. In Script \ref{script:grouping}, the term \textit{Object} is used to denote an arbitrary C++ class.
+
+
+    \begin{lstlisting}[language=C++, caption={\textit{Grouping} Class. It represents the elements (instances) that are grouped together.}, label={script:grouping}]
+class Grouping {
+protected:
+    std::vector<Object> members;
+public:
+    explicit Grouping(std::vector<Object> members);
+};
+    \end{lstlisting}
+
+    \section{Solvers}
+        We have implemented solvers with the stable marriage algorithm, the Hungarian algorithm, and the genetic algorithm. 
+        These algorithms work with very different problems, and each problem may be solved by more than one available solver.
+        Therefore, we provide an assigner to select the suitable solver for each problem.
+        %and for the purpose of this work, they are enougth to demonstrate the efficinecy of the design.
+    
+        \subsection{Assigning Solvers}
+            The Script \ref{script:assinger} implements a simple solver assignment strategy equivalent to the flow-chart of Figure \ref{fig:flow_chart}.
+            Returns the first solver capable of handling the problem from a priority list.
+            The high-priority algorithms are the deterministic ones.
+            %The assigner gives the responsability to the solvers. 
+            %They ask whether each solver can solve and specific problem as shown in Script \ref{script:assinger}.
+            
+    \begin{lstlisting}[language=C++, caption={Assigner Class.}, label={script:assinger}]
+class Assigner {
+private:
+    std::vector<Solver> solvers = {
+        HungarianAlgorithm,
+        BinSearchHungarianAlgorithm,
+        StableMarriage,
+        GeneticAlgorithm,           // Metaheuristic
+    };
+public:
+    Solver Assigner::choose(GroupingRule grouping_rule) {
+        for(auto solver: this->solvers)
+            if (solver->is_a_solver_of(grouping_rule))
+                return solver;
+        throw std::runtime_error("No Solvers available for this problem");
+    }
+};
+    \end{lstlisting}
+
+            The proposed design ensures a seamless integration of new solvers, as the responsibility of verifying whether a solver can handle a given problem lies within the solver itself. The order in which solvers are added, and consequently the sequence in which they are evaluated, dictates the preference when multiple solvers are capable of addressing the same problem.
+
+            The assigner iterates through a predefined list of solvers, selecting the first one that successfully resolves the given problem. The Genetic Algorithm is positioned as the last resort, ensuring that it is only employed when no specialized solver is available.
+
+        \section{Adding Solvers}
+            Integrating new solvers into the framework is straightforward. A new solver can be implemented by creating a class that inherits from \textit{Solver} (see Script \ref{script:solver}) and by overriding the necessary virtual functions. Once implemented, the solver must be added to the assigner's list, as demonstrated in Script \ref{script:assinger}.
+
+            In Section \ref{sec:solvers}, fourr standard solvers are introduced.
+
+\begin{lstlisting}[language=C++, caption={Solver Class.}, label={script:solver}]
+class Solver {
+private:
+    std::chrono::duration<double> chrono_solving_duration;
+
+    virtual double expected_operations(GroupingRule &rule, std::vector<Grouping> &grouping_intances);
+    virtual double expected_operations(GroupingRule &rule, std::vector<std::vector<POrmObject>> &orm_objects_intances);
+    virtual bool is_exact();
+
+    virtual std::vector<Grouping> do_solve(GroupingRule &rule, std::vector<Grouping> &grouping_intances);
+    virtual std::vector<Grouping> do_solve(GroupingRule &rule, std::vector<std::vector<POrmObject>> &orm_objects_intances);
+public:
+    std::vector<Grouping> solve(GroupingRule &rule, std::vector<Grouping> &grouping_intances);
+    std::vector<Grouping> solve(GroupingRule &rule, std::vector<std::vector<POrmObject>> &orm_objects_intances);
+    double solving_duration();
+    
+    virtual std::string name();
+    virtual bool is_a_solver_of(GroupingRule &grouping_rule);
+};
+    \end{lstlisting}
+
+    \section{Solvers}
+    \label{sec:solvers}
+    In this section, we describe the different solvers that were implemented to address the grouping problems. Each solver is chosen based on its suitability for the problem at hand, ranging from optimization-based techniques like the Hungarian Algorithm to more heuristic-based approaches such as Genetic Algorithms. We also delve into a solver designed for specific cases like the Stable Marriage problem, which ensures a stable matching between two groups.
+
+    It is important to notice that for this work, this is only to demonstrate possibilities, and that an arbitrary amount of solvers can be implemented and added to this framework in the future.
+    
+    \subsection{Metaheuristic}
+    To implement the genetic algorithm, we utilized a modern version of GAlib \cite{galib}. This library provides essential genetic operators and data structures required for genetic algorithms, streamlining the implementation process. The genes discussed in Section \ref{sec:gene} are already implemented in GAlib through classes \textit{GA1DBinaryStringGenome} and \textit{GA2DBinaryStringGenome}, which represent one-dimensional and two-dimensional binary string genomes, respectively.
+    
+    For this implementation, we retained GAlib's default mutation and crossover operators, which use probabilistic mechanisms to alter and recombine genes to evolve solutions over generations. The fitness function is given by the user, this allows it to consider constraints such as preferences, cost, capacity limitations, or any other metric. This solver is particularly useful in complex matching problems where the search space is too vast for traditional optimization algorithms, and an approximate solution is acceptable.
+    
+    \subsection{Hungarian Algorithm}
+    The Hungarian Algorithm, also known as the Kuhn-Munkres algorithm, was implemented to solve assignment problems where the goal is to find an optimal, minimum-cost matching between two sets of objects. The algorithm operates in polynomial time, making it an efficient choice for solving balanced bipartite matching problems\cite{kuhn1955hungarian}. 
+    
+    In this implementation, we followed the standard approach of constructing a cost matrix, where each element represents the "cost" or "penalty" of matching a pair of objects. The algorithm then attempts to minimize the total cost by identifying the optimal set of pairings that leads to the lowest overall value. This is particularly suited for scenarios where the goal is not only to match but to optimize a single objective, such as minimizing total distance or maximizing total compensation in the distribution of resources. The Hungarian Algorithm is deterministic, guaranteeing an optimal solution for these types of problems.
+
+    \subsection{Binary Search and Hungarian Algorithm}
+
+        The combination of binary search and the Hungarian Algorithm provides an efficient approach to solving matching problems where constraints on edge rankings play a crucial role. This method is particularly useful when the objective is to find a maximum matching while ensuring that the lowest-ranked edge in the matching is as high as possible.
+        
+        The approach consists of performing a binary search on the minimum allowable edge ranking. For a given threshold value \( T \), all edges with rankings lower than \( T \) are temporarily removed from consideration, leaving only edges with rankings \(\geq T\). The Hungarian Algorithm is then applied to find the optimal matching under these constraints. The binary search then adjusts the threshold until the maximum possible minimum ranking is achieved while maintaining a valid matching.
+        
+        More formally, the algorithm follows these steps:
+        
+        \begin{enumerate}
+            \item Define the search space by setting an initial range \([L, R]\), where \( L \) is the lowest ranking in the graph and \( R \) is the highest ranking.
+            \item Perform binary search on \( T \):
+            \begin{itemize}
+                \item Set \( T = \frac{L + R}{2} \);
+                \item Remove all edges with rankings lower than \( T \);
+                \item Apply the Hungarian Algorithm to determine the maximum matching under the new graph constraints;
+                \item If a valid matching exists, adjust \( L \) to try increasing \( T \); otherwise, adjust \( R \).
+            \end{itemize}
+            \item Repeat until convergence, returning the best feasible matching where the lowest-ranked edge is maximized.
+        \end{enumerate}
+        
+        This technique ensures that the worst-case edge ranking in the matching is as high as possible, making it particularly useful in applications where fairness or quality guarantees are required. By leveraging binary search, the solution efficiently narrows down the feasible rankings, ensuring that the Hungarian Algorithm is executed only on relevant subsets of the graph, thereby improving computational efficiency in large-scale instances.
+        
+    
+    \subsection{Stable Marriage Algorithm}
+    The Stable Marriage Algorithm, based on the Gale-Shapley Deferred Acceptance algorithm, was implemented to solve matching problems where stability between two groups is the primary concern. Stability in this context refers to a matching where no pair of individuals would prefer each other over their current matches, thus preventing any potential disruptions to the arrangement.
+    
+    For the implementation, we focused on creating an efficient solution for the stable matching problem, where each group provides a preference list, and the algorithm iteratively matches individuals based on their rankings. We applied the "men-proposing" variant of the Stable Marriage Algorithm, ensuring that once a match is formed, it is either retained or improved upon without destabilizing previous matches.
+    
+    This algorithm is particularly effective in applications where stability are more important than optimization, such as job candidate assignment or college admissions. The result is a matching that respects individual preferences while maintaining stability across the entire system.
+
+    \section{Examples} \label{sec:examples}
+To illustrate the flexibility of the framework in solving various grouping problems, this section presents three distinct applications, each one with its unique requirements.
+
+\subsection{Job Assignment}
+In this example, the goal is to match workers to jobs while minimizing a cost metric (e.g., travel distance or time) as described at Section \ref{subsec:job_assignment}. In Script \ref{script:job_assignement}, we configure the framework with a cost function that dynamically evaluates the expense of assigning specific workers to jobs, enforcing a one-to-one assignment.
+
+\begin{lstlisting}[language=C++, caption={Creating and solving the Job Assignment Problem using this framework. The Relations vector defines a list of entitie's classes. Each entry in the vector defines the cardinality of the class in the group using four values: the source's Minimum and Maximum Multiplicity and the target's Minimum and Maximum Multiplicity. The cost function is delagated to the used implemented class Job. The \textit{job.cost} algorithm is defined in Algorithm \ref{algo:job_assign_obj_func}.}, label={script:job_assignement}]
+class JobAssignmentRule : GroupingRule {
+    std::Vector<Relations> Relations = {
+        {Job, 1, 1, 1, 1},
+        {Worker, 1, 1, 1, 1},
+    };
+
+    bool cost_based = true;
+    float cost(Job job, Worker worker){
+        return job.cost(worker);
+    }
+};
+\end{lstlisting}
+
+
+\subsection{Stable Marriage}
+This example in Script \ref{script:stable_marriage} demonstrates stable pairing, where two groups (e.g., males and females) are matched based on mutual preferences, further explanation can be found at Section \ref{subsec:stable_matching}. The framework allows defining preference-based rules to ensure a stable solution where no pairs would prefer a different match. The fitness function of the following function is shown in Algorithm \ref{algo:stbl_marriage_obj_func} in Section \ref{sec:obj_func}.
+
+\begin{lstlisting}[language=C++, caption={Creating and solving the Stable Marriage Problem using this framework.}, label={script:stable_marriage}]
+class StableMarriageRule : GroupingRule {
+    std::Vector<Relations> Relations = {
+        {Male, 1, 1, 1, 1},
+        {Female, 1, 1, 1, 1},
+    };
+
+    bool preference_based = true;
+    std::vector<Female> preference(Male male){
+        return male.preferences;
+    }
+};
+\end{lstlisting}
+
+\subsection{Timetable Scheduling}
+For complex scheduling scenarios, such as assigning professors, rooms, lectures, and times, we use a genetic algorithm. This example defines a fitness function to optimize resource allocation while meeting scheduling constraints. 
+
+\begin{lstlisting}[language=C++, caption={Creating and solving the Timetable Scheduling Problem using this framework.}, label={script:time_table}]
+class TimeTableRule : GroupingRule {
+    std::Vector<Relations> Relations = {
+        {Professor, 1, 1, 1, 1},
+        {Room, 1, 1, 1, 1},
+        {Cohort, 1, 1, 1, 1},
+        {TimeWindow, 1, 1, 1, 1},
+        {Subject, 1, 1, 1, 1},
+    };
+    
+    bool allow_arbitrary_fitness = true;
+    float fitness(Professor professor, Room room, Cohort cohort, TimeWindow time, Subject subject){
+        float score = 100.0; // Start with a perfect score
+        
+        // Constraint 1: Avoid double booking of professor
+        if (professor.isBusyAt(time)) {
+            score -= 50;  // Major penalty
+        }
+        
+        // Constraint 2: Ensure the room can accommodate the lecture
+        if (room.capacity < cohort.expected_students) {
+            score -= 30;  // Big penalty
+        }
+        if (!room.isSuitableFor(cohort)) {
+            score -= 20;  // Medium penalty
+        }
+        
+        // Constraint 3: Avoid overlapping lectures in the same course
+        if (subject.hasConflictAt(time)) {
+            score -= 40;
+        }
+        
+        // Constraint 4: Time preferences (soft constraint)
+        if (!professor.prefersTime(time)) {
+            score -= 10;  // Small penalty
+        }
+        if (!subject    3.preferredTime(time)) {
+            score -= 5;
+        }
+        
+        return std::max(0.0f, score);  // Fitness should not go below zero
+    }
+};
+\end{lstlisting}
+
+To see more information about resource allocation problems, see Section \ref{subsec:resource_allocation}.
+
+    % \section{Available ORM Wrappers and DataBases}
+    %     Some of the most used and famous libraires related to matching problems in Python, Ruby and Java are listed in Table \ref{tab:libraries}.
+            
+    %     % \begin{itemize}
+    %     %     \item\href{https://joss.theoj.org/papers/10.21105/joss.02169}{Python, Matching,  Explicit, [Stable marriage problem; Hospital-Resident assignment problem; Student-Allocation problem; Stable Roommates problem]}
+    %     %     \item\href{https://networkx.org/documentation/stable/reference/algorithms/matching.html}{Python, NetworkX, Implicit, [Max unweighted matching, Max weighted matching, Min weighted matching]}
+    
+    %     %     \item\href{https://python.igraph.org/en/stable/}{Python, IGraph, Implict, [Max unweighted matching, Max weighted matching, Min weighted matching, Min cost max capacity bipartite matching]}
+    %     %     \item\href{https://developers.google.com/optimization/install}{[Python, Java], OR-Tools, Implict, [[Max unweighted matching, Max weighted matching, Min weighted matching, Min cost max capacity bipartite matching, Schedulling]}.
+    
+    %     %     \item\href{https://rubydoc.info/gems/graphmatch/Graphmatch}{Ruby on Rails, Graphmtch, Implict, [[Max unweighted bipartite matching, Max weighted bipartite matching, Min weighted bipartite matching, Min cost max capacity bipartite matching]}.
+    
+    %     %     \item\href{https://jgrapht.org/}{Java, JGraphT, Implict, [[Max unweighted bipartite matching, Max weighted bipartite matching, Min weighted bipartite matching, Min cost max capacity bipartite matching]}.
+    
+            
+    %     %     \item\href{https://jung.sourceforge.net/}{Java, JUNG, Implict, [[Max unweighted bipartite matching, Max weighted bipartite matching, Min weighted bipartite matching, Min cost max capacity bipartite matching]}.
+                    
+    %     % \end{itemize}
+    
+    %     \begin{table}[!ht]
+    %     \centering
+    %     \begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{2cm}|>{\centering\arraybackslash}p{3cm}|>{\centering\arraybackslash}p{2cm}|X|}
+    %         \hline
+    %         \textbf{Languages} & \textbf{Library} & \textbf{Type} & \textbf{Matching Problems} \\
+    %         \hline
+    %         Python & \href{https://joss.theoj.org/papers/10.21105/joss.02169}{Matching} & Explicit & Stable Marriage \\
+    %          & & & Hospital-Resident Assignment \\
+    %          & & & Student-Allocation \\
+    %          & & & Stable Roommates \\
+    %         \hline
+    %         Python & \href{https://networkx.org/documentation/stable/reference/algorithms/matching.html}{NetworkX} & Implicit & Max Unweighted Matching \\
+    %          & & & Max Weighted Matching \\
+    %          & & & Min Weighted Matching \\
+    %         \hline
+    %         Python & \href{https://python.igraph.org/en/stable/}{IGraph} & Implicit & Max Unweighted Matching \\
+    %          & & & Max Weighted Matching \\
+    %          & & & Min Weighted Matching \\
+    %          & & & Min Cost Max Capacity Bipartite Matching \\
+    %         \hline
+    %         Python, Java & \href{https://developers.google.com/optimization/install}{OR-Tools} & Implicit & Max Unweighted Matching \\
+    %          & & & Max Weighted Matching \\
+    %          & & & Min Weighted Matching \\
+    %          & & & Min Cost Max Capacity Bipartite Matching \\
+    %          & & & Scheduling \\
+    %         \hline
+    %         Java & \href{https://jgrapht.org/}{JGraphT} & Implicit & Max Unweighted Bipartite Matching \\
+    %          & & & Max Weighted Bipartite Matching \\
+    %          & & & Min Weighted Bipartite Matching \\
+    %         \hline
+    %         Java & \href{https://jung.sourceforge.net/}{JUNG} & Implicit & Max Unweighted Bipartite Matching \\
+    %          & & & Max Weighted Bipartite Matching \\
+    %          & & & Min Weighted Bipartite Matching \\
+    %          & & & Min Cost Max Capacity Bipartite Matching \\
+    %         \hline
+    %         Ruby & \href{https://rubydoc.info/gems/graphmatch/Graphmatch}{Graphmatch} & Implicit & Max Unweighted Bipartite Matching \\
+    %          & & & Max Weighted Bipartite Matching \\
+    %          & & & Min Weighted Bipartite Matching \\
+    %          & & & Min Cost Max Capacity Bipartite Matching \\
+    %         \hline
+    %     \end{tabularx}
+    %      \caption{List of famous and used Libraries Realted to Matching Problems in Python, Ruby and Java}
+    %     \label{tab:libraries}.
+    % \end{table}
+        
+    
+    
+    %     There is also the \href{https://matchingtools.com/#}{MatchingTools API (v1.0.0)}, wich permits anyone using any language to request the solution of the following problems:
+    
+    %     \begin{itemize}
+    %         \item \href{https://en.wikipedia.org/wiki/Stable_marriage_problem#Similar_problems}{stable marriage problem}
+    %         \item \href{https://en.wikipedia.org/wiki/Stable_marriage_problem#Similar_problems}{hospital/residents problem}
+    %         \item \href{https://en.wikipedia.org/wiki/Stable_roommates_problem}{stable roommates problems}
+    %         \item \href{https://en.wikipedia.org/wiki/House_allocation_problem}{housing market problem }
+    %     \end{itemize}
+    
+
+
+    % \section{Most Used Technologies}
+    %     \begin{itemize}
+    %         \item What kind of wrapper and DB support should we aim?
+    %         \item Most popular DataBases
+    %         \item Most popular Development languages (Python, Ruby, Java) and Frameworks (e.g., Django, Rails, JWhat? ...)
+    %     \end{itemize}
+    %     \begin{figure}
+    %         \centering
+    %         \includegraphics[width=0.8\linewidth]{used programming languages.png}
+    %         \caption{Most Used Programming Languages in 2023 acording to \cite{statista_languages}}
+    %         \label{fig:most_used_languages}
+    %     \end{figure}
+        
+    % \section{Proposed Framework}
+    % \section{Results}
+    % \section{Software}
+    % \section{Wrapper}
+    %     Describe how to communicate with the most used languages
+    %     \begin{itemize}
+    %         \item Python
+    %         \item Java
+    %         \item Ruby on Rails
+    %         \item GO
+    %     \end{itemize}
+    %     They all support C++ code, easy wrapper
+    
+
+    
+    
+
+
+
+

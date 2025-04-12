@@ -1,0 +1,16 @@
+\begin{algorithm}[!ht]
+    \caption{Job Assignment Objective Function - Minimize the Return} \label{algo:job_assign_obj_func}
+    \begin{algorithmic}[1]
+        \IF{amount of $Assignments$ $\neq$ amount of $Jobs$}
+            \RETURN $\infty$
+        \ENDIF
+        \STATE $Sum \Leftarrow 0$
+        \FOR{each $Assignment$ in $Assignments$}
+            \IF{amount of $Workers$ in $Assignment$ $\neq$ 1 \OR amount of $Jobs$ in $Assignment$ $\neq$ 1}
+                \RETURN $\infty$
+            \ENDIF
+            \STATE{$Sum \Leftarrow Sum$ + cost of $Assignment$}
+        \ENDFOR
+        \RETURN $Sum$
+    \end{algorithmic}
+\end{algorithm}

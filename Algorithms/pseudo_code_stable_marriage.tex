@@ -1,0 +1,31 @@
+\begin{algorithm}
+    \caption{Stable Mariage Objective Function - Maximize the Return} \label{algo:stbl_marriage_obj_func}
+    \begin{algorithmic}[1]
+        \FOR{each $Marriage$ in $Marriages$}
+            \IF{amount of $People$ in $Marriage$ $\neq$ 2}
+                \RETURN $0$
+            \ENDIF
+        \ENDFOR
+
+        \FOR{each $Person$ in $Marriages$}
+            \IF{$Person$ appears more than 2 times}
+                \RETURN $0$
+            \ENDIF
+        \ENDFOR
+
+        \FOR{each $Person_1$ in $Marriages$}
+             \STATE{$PairPerson_1 \Leftarrow$ pair of $Person_1$}
+             \FOR{each $Person_2$ in $Marriages$}
+                  \STATE{$PairPerson_2 \Leftarrow$ pair of $Person_2$}
+                % \IF{$Person_2$ $\neq$ $Person_1$ \AND $Person_2$ $\neq$ $PairPerson_1$}
+                    \IF{$Person_1$ prefers $Person_2$ over $PairPerson_1$ \AND
+                    $Person_2$ prefers $Person_1$ over $PairPerson_2$}
+                        \RETURN $0$
+                    \ENDIF
+                % \ENDIF
+            \ENDFOR
+        \ENDFOR
+        
+        \RETURN amount of $Marriages$
+    \end{algorithmic}
+\end{algorithm}

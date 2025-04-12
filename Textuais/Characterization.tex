@@ -1,0 +1,161 @@
+\chapter{CHARACTERIZATION OF GROUPING PROBLEMS} \label{chap:grouping_problems} 
+
+    In this chapter, we explore the characterization of grouping problems, focusing on their definitions, common types, and recent developments. We begin by defining how grouping problems are approached in industry. This concept is then related to graph theory, where vertices represent objects and edges represent connections, providing a theoretical framework for understanding grouping problems \cite{newman2018networks}.
+    
+    We then delve into common types of grouping problems, including explicit matching, implicit matching, one-to-one matching, one-to-many matching, many-to-many matching, user-item matching, and others \cite{gusfield1989stable, demange1986multi}. Each type presents unique challenges and applications in various industries.
+    
+    Finally, we discuss recent developments in the field of grouping problems, including advanced algorithms for solving matching problems efficiently and applications in diverse fields such as quantum computing \cite{quantum_matching}, artificial inteligence \cite{gnn_graph_matching, cross_modal_matching}, and Humanitarian and Resource Allocation \cite{humanitarian_routing}. By examining these developments, we aim to provide a comprehensive overview of the current state of grouping problems and their significance in various domains \cite{ieee_survey}.
+    
+\section{HOW TO DEFINE AN INDUSTRY MATCHING PROBLEM}
+
+    As the name indicates, they are problems where the objective is to match some elements, usually the matching optimizes a function.
+    
+    When faced with a set of objects, such as job oppenings and candidates, the objective is to group these objects, assing candidates to jobs in this context, where each group generate a set of statistics, and this statistics are used to optimize an objective function. This concept is well-established in the field of operations research and combinatorial optimization \cite{manlove2013algorithmics}.
+
+    \subsection{Job Assignment} \label{subsec:job_assignment}
+        One of the most well-known examples of a matching problem is job assignment. The objective is to match job positions with candidates who possess the necessary skills, experience, and qualifications. The process involves considering the specific requirements of each position and the attributes of the candidates, aiming to maximize overall efficiency or satisfaction. This type of problem has been widely studied, particularly in the context of labor markets and automated recruitment systems \cite{roth1990two}.
+
+    \subsection{Resource Allocation} \label{subsec:resource_allocation}
+        Resource allocation problems involve distributing limited resources—such as rooms, equipment, or funds—among competing tasks or projects. The challenge lies in ensuring that the allocation maximizes efficiency while meeting constraints, such as availability and demand. These problems are critical in industries like healthcare, manufacturing, and project management, where effective resource distribution directly impacts outcomes \cite{schrijver2003combinatorial}.
+    
+    \subsection{Network Routing} \label{subsec:network_routing}
+        In network routing problems, the goal is to determine the optimal way to route data, goods, or resources through a network. This involves minimizing costs, delays, or energy consumption while ensuring that demands are met across the network. Such problems are particularly relevant in logistics, telecommunications, and supply chain management, where optimizing flow is essential for performance \cite{ahuja1993network}.
+    
+    \subsection{Stable Matching} \label{subsec:stable_matching}
+        Stable matching problems focus on creating pairings where no two entities would prefer being matched with each other over their current assignments. The stable marriage problem is a classic example, where the objective is to create stable pairs based on mutual preferences. Applications of stable matching range from college admissions processes to organ donation programs, where stability and fairness are crucial \cite{gusfield1989stable, demange1986multi}.
+    
+    
+    
+    These problems are fundamental in various industries and have been extensively studied \cite{manlove2013algorithmics}.
+
+
+    \subsection{Industrial Terminology compared to Graph Theory}
+    
+   In the context of graph theory, vertices may represent objects, and edges represent the connections or relationships between these objects \cite{west2001introduction, diestel2017graph}. 
+    This basic terminology is crucial when translating industrial problems into graph models.
+
+    Edges often contain statistics that can represent preferences, costs, capacities, and other characteristics.
+    For example, in the stable marriage problem  (see Subsection \ref{subsec:stable_matching}), edges' statistics represent preferences between pairs \cite{gale1962college}.
+    In the Hungarian algorithm for the assignment problem  (see Subsection \ref{subsec:resource_allocation}), edges represent costs associated with assignments \cite{kuhn1955hungarian}. 
+    In network flow problems (see Subsection \ref{subsec:network_routing}), edges represent capacities that limit the amount of flow through the network \cite{ford1956maximal}.
+    
+    For industry applications, any graph cover problems are often collectively referred to as matching problems \cite{larman2004applying, fowler2003patterns}. However, to avoid confusion, in the context of this work, we will use the terms ``grouping'' and ``matching"" interchangeably.
+
+    For instance, in a logistics network, vertices could represent warehouses and stores, while edges represent possible delivery routes. 
+    Finding an optimal set of routes that minimizes cost can be modeled as a grouping problem.
+
+    Using this terminology allows us to frame complex industrial problems in a structured way, making it easier to apply graph-theoretical algorithms and techniques to find optimal solutions.
+    
+    
+    \section{Usual Matching Problems}
+        
+        In this section, grouping problems will be referred to as "matching" problems, as this is how they are often called in the industry. The categorization of problems into subcategories, based on the classification provided by the survey \cite{ieee_survey}, reveals several common grouping problem structures, such as explicit and implicit matching. Table \ref{tbl:summarisation_applications_matching} shows a detailed relation of problems, characteristics, and applications. Other characteristics that can be applied to all problems include online/offline (dynamism), scalability, heterogeneity, noise tolerance, and privacy requirements \cite{ieee_survey}.
+        
+        \input{Desenhos/survey_table}
+        
+        Matching problems can be broadly divided into two main categories: explicit and implicit.
+        
+        \subsection{Explicit Matching}
+            Explicit matching problems involve objects that have preferences about whom they prefer to group with \cite{ieee_survey, manlove2013algorithmics}. These can be further categorized into:
+            
+            \begin{itemize}
+                \item \textbf{One-to-one}: also known as bipartite matching, common in job assignment where each job is assigned to a single candidate and vice versa \cite{kuhn1955hungarian}.
+                \item \textbf{Many-to-one}: found in scenarios like college admissions, where multiple students can be assigned to a single college \cite{gale1962college}.
+                \item \textbf{Many-to-many}: occurs in contexts such as organ donation, where multiple donors can provide organs to multiple recipients \cite{roth2004kidney}.
+            \end{itemize}
+        
+        \subsection{Implicit Matching}
+            Implicit matching focuses on calculating the 'score' of the grouping without explicit preferences, optimizing based on a grouping function \cite{ieee_survey}. Examples include:
+            
+            \begin{itemize}
+                \item \textbf{Retrieval Matching}: in information retrieval, it involves users inputting queries that express their needs and obtaining the desired information from a search engine's database \cite{manning2008introduction}.
+                \item \textbf{User-item Matching}: in recommender systems, it helps users obtain items of interest accurately \cite{ricci2011introduction}.
+                \item \textbf{Entity-relation Matching}: it involves the use of knowledge graphs in applications such as semantic parsing, information extraction, link prediction, recommender systems, and question answering \cite{ji2021survey}.
+                \item \textbf{Image Matching}: it compares different images to identify similarities or correspondences, used in fields like computer vision and pattern recognition \cite{szeliski2010computer}.
+            \end{itemize}
+
+        
+
+    \section{Recent Developments}
+    
+    The field of matching problems is constantly evolving, with ongoing research introducing new problems, solutions, and algorithmic approaches to address the complexity and diversity of these challenges in industry. In this section, we outline a preliminary review aimed at identifying the latest developments in matching problems, focusing on advancements made since 2021.
+    
+    To capture the most recent and relevant studies, we conducted an initial search in Google Scholar using the following search string:
+    
+    \begin{quote}
+    (TITLE-ABS-KEY("pairing") OR TITLE-ABS-KEY("matching") OR TITLE-ABS-KEY("grouping")) AND (TITLE-ABS-KEY("solver") OR TITLE-ABS-KEY("algorithm")) AND TITLE-ABS-KEY("graph") AND PUBYEAR AFTER 2021
+    \end{quote}
+    
+    The review process will involve applying inclusion criteria to filter studies that contribute to the development of matching algorithms, whether through incremental improvements, novel problem types, algorithmic frameworks, or solvers that expand the applicability of matching techniques in industry.
+    
+    After collecting the top 100 studies by number of citations, they were filtered by language, retaining only those in English. Then, based on titles and abstracts, works unrelated to matching were removed, including six that focused on diverse clustering problems.  Figure \ref{fig:bib} will illustrate the selection process, showing the number of studies removed and retained at each stage. Furthermore, we analyze the most prominent topics that emerged from the remaining studies.
+    
+    \input{Desenhos/bib}
+    
+    \subsection{Overview of Recent Existing Approaches}
+    Table \ref{tbl:old_types} presents a summary of the selected studies in step 1, categorizing them based on their focus and contributions to the field of matching. Each study is classified according to the definitions of Implicit Matching by \cite{ieee_survey}. Additionally, we detail the common subjects treated by the new publications.
+
+    
+
+    \input{Desenhos/old_types_table}
+    
+    This review aims to demonstrate the breadth of recent developments in matching, highlighting both the versatility of applications and the growing need for centralized tools that simplify the implementation and adaptation of matching solutions across various industrial contexts.
+
+    \subsection{Emerging Trends in Graph Matching Algorithms}
+        Here we overview the 9 selected studies about emerging trends.
+        \begin{enumerate}
+            \item \textbf{Quantum Computing}
+            \begin{itemize}
+                \item \textbf{Trend:} Quantum computing is starting to impact optimization and matching algorithms. Some works suggest that quantum algorithms are being explored for graph-based problems, particularly in sparse data and matching contexts \cite{quantum_matching}.
+                \item \textbf{Context:} Quantum algorithms may offer exponential speedup over classical methods in certain areas, and combining quantum techniques with combinatorial optimization is a growing field.
+            \end{itemize}
+            
+            \item \textbf{AI and Deep Learning in Graph Matching}
+            \begin{itemize}
+                \item \textbf{Trend:} Many studies focus on graph neural networks (GNNs) and deep learning in graph matching \cite{gnn_graph_matching, cross_modal_matching}.
+                \item \textbf{Context:} AI, particularly deep learning, is being applied to improve the accuracy and efficiency of graph matching, especially in image recognition, NLP, and multi-modal data integration.
+            \end{itemize}
+        
+            \item \textbf{Video and Image Recognition}
+            \begin{itemize}
+                \item \textbf{Trend:} Recognition algorithms using graph matching are becoming more common, especially in computer vision \cite{image_keypoint_matching}.
+                \item \textbf{Context:} This is closely related to AI, where graph-based methods are used for tasks like multi-object tracking and 3D object detection.
+            \end{itemize}
+        
+            \item \textbf{Combinatorial Algorithms and Optimization}
+            \begin{itemize}
+                \item \textbf{Trend:} Classical combinatorial algorithms remain an important area of research \cite{faster_bipartite_matching}.
+                \item \textbf{Context:} These algorithms are central in problems like scheduling, resource allocation, and network flow.
+            \end{itemize}
+        
+            \item \textbf{Networks and Multi-Agent Systems}
+            \begin{itemize}
+                \item \textbf{Trend:} Network theory and multi-agent systems use graph matching for optimization \cite{network_matching, privacy_graph_matching}.
+                \item \textbf{Context:} These topics focus on applications in wireless communication, sensor networks, and privacy-preserving computation.
+            \end{itemize}
+        
+            \item \textbf{Cross-modal and Multi-modal Matching}
+            \begin{itemize}
+                \item \textbf{Trend:} Matching across different types of data (e.g., text and images) is an emerging trend in AI and cross-modal retrieval \cite{cross_modal_matching}.
+                \item \textbf{Context:} These algorithms are applicable in industries like e-commerce, digital media, and autonomous systems.
+            \end{itemize}
+        
+            \item \textbf{Humanitarian and Resource Allocation Applications}
+            \begin{itemize}
+                \item \textbf{Trend:} Graph matching and optimization algorithms are used in resource allocation and humanitarian problems \cite{humanitarian_routing}.
+                \item \textbf{Context:} This trend focuses on real-world applications like disaster management and healthcare.
+            \end{itemize}
+        
+            \item \textbf{Graph Matching for Knowledge Graphs and Semantic Systems}
+            \begin{itemize}
+                \item \textbf{Trend:} Knowledge graphs and semantic matching are gaining attention in AI reasoning and data integration \cite{knowledge_graph_matching}.
+                \item \textbf{Context:} These methods are key in NLP, semantic web technologies, and AI-driven data systems.
+            \end{itemize}
+        
+            \item \textbf{Privacy and Security in Graph Matching}
+            \begin{itemize}
+                \item \textbf{Trend:} Privacy-preserving graph matching is a significant concern, particularly for sensitive data \cite{privacy_graph_matching}.
+                \item \textbf{Context:} These methods are relevant in domains like healthcare, finance, and social networks.
+            \end{itemize}
+        \end{enumerate}
+        

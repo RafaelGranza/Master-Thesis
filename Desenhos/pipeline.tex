@@ -1,0 +1,38 @@
+\begin{figure}[!ht]
+    \centering
+
+     \scalebox{0.75}{%
+        \begin{tikzpicture}[main/.style = {draw, rectangle},  invisible/.style = {circle}, cloud2/.style = {draw, cloud}]
+            \tikzset{edge/.style = {->,> = latex'}}
+            \node[invisible, text width=3cm, align=center] (input) {Groupings\\ or \\ Instances of the Classes};
+            
+            \node[main] (assigner) [right of=input, xshift=2cm] {$Assigner$};
+            
+            \node[invisible] (ret) [right of=assigner,  xshift=4cm] {\vdots};
+            
+            \node[main] (solver_2) [above of=ret] {$Solver_2$};
+            
+            \node[main] (solver_1) [above of=solver_2] {$Solver_1$};
+            
+            \node[main] (solver_N) [below of=ret] {$Solver_N$};
+            
+            \node[main] (meta) [below of=solver_N] {$Solver_{Metaheuristic}$};
+        
+            \node[invisible] (output) [right of=ret, xshift=4cm] {List of Tuples};
+    
+            \draw [edge] (input) to [out=0,in=180,looseness=1.5] (assigner);
+            \draw [edge] (assigner) to [out=0,in=180,looseness=1.5] (solver_1) ;
+            \draw [edge] (assigner) to [out=0,in=180,looseness=1.5] (solver_2) ;
+            \draw [edge] (assigner) to [out=0,in=180,looseness=1.5] (solver_N) ;
+            \draw [edge] (assigner) to [out=0,in=180,looseness=1.5] (meta) ;
+
+            \draw [edge] (solver_1) to [out=0,in=180,looseness=1.5] (output) ;
+            \draw [edge] (solver_2) to [out=0,in=180,looseness=1.5] (output) ;
+            \draw [edge] (solver_N) to [out=0,in=180,looseness=1.5] (output) ;
+            \draw [edge] (meta) to [out=0,in=180,looseness=1.5] (output) ;
+    
+        \end{tikzpicture}
+    }%
+    \caption{A pipeline to solve Grouping Problems.}
+    \label{fig:pipeline}
+\end{figure}

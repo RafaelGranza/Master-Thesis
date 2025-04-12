@@ -1,0 +1,96 @@
+\begin{figure}[!ht]
+        \centering
+        \begin{subfigure}{0.35\textwidth}
+            \centering
+            \resizebox{0.55\textwidth}{!}{%
+            \begin{circuitikz}
+                \tikzstyle{every node}=[font=\LARGE]
+                
+                \draw [, line width=1pt ] (10.5,12.25) circle (0.75cm) node {$x_1$};
+                \draw [, line width=1pt ] (12.75,11.25) circle (0.75cm) node {$x_2$};
+                \draw [, line width=1pt ] (9,10.25) circle (0.75cm) node {$x_3$};
+                \draw [, line width=1pt ] (13.25,9.25) circle (0.75cm) node {$x_4$};
+                \draw [, line width=1pt ] (10.5,7.75) circle (0.75cm) node {$x_5$};
+                
+            \end{circuitikz}
+            }%
+            \caption{} 
+            \label{fig:instances_genome_2}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.6\textwidth}
+            \centering
+            \resizebox{0.8\textwidth}{!}{%
+                \begin{circuitikz}
+                    \tikzstyle{every node}=[font=\LARGE]
+                    
+                    % Linha 1 (000)
+                    
+                    \node[left] at (5.8,10.8) {$g_1 \rightarrow$};
+                    
+                    \node[above] at (6.3,12.2) {$x_1$};
+                    \node[above] at (6.3,11.4) {$\downarrow$};
+                    \node[above] at (7.3,12.2) {$x_2$};
+                    \node[above] at (7.3,11.4) {$\downarrow$};
+                    \node[above] at (8.3,12.2) {$x_3$};
+                    \node[above] at (8.3,11.4) {$\downarrow$};
+                    \node[above] at (9.3,12.2) {$x_4$};
+                    \node[above] at (9.3,11.4) {$\downarrow$};
+                    \node[above] at (10.3,12.2) {$x_5$};
+                    \node[above] at (10.3,11.4) {$\downarrow$};
+                    
+                    \draw  (5.8,11.3) rectangle (6.8,10.3) node[pos=.5] {$1$};
+                    \draw  (6.8,11.3) rectangle (7.8,10.3) node[pos=.5] {$1$};
+                    \draw  (7.8,11.3) rectangle (8.8,10.3) node[pos=.5] {$0$};
+                    \draw  (8.8,11.3) rectangle (9.8,10.3) node[pos=.5] {$0$};
+                    \draw  (9.8,11.3) rectangle (10.8,10.3) node[pos=.5] {$1$};
+                    \node[right] at (10.8,10.8) {\vspace{100 pt} grouping $g_1$ is \{$x_1, x_2, x_5$\}};
+        
+                    % Linha 2 (001)
+                    \node[left] at (5.8,9.8) {$g_2 \rightarrow$};
+                    \draw  (5.8,10.3) rectangle (6.8,9.3) node[pos=.5] {$1$};
+                    \draw  (6.8,10.3) rectangle (7.8,9.3) node[pos=.5] {$0$};
+                    \draw  (7.8,10.3) rectangle (8.8,9.3) node[pos=.5] {$0$};
+                    \draw  (8.8,10.3) rectangle (9.8,9.3) node[pos=.5] {$0$};
+                    \draw  (9.8,10.3) rectangle (10.8,9.3) node[pos=.5] {$1$};
+                    \node[right] at (10.8,9.8) {\vspace{100 pt} grouping $g_2$ is \{$x_1, x_5$\}};
+        
+                    % Linha 3 (010)
+                    \node[left] at (5.8,8.8) {$g_3 \rightarrow$};
+                    \draw  (5.8,9.3) rectangle (6.8,8.3) node[pos=.5] {$0$};
+                    \draw  (6.8,9.3) rectangle (7.8,8.3) node[pos=.5] {$0$};
+                    \draw  (7.8,9.3) rectangle (8.8,8.3) node[pos=.5] {$1$};
+                    \draw  (8.8,9.3) rectangle (9.8,8.3) node[pos=.5] {$0$};
+                    \draw  (9.8,9.3) rectangle (10.8,8.3) node[pos=.5] {$1$};
+                    \node[right] at (10.8,8.8) {\vspace{100 pt} grouping $g_3$ is \{$x_3, x_5$\}};
+
+                    \node[below] at (8.5,8.3) {$\vdots$};
+        
+                    % Linha 4 (011)
+                    \node[left] at (5.8,6.8) {$g_{n-1} \rightarrow$};
+                    \draw  (5.8,6.3) rectangle (6.8,7.3) node[pos=.5] {$0$};
+                    \draw  (6.8,6.3) rectangle (7.8,7.3) node[pos=.5] {$0$};
+                    \draw  (7.8,6.3) rectangle (8.8,7.3) node[pos=.5] {$1$};
+                    \draw  (8.8,6.3) rectangle (9.8,7.3) node[pos=.5] {$0$};
+                    \draw  (9.8,6.3) rectangle (10.8,7.3) node[pos=.5] {$0$};
+                    \node[right] at (10.8,6.8) {\vspace{100 pt} grouping $g_{n-1}$ is \{$x_2, x_5$\}};
+        
+                    % Linha 5 (100)
+                    \node[left] at (5.8,5.8) {$g_n \rightarrow$};
+                    \draw  (5.8,5.3) rectangle (6.8,6.3) node[pos=.5] {$1$};
+                    \draw  (6.8,5.3) rectangle (7.8,6.3) node[pos=.5] {$1$};
+                    \draw  (7.8,5.3) rectangle (8.8,6.3) node[pos=.5] {$0$};
+                    \draw  (8.8,5.3) rectangle (9.8,6.3) node[pos=.5] {$0$};
+                    \draw  (10.8,5.3) rectangle (9.8,6.3) node[pos=.5] {$0$};
+                    \node[right] at (10.8,5.8) {\vspace{100 pt} grouping $g_n$ is \{$x_1, x_2$\}};
+
+                    % \node[below] at (8.8,5.3) {Note that $x_4$ is grouped alone.};
+        
+                \end{circuitikz}
+            }%
+            \caption{} 
+            \label{fig:genome_2_example}
+        \end{subfigure}
+        \caption{Example of a chromosome when there are no allowed grouping objects predefined. (a) Instances of arbitrary classes. They are $x_1$, $x_2$, $x_3$, $x_4$, and $x_5$. There are no predefined allowed grouping objects. (b) Chromosome represented as a binary matrix for $m=5$. It represents which instance is part of each grouping.} 
+        \label{fig:genome_2}
+    \end{figure}

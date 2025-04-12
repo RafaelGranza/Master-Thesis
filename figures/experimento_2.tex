@@ -1,0 +1,129 @@
+\resizebox{\textwidth}{!}{%
+    \begin{tikzpicture}
+      \draw
+        (-4.021, 0.0) node[fill=cyan, rounded corners] (0){Source}
+        (-1.164, 5.0) node[fill=brown, rounded corners] (1){Worker}
+        (-1.164, 4.286) node[fill=brown, rounded corners] (2){Worker}
+        (-1.164, 3.571) node[fill=brown, rounded corners] (3){Worker}
+        (-1.164, 2.857) node[fill=brown, rounded corners] (4){Worker}
+        (-1.164, 2.143) node[fill=brown, rounded corners] (5){Worker}
+        (-1.164, 1.429) node[fill=brown, rounded corners] (6){Worker}
+        (-1.164, 0.714) node[fill=brown, rounded corners] (7){Worker}
+        (-1.164, 0.0) node[fill=brown, rounded corners] (8){Worker}
+        (-1.164, -0.714) node[fill=brown, rounded corners] (9){Worker}
+        (-1.164, -1.429) node[fill=brown, rounded corners] (10){Worker}
+        (-1.164, -2.143) node[fill=brown, rounded corners] (11){Worker}
+        (-1.164, -2.857) node[fill=brown, rounded corners] (12){Worker}
+        (-1.164, -3.571) node[fill=brown, rounded corners] (13){Worker}
+        (-1.164, -4.286) node[fill=brown, rounded corners] (14){Worker}
+        (-1.164, -5.0) node[fill=brown, rounded corners] (15){Worker}
+        (1.693, 3.214) node[fill=orange, rounded corners] (16){Job}
+        (1.693, 2.5) node[fill=orange, rounded corners] (17){Job}
+        (1.693, 1.786) node[fill=orange, rounded corners] (18){Job}
+        (1.693, 1.071) node[fill=orange, rounded corners] (19){Job}
+        (1.693, 0.357) node[fill=orange, rounded corners] (20){Job}
+        (1.693, -0.357) node[fill=orange, rounded corners] (21){Job}
+        (1.693, -1.071) node[fill=orange, rounded corners] (22){Job}
+        (1.693, -1.786) node[fill=orange, rounded corners] (23){Job}
+        (1.693, -2.5) node[fill=orange, rounded corners] (24){Job}
+        (1.693, -3.214) node[fill=orange, rounded corners] (25){Job}
+        (4.55, 0.0) node[fill=cyan, rounded corners] (26){Sink};
+      \begin{scope}[-]
+        \draw[lightgray, text=black, font=\footnotesize] (0) to node[] {1 - 0} (1);
+        \draw[lightgray, text=black, font=\footnotesize] (0) to node[] {1 - 0} (2);
+        \draw[transparent] (0) to node[] {0 - 0} (3);
+        \draw[transparent] (0) to node[] {0 - 0} (4);
+        \draw[lightgray, text=black, font=\footnotesize] (0) to node[] {1 - 0} (5);
+        \draw[lightgray, text=black, font=\footnotesize] (0) to node[] {1 - 0} (6);
+        \draw[transparent] (0) to node[] {0 - 0} (7);
+        \draw[lightgray, text=black, font=\footnotesize] (0) to node[] {1 - 0} (8);
+        \draw[lightgray, text=black, font=\footnotesize] (0) to node[] {1 - 0} (9);
+        \draw[transparent] (0) to node[] {0 - 0} (10);
+        \draw[lightgray, text=black, font=\footnotesize] (0) to node[] {1 - 0} (11);
+        \draw[lightgray, text=black, font=\footnotesize] (0) to node[] {1 - 0} (12);
+        \draw[lightgray, text=black, font=\footnotesize] (0) to node[] {1 - 0} (13);
+        \draw[lightgray, text=black, font=\footnotesize] (0) to node[] {1 - 0} (14);
+        \draw[lightgray, text=black, font=\footnotesize] (0) to node[] {1 - 0} (15);
+        \draw[lightgray, text=black, font=\footnotesize] (1) to node[] {1 - 80} (19);
+        \draw[transparent] (1) to node[] {0 - 654} (21);
+        \draw[transparent] (1) to node[] {0 - 354} (23);
+        \draw[transparent] (1) to node[] {0 - 355} (22);
+        \draw[transparent] (1) to node[] {0 - 210} (18);
+        \draw[transparent] (2) to node[] {0 - 994} (17);
+        \draw[transparent] (2) to node[] {0 - 419} (19);
+        \draw[lightgray, text=black, font=\footnotesize] (2) to node[] {1 - 108} (18);
+        \draw[transparent] (2) to node[] {0 - 233} (23);
+        \draw[transparent] (2) to node[] {0 - 328} (25);
+        \draw[transparent] (2) to node[] {0 - 616} (21);
+        \draw[transparent] (3) to node[] {0 - 623} (22);
+        \draw[transparent] (3) to node[] {0 - 494} (23);
+        \draw[transparent] (4) to node[] {0 - 645} (17);
+        \draw[transparent] (4) to node[] {0 - 638} (19);
+        \draw[transparent] (5) to node[] {0 - 227} (22);
+        \draw[transparent] (5) to node[] {0 - 969} (23);
+        \draw[transparent] (5) to node[] {0 - 609} (20);
+        \draw[transparent] (5) to node[] {0 - 473} (17);
+        \draw[lightgray, text=black, font=\footnotesize] (5) to node[] {1 - 5} (21);
+        \draw[lightgray, text=black, font=\footnotesize] (6) to node[] {1 - 284} (25);
+        \draw[transparent] (6) to node[] {0 - 26} (22);
+        \draw[transparent] (6) to node[] {0 - 550} (16);
+        \draw[transparent] (6) to node[] {0 - 351} (23);
+        \draw[transparent] (6) to node[] {0 - 949} (20);
+        \draw[transparent] (6) to node[] {0 - 463} (19);
+        \draw[transparent] (7) to node[] {0 - 297} (24);
+        \draw[transparent] (7) to node[] {0 - 832} (17);
+        \draw[transparent] (7) to node[] {0 - 820} (19);
+        \draw[transparent] (7) to node[] {0 - 693} (22);
+        \draw[transparent] (8) to node[] {0 - 81} (19);
+        \draw[transparent] (8) to node[] {0 - 631} (24);
+        \draw[transparent] (8) to node[] {0 - 714} (17);
+        \draw[transparent] (8) to node[] {0 - 201} (16);
+        \draw[transparent] (8) to node[] {0 - 713} (18);
+        \draw[transparent] (8) to node[] {0 - 324} (22);
+        \draw[transparent] (8) to node[] {0 - 896} (20);
+        \draw[lightgray, text=black, font=\footnotesize] (8) to node[] {1 - 127} (23);
+        \draw[transparent] (8) to node[] {0 - 713} (25);
+        \draw[transparent] (8) to node[] {0 - 773} (21);
+        \draw[lightgray, text=black, font=\footnotesize] (9) to node[] {1 - 2} (22);
+        \draw[transparent] (10) to node[] {0 - 330} (23);
+        \draw[transparent] (10) to node[] {0 - 291} (21);
+        \draw[transparent] (10) to node[] {0 - 468} (19);
+        \draw[transparent] (10) to node[] {0 - 500} (17);
+        \draw[transparent] (10) to node[] {0 - 774} (22);
+        \draw[transparent] (11) to node[] {0 - 425} (22);
+        \draw[transparent] (11) to node[] {0 - 954} (16);
+        \draw[transparent] (11) to node[] {0 - 753} (17);
+        \draw[lightgray, text=black, font=\footnotesize] (11) to node[] {1 - 58} (24);
+        \draw[transparent] (11) to node[] {0 - 576} (18);
+        \draw[transparent] (12) to node[] {0 - 968} (21);
+        \draw[lightgray, text=black, font=\footnotesize] (12) to node[] {1 - 90} (17);
+        \draw[transparent] (12) to node[] {0 - 223} (20);
+        \draw[transparent] (12) to node[] {0 - 62} (23);
+        \draw[transparent] (12) to node[] {0 - 975} (22);
+        \draw[transparent] (12) to node[] {0 - 260} (18);
+        \draw[transparent] (12) to node[] {0 - 363} (25);
+        \draw[transparent] (13) to node[] {0 - 998} (16);
+        \draw[transparent] (13) to node[] {0 - 11} (21);
+        \draw[lightgray, text=black, font=\footnotesize] (13) to node[] {1 - 33} (20);
+        \draw[transparent] (13) to node[] {0 - 462} (17);
+        \draw[transparent] (14) to node[] {0 - 260} (18);
+        \draw[transparent] (14) to node[] {0 - 553} (20);
+        \draw[transparent] (14) to node[] {0 - 317} (23);
+        \draw[lightgray, text=black, font=\footnotesize] (14) to node[] {1 - 345} (16);
+        \draw[transparent] (15) to node[] {0 - 312} (24);
+        \draw[transparent] (15) to node[] {0 - 300} (22);
+        \draw[transparent] (15) to node[] {0 - 536} (21);
+        \draw[transparent] (15) to node[] {0 - 185} (20);
+        \draw[lightgray, text=black, font=\footnotesize] (16) to node[] {1 - 0} (26);
+        \draw[lightgray, text=black, font=\footnotesize] (17) to node[] {1 - 0} (26);
+        \draw[lightgray, text=black, font=\footnotesize] (18) to node[] {1 - 0} (26);
+        \draw[lightgray, text=black, font=\footnotesize] (19) to node[] {1 - 0} (26);
+        \draw[lightgray, text=black, font=\footnotesize] (20) to node[] {1 - 0} (26);
+        \draw[lightgray, text=black, font=\footnotesize] (21) to node[] {1 - 0} (26);
+        \draw[lightgray, text=black, font=\footnotesize] (22) to node[] {1 - 0} (26);
+        \draw[lightgray, text=black, font=\footnotesize] (23) to node[] {1 - 0} (26);
+        \draw[lightgray, text=black, font=\footnotesize] (24) to node[] {1 - 0} (26);
+        \draw[lightgray, text=black, font=\footnotesize] (25) to node[] {1 - 0} (26);
+      \end{scope}
+    \end{tikzpicture}
+}%

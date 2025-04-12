@@ -1,0 +1,89 @@
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \resizebox{\textwidth}{!}{%
+        \begin{circuitikz}
+        \tikzstyle{every node}=[font=\Huge]
+        \draw  (14.25,14.5) circle (0cm);
+        \draw [, dashed] (10.5,16) circle (3.75cm);
+        \draw [, dashed] (25.5,15.5) circle (6.25cm);
+        \draw [, dashed] (12.75,5) circle (4.25cm);
+        \draw  (8.75,14) circle (0.5cm);
+        \draw  (10,15.5) circle (0.5cm);
+        \draw  (12,15) circle (0.5cm);
+        \draw  (10.25,4) circle (0.5cm);
+        \draw  (13,6.75) circle (0.5cm);
+        \draw  (12.75,2) circle (0.5cm);
+        \draw  (14.5,4) circle (0.5cm);
+        \draw  (14.75,5.75) circle (0.5cm);
+        \draw  (11.5,4.5) circle (0.5cm);
+        \draw  (22.75,11.75) circle (0.5cm);
+        \draw  (29.75,16) circle (0.5cm);
+        \draw  (28.5,13.25) circle (0.5cm);
+        \draw  (26.25,11.75) circle (0.5cm);
+        \draw  (22.25,16) circle (0.5cm);
+        \draw  (25.25,14.75) circle (0.5cm);
+        \draw  (27,18.5) circle (0.5cm);
+        \draw  (27.25,16) circle (0.5cm);
+        \draw  (21,14) circle (0.5cm);
+        \draw  (23.5,17.75) circle (0.5cm);
+        \draw  (8,17) circle (0.5cm);
+        \draw  (12.5,17) circle (0.5cm);
+        \node [font=\Huge] at (10.5,18.5) {Class A};
+        \node [font=\Huge] at (12.75,8.25) {Class B};
+        \node [font=\Huge] at (25,20.25) {Class C};
+        \end{circuitikz}
+        }%
+        \caption{Classes from Figure \ref{fig:set_coverage_framework_1}}
+        \label{fig:classes}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \resizebox{\textwidth}{!}{%
+        \begin{circuitikz}
+        \tikzstyle{every node}=[font=\Huge]
+        \draw  (14.25,14.5) circle (0cm);
+        \draw [, dashed] (10.5,16) circle (3.75cm);
+        \draw [, dashed] (25.5,15.5) circle (6.25cm);
+        \draw [, dashed] (12.75,5) circle (4.25cm);
+        \draw  (8.75,14) circle (0.5cm); //
+        \draw  (12,15) circle (0.5cm); //
+        \draw  (13,6.75) circle (0.5cm); //
+        \draw  (12.75,2) circle (0.5cm); //
+        \draw  (14.75,5.75) circle (0.5cm); //
+        \draw  (28.5,13.25) circle (0.5cm); //
+        \draw  (22.75,11.75) circle (0.5cm); //
+        \draw  (21,14) circle (0.5cm); //
+        \draw  (12.5,17) circle (0.5cm); ///
+        \draw [ color={rgb,255:red,255; green,0; blue,0}, line width=1pt, dashed] (8,14.25) -- (8.75,0.75);
+        \draw [ color={rgb,255:red,255; green,0; blue,0}, line width=1pt, dashed] (8.75,0.75) -- (15.25,1.75);
+        \draw [ color={rgb,255:red,255; green,0; blue,0}, line width=1pt, dashed] (15.25,1.75) -- (30.5,13.5);
+        \draw [ color={rgb,255:red,255; green,0; blue,0}, line width=1pt, dashed] (30.5,13.5) -- (28,14.75);
+        \draw [ color={rgb,255:red,255; green,0; blue,0}, line width=1pt, dashed] (28,14.75) -- (27.25,11.5);
+        \draw [ color={rgb,255:red,255; green,0; blue,0}, line width=1pt, dashed] (27.25,11.5) -- (14.25,2.75);
+        \draw [ color={rgb,255:red,255; green,0; blue,0}, line width=1pt, dashed] (14.25,2.75) -- (9.75,2.5);
+        \draw [ color={rgb,255:red,255; green,0; blue,0}, line width=1pt, dashed] (9.75,2.5) -- (9,11.75);
+        \draw [ color={rgb,255:red,255; green,0; blue,0}, line width=1pt, dashed] (9,11.75) -- (9.75,14.5);
+        \draw [ color={rgb,255:red,255; green,0; blue,0}, line width=1pt, dashed] (9.75,14.5) -- (8.25,14.75);
+        \draw [ color={rgb,255:red,255; green,0; blue,0}, line width=1pt, dashed] (8.25,14.75) -- (8,14.25);
+        \draw [ color={rgb,255:red,0; green,85; blue,255}, line width=1pt, dashed] (12,17.75) -- (22,14.5);
+        \draw [ color={rgb,255:red,0; green,85; blue,255}, line width=1pt, dashed] (22,14.5) -- (15.25,5);
+        \draw [ color={rgb,255:red,0; green,85; blue,255}, line width=1pt, dashed] (15.25,5) -- (14,5.5);
+        \draw [ color={rgb,255:red,0; green,85; blue,255}, line width=1pt, dashed] (14,5.5) -- (19.75,13.5);
+        \draw [ color={rgb,255:red,0; green,85; blue,255}, line width=1pt, dashed] (19.75,13.5) -- (11.25,16.5);
+        \draw [ color={rgb,255:red,0; green,85; blue,255}, line width=1pt, dashed] (11.25,16.5) -- (12,17.75);
+        \draw [ color={rgb,255:red,42; green,81; blue,11}, line width=1pt, dashed] (11.25,15.25) .. controls (11.5,10.25) and (11.75,10.25) .. (12.25,5.5);
+        \draw [ color={rgb,255:red,42; green,81; blue,11}, line width=1pt, dashed] (12.25,5.5) .. controls (13,6) and (13.25,6) .. (14.25,6.5);
+        \draw [ color={rgb,255:red,42; green,81; blue,11}, line width=1pt, dashed] (14.25,6.5) .. controls (19,9) and (19.25,9) .. (24.25,11.75);
+        \draw [ color={rgb,255:red,42; green,81; blue,11}, line width=1pt, dashed] (24.25,11.75) .. controls (23.75,12.25) and (24,12.25) .. (23.75,13);
+        \draw [ color={rgb,255:red,42; green,81; blue,11}, line width=1pt, dashed] (23.75,13) .. controls (18.5,10.5) and (18.75,10.5) .. (13.5,8);
+        \draw [ color={rgb,255:red,42; green,81; blue,11}, line width=1pt, dashed] (13.5,8) .. controls (13,12) and (13.25,12) .. (12.75,16);
+        \draw [ color={rgb,255:red,42; green,81; blue,11}, line width=1pt, dashed] (12.75,16) .. controls (11.75,15.5) and (12,15.5) .. (11.25,15.25);
+        \end{circuitikz}
+        }%
+        \caption{Groups from Figure \ref{fig:set_coverage_framework_1}}
+        \label{fig:groups}
+    \end{subfigure}
+\end{figure}
