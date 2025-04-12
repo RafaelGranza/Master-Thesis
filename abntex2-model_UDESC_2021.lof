@@ -1,0 +1,29 @@
+\babel@toc {brazil}{}\relax 
+\babel@toc {english}{}\relax 
+\contentsline {figure}{\numberline {1}{\ignorespaces Graph $G = (V, E)$. The circles ($v_1, \ldots , v_6$) are the vertices $V$; the lines connecting the vertices are the edges $E$.}}{18}{figure.caption.14}%
+\contentsline {figure}{\numberline {2}{\ignorespaces Two possible subgraphs of Graph $G$ (See Figure \ref {fig:base_graph}).}}{18}{figure.caption.15}%
+\contentsline {figure}{\numberline {3}{\ignorespaces Subset of vertices from Graph $G$ (Figure \ref {fig:base_graph}) which induces (generates) the Graph $G''$ (Figure \ref {fig:subgraph_2}).}}{19}{figure.caption.16}%
+\contentsline {figure}{\numberline {4}{\ignorespaces Examples of bipartite graphs and ways to represent it. (a) Common representation of a bipartite graph (by layer). (b-c) the same Graph $G$ (See Figure \ref {fig:base_graph}), with different bipartite representations. (b) Representation by color, black / solid nodes represent one partition and red / dashed nodes represent the other partition. (c) Representation by layer.}}{19}{figure.caption.17}%
+\contentsline {figure}{\numberline {5}{\ignorespaces Example of a non-bipartite graph.}}{20}{figure.caption.18}%
+\contentsline {figure}{\numberline {6}{\ignorespaces Possible matching of Graph $G$ (see Figure \ref {fig:base_graph}).}}{20}{figure.caption.19}%
+\contentsline {figure}{\numberline {7}{\ignorespaces Mapping of bipartite matching to flow problem.}}{22}{figure.caption.20}%
+\contentsline {figure}{\numberline {8}{\ignorespaces Solution of the mapping of bipartite matching to flow problem. The minimum cost of the matching is defined as the sum of the costs of the selected edges, which is 9 in this case.}}{23}{figure.caption.21}%
+\contentsline {figure}{\numberline {9}{\ignorespaces Example of Set Cover. Where $S=\{s_1, s_2, s_3\}$, $s_1=\{x_1, x_3, x_6, x_5\}$, $s_2=\{x_7, x_4, x_2, x_5\}$ and $s_3=\{x_3, x_4, x_2\}$.}}{24}{figure.caption.22}%
+\contentsline {figure}{\numberline {11}{\ignorespaces Representation of all elements used in a genetic algorithm.}}{29}{figure.caption.24}%
+\contentsline {figure}{\numberline {12}{\ignorespaces Selection Process of the Articles.}}{34}{figure.caption.26}%
+\contentsline {figure}{\numberline {13}{\ignorespaces Visualizing Set Cover Problems in the context of Classes and its relations. Every small circle represent an instance of a class. The colored boxes represent both relations between classes and sets.}}{38}{figure.caption.28}%
+\contentsline {figure}{\numberline {14}{\ignorespaces Visualizing Grouping Problems as a relational diagram.}}{38}{figure.caption.29}%
+\contentsline {figure}{\numberline {15}{\ignorespaces The User-Item Recommendation Problem showcases how different dimensions on the relations result in different restrictions. In both examples a grouping must have an user, but not all users have an assignment.}}{39}{figure.caption.30}%
+\contentsline {figure}{\numberline {16}{\ignorespaces Representation of the relation between 3 differents Classes.}}{39}{figure.caption.31}%
+\contentsline {figure}{\numberline {17}{\ignorespaces Representation of the relation between elements of a same Class.}}{39}{figure.caption.32}%
+\contentsline {figure}{\numberline {18}{\ignorespaces Implementing Statistics at the Grouping Class. The statistics in each grouping class are bolded.}}{40}{figure.caption.33}%
+\contentsline {figure}{\numberline {19}{\ignorespaces A pipeline to solve Grouping Problems.}}{43}{figure.caption.34}%
+\contentsline {figure}{\numberline {20}{\ignorespaces Example of a possible flowchart for the Assigner. The solvers shown here are explained at Section \ref {sec:solvers}.}}{43}{figure.caption.35}%
+\contentsline {figure}{\numberline {21}{\ignorespaces Example of a chromosome from a problem where the allowed Grouping Objects are predefined. (a) Allowed Grouping Objects are $s_1$, $s_2$, and $s_3$. (b) Chromosome binary representation. Each line is a different chromosome that represents the selected groups.}}{45}{figure.caption.36}%
+\contentsline {figure}{\numberline {22}{\ignorespaces Example of a chromosome when there are no allowed grouping objects predefined. (a) Instances of arbitrary classes. They are $x_1$, $x_2$, $x_3$, $x_4$, and $x_5$. There are no predefined allowed grouping objects. (b) Chromosome represented as a binary matrix for $m=5$. It represents which instance is part of each grouping.}}{45}{figure.caption.37}%
+\contentsline {figure}{\numberline {23}{\ignorespaces Example of a possible mapping of Fair Bipartite Matching.}}{58}{figure.caption.39}%
+\contentsline {figure}{\numberline {24}{\ignorespaces Solution to the same problem as Figure \ref {fig:mapeamento} if $u_1$, $u_2$, and $u_3$ belonged to quota $q_1$ and $u_5$ belonged to quota $q_2$. The selected elements are those whose edge flows are not 0. The unselected elements are faded out. Total cost of 12.}}{59}{figure.caption.40}%
+\contentsline {figure}{\numberline {25}{\ignorespaces Example of worker to positions mapping.}}{61}{figure.caption.41}%
+\contentsline {figure}{\numberline {26}{\ignorespaces Example of a solution for mapping workers to jobs in Figure \ref {fig:workers_jobs_unsolved}. Unselected workers and their proxies are faded out.}}{61}{figure.caption.42}%
+\contentsline {figure}{\numberline {27}{\ignorespaces Example of server to services mapping.}}{62}{figure.caption.43}%
+\contentsline {figure}{\numberline {28}{\ignorespaces Example of the solution to server to services mapping in Figure \ref {fig:server_services_unsolved}. Note that no element was selected trough WC, since $n_{wc}$ (See Section \ref {sec:wc})}}{62}{figure.caption.44}%
