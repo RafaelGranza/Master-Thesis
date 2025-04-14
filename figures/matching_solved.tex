@@ -1,53 +1,3 @@
- % \begin{tikzpicture}[scale=0.8]
- %      \draw
- %        (-9.0, 0.0) node[draw=black, rounded corners] (0){Source}
- %        (-5.745, 1.085) node[draw=purple, loosely dashdotted, rounded corners] (1){Cota}
- %        (-5.745, 0.0) node[draw=purple, loosely dashdotted, rounded corners] (2){Cota}
- %        (-5.745, -1.085) node[draw=gray, rounded corners] (3){Resto}
- %        (0.766, 0.0) node[draw=red, dashed,, rounded corners] (4){$u$}
- %        (0.766, -1.085) node[draw=red, dashed,, rounded corners] (5){$u$}
- %        (0.766, 1.085) node[draw=red, dashed,, rounded corners] (6){$u$}
- %        (-2.489, 1.085) node[draw=green!50!black, dashdotted, rounded corners] (7){$p$}
- %        (-2.489, 0.0) node[draw=green!50!black, dashdotted, rounded corners] (8){$p$}
- %        (-2.489, -1.085) node[draw=green!50!black, dashdotted, rounded corners] (9){$p$}
- %        (4.021, 2.713) node[draw=blue, dotted, rounded corners] (10){$u$}
- %        (4.021, 1.628) node[draw=blue, dotted, rounded corners] (11){$u$}
- %        (4.021, 0.543) node[draw=blue, dotted, rounded corners] (12){$u$}
- %        (4.021, -0.543) node[draw=blue, dotted, rounded corners] (13){$u$}
- %        (4.021, -1.628) node[draw=blue, dotted, rounded corners] (14){$u$}
- %        (4.021, -2.713) node[draw=blue, dotted, rounded corners] (15){$u$}
- %        (7.277, 0.0) node[draw=black, rounded corners] (16){Target};
- %      \begin{scope}[-]
- %        \draw[lightgray, text=black, font=\footnotesize] (0) to node[] {0} (1);
- %        \draw[lightgray, text=black, font=\footnotesize] (0) to node[] {0} (2);
- %        \draw[lightgray, text=black, font=\footnotesize] (0) to node[] {0} (3);
- %        \draw[lightgray, text=black, font=\footnotesize] (1) to node[] {0} (7);
- %        \draw[lightgray, text=black, font=\footnotesize] (2) to node[] {0} (8);
- %        \draw[transparent] (3) to node[] {0 ; 0} (8);
- %        \draw[lightgray, text=black, font=\footnotesize] (3) to node[] {0} (9);
- %        \draw[transparent] (3) to node[] {0 ; 0} (7);
- %        \draw[lightgray, text=black, font=\footnotesize] (4) to node[] {0} (8);
- %        \draw[transparent] (4) to node[] {0 ; 4} (14);
- %        \draw[lightgray, text=black, font=\footnotesize] (4) to node[] {2} (13);
- %        \draw[transparent] (4) to node[] {0 ; 5} (12);
- %        \draw[transparent] (4) to node[] {0 ; 4} (11);
- %        \draw[lightgray, text=black, font=\footnotesize] (5) to node[] {0} (9);
- %        \draw[transparent] (5) to node[] {0 ; 4} (14);
- %        \draw[transparent] (5) to node[] {0 ; 2} (13);
- %        \draw[lightgray, text=black, font=\footnotesize] (5) to node[] {2} (15);
- %        \draw[transparent] (5) to node[] {0 ; 3} (11);
- %        \draw[lightgray, text=black, font=\footnotesize] (6) to node[] {0} (7);
- %        \draw[lightgray, text=black, font=\footnotesize] (6) to node[] {1} (10);
- %        \draw[transparent] (6) to node[] {0 ; 1} (14);
- %        \draw[lightgray, text=black, font=\footnotesize] (10) to node[] {0} (16);
- %        \draw[transparent] (11) to node[] {0 ; 0} (16);
- %        \draw[transparent] (12) to node[] {0 ; 0} (16);
- %        \draw[lightgray, text=black, font=\footnotesize] (13) to node[] {0} (16);
- %        \draw[transparent] (14) to node[] {0 ; 0} (16);
- %        \draw[lightgray, text=black, font=\footnotesize] (15) to node[] {0} (16);
- %      \end{scope}
- %    \end{tikzpicture}
-
 \resizebox{0.7\textwidth}{!}{%
       \begin{tikzpicture} [xscale=0.45, yscale=1.05]
         \tikzstyle{style} = [circle,ultra thick, draw, minimum size=45pt, inner sep=0pt, text centered]
@@ -76,7 +26,7 @@
         (12.0, -3.0) node[draw=blue, dotted,style] (17){$v$$_3$}
         (12.0, 0.0) node[draw=blue, dotted,style] (18){$v$$_2$}
         (20.0, 0.0) node[draw=black,style] (19){Sink};
-      \begin{scope}[-]
+      \begin{scope}[->, >=BigLatex]
         \draw[lightgray, text=black, font=\footnotesize] (0) to node[] {1 ; 0} (1);
         \draw[lightgray, text=black, font=\footnotesize] (0) to node[] {1 ; 0} (2);
         \draw[lightgray, text=black, font=\footnotesize] (0) to node[] {1 ; 0} (3);
@@ -91,18 +41,18 @@
         \draw[lightgray, text=black, font=\footnotesize] (3) to node[] {1 ; 0} (13);
         \draw[transparent] (3) to node[] {0 ; 0} (15);
         \draw[transparent] (3) to node[] {0 ; 0} (14);
-        \draw[lightgray, text=black, font=\footnotesize] (4) to node[] {1 ; 0} (10);
+        \draw[lightgray, text=black, font=\footnotesize] (10) to node[] {1 ; 0} (4);
         \draw[lightgray, text=black, font=\footnotesize] (4) to node[] {1 ; 1} (16);
         \draw[transparent] (5) to node[] {1 ; 0} (11);
         \draw[transparent] (5) to node[] {1 ; 7} (18);
         \draw[transparent] (6) to node[] {0 ; 0} (12);
         \draw[transparent] (6) to node[] {0 ; 7} (18);
-        \draw[lightgray, text=black, font=\footnotesize] (7) to node[] {1 ; 0} (13);
+        \draw[lightgray, text=black, font=\footnotesize] (13) to node[] {1 ; 0} (7);
         \draw[lightgray, text=black, font=\footnotesize] (7) to node[] {1 ; 1} (17);
         \draw[transparent] (8) to node[] {0 ; 0} (15);
         \draw[transparent] (8) to node[] {0 ; 10} (18);
         \draw[transparent] (8) to node[] {0 ; 10} (17);
-        \draw[lightgray, text=black, font=\footnotesize] (9) to node[] {1 ; 0} (14);
+        \draw[lightgray, text=black, font=\footnotesize] (14) to node[] {1 ; 0} (9);
         \draw[lightgray, text=black, font=\footnotesize] (9) to node[] {1 ; 10} (18);
         \draw[lightgray, text=black, font=\footnotesize] (16) to node[] {1 ; 0} (19);
         \draw[lightgray, text=black, font=\footnotesize] (17) to node[] {1 ; 0} (19);

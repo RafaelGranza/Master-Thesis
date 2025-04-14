@@ -82,7 +82,21 @@
 \usepackage{bm}									% Negrito em modo matemático
 \usepackage{xstring}							% Manipulação de strings
 \usepackage{pgfplots}							% Pacote de Gráficos
-\usepackage{tikz}								% Pacote de Figuras
+\usepackage{tikz}
+\makeatletter
+\pgfarrowsdeclare{BigLatex}{BigLatex}
+{
+  \pgfarrowsleftextend{0pt}
+  \pgfarrowsrightextend{6pt}
+}
+{
+  \pgfpathmoveto{\pgfpoint{-6pt}{3pt}}%
+  \pgfpathlineto{\pgfpoint{0pt}{0pt}}%
+  \pgfpathlineto{\pgfpoint{-6pt}{-3pt}}%
+  \pgfpathclose%
+  \pgfusepathqfill%
+}
+\makeatother								% Pacote de Figuras
 \usepackage{graphicx}
 \usepackage{array}
 \usepackage{longtable}

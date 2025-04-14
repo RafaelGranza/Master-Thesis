@@ -1,3 +1,4 @@
 abntex2-model_UDESC_2021*
 !abntex2-model_UDESC_2021.tex
 *.aux
+*/*.aux

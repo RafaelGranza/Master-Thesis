@@ -1,0 +1,23 @@
+Apresentação:
+Poderia dar um foco maior ao problema no início da apresentação.
+
+Comentários gerais:
+
+🔄 Fiquei surpreso com a ausência de referências na Introdução para dar suporte às afirmações. Principalmente no segundo parágrafo. O mesmo para o capítulo de background. Como não é você que define os conceitos, você deve apresentar as referências.
+    Ainda nesse contexto, me parece que o formato das citações foge do formato das dissertações da UDESC. 
+
+✅ Sugiro organizar a apresentação dos objetivos de pesquisa em tópicos, facilitando o mapeamento deles ao longo do texto: RO1, RO2 e RO3.
+
+✅ Uma rede de fluxo é um grafo direcionado, o que não é o caso do grafo da Figura 7
+
+🔄 Explicar melhor as figuras inseridas no texto, por exemplo, a Figura 9 não é explicada. 
+
+❓ Cuidado com as cores, daltônicos podem não distinguir algumas linhas tracejadas utilizadas nas ilustrações
+
+✅ No exemplo da Seção 6.5.1, cada posição é de uma única vaga? quero dizer, o que aconteceria se tivessem duas vagas para a mesma posição?
+
+🔄 Achei que o Capítulo 6 ficou um pouco deslocado do restante do texto.
+
+❓ Como uma qualificação, senti falta de um plano de trabalho para o desenvolvimento dos trabalhos futuros.
+
+🔄 Ao meu ver, um aspecto que deve ser considerado, considerando a problemática levantada (dificuldades da indústria), é a modelagem do problema em um problema do tipo MCMF. Talvez o trabalho deva incluir um passo, uma sequência, um algoritmo, de como chegar na modelagem. Você poderia considerar como um estudo de caso do framework.
