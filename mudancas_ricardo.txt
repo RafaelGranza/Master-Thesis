@@ -4,6 +4,25 @@ Poderia dar um foco maior ao problema no início da apresentação.
 Comentários gerais:
 
 🔄 Fiquei surpreso com a ausência de referências na Introdução para dar suporte às afirmações. Principalmente no segundo parágrafo. O mesmo para o capítulo de background. Como não é você que define os conceitos, você deve apresentar as referências.
+    - Faltam citações em:
+        🔄 1
+        - 1.1
+        ✅ 2.1
+        ✅ 2.1.1
+        ✅ 2.1.2
+        ✅ 2.1.3
+        ✅ 2.1.4
+        ✅ 2.2
+        ✅ 2.2.1
+        ✅ 2.2.3
+        ✅ 2.3
+        - 2.3.1
+        - 2.3.2
+        ✅ 2.5
+        ✅ 2.5.1
+        ✅ 2.5.2
+
+
     Ainda nesse contexto, me parece que o formato das citações foge do formato das dissertações da UDESC. 
 
 ✅ Sugiro organizar a apresentação dos objetivos de pesquisa em tópicos, facilitando o mapeamento deles ao longo do texto: RO1, RO2 e RO3.
