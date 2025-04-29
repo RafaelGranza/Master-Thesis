@@ -31,7 +31,7 @@
                     \draw (1) to [out=90,in=180,looseness=1.5] (3);
                     \draw (2) to [out=270,in=180,looseness=1.5] (5);
                 \end{tikzpicture}
-                \caption{Graph $G = (V, E)$. The circles ($v_1, \ldots, v_6$) are the vertices $V$; the lines connecting the vertices are the edges $E$.} \label{fig:base_graph}
+                \caption[Graph $G = (V, E)$.]{Graph $G = (V, E)$. The circles ($v_1, \ldots, v_6$) are the vertices $V$; the lines connecting the vertices are the edges $E$.} \label{fig:base_graph}
             \end{figure}
         
         \subsection{Subgraphs}
@@ -83,7 +83,7 @@
                     \node[main] (4) [below right of=2] {$v_4$};
                     \node[main] (5) [below of=4] {$v_5$};
                 \end{tikzpicture}
-                \caption{Subset of vertices from Graph $G$ (Figure \ref{fig:base_graph}) which induces (generates) the Graph $G''$ (Figure \ref{fig:subgraph_2}).}
+                \caption[Subset of vertices from Graph $G$.]{Subset of vertices from Graph $G$ (Figure \ref{fig:base_graph}) which induces (generates) the Graph $G''$ (Figure \ref{fig:subgraph_2}).}
                 \label{fig:subset_of_vertices}
             \end{figure}
 
@@ -170,7 +170,7 @@
                 \caption{}
                 \label{fig:G_bipartite_by_layer}
             \end{subfigure}
-            \caption{Examples of bipartite graphs and ways to represent it. (a) Common representation of a bipartite graph (by layer). (b-c) the same Graph $G$ (See Figure \ref{fig:base_graph}), with different bipartite representations. (b) Representation by color, black / solid nodes represent one partition and red / dashed nodes represent the other partition. (c) Representation by layer.}
+            \caption[Examples of bipartite graphs and ways to represent it.]{Examples of bipartite graphs and ways to represent it. (a) Common representation of a bipartite graph (by layer). (b-c) the same Graph $G$ (See Figure \ref{fig:base_graph}), with different bipartite representations. (b) Representation by color, black / solid nodes represent one partition and red / dashed nodes represent the other partition. (c) Representation by layer.}
         \end{figure}
 
         It is important to note that not every graph is bipartite. A graph that contains an odd-length cycle cannot be bipartite, as it is impossible to partition the vertices into two sets without having two vertices of the same set being adjacent. For example, consider the following graph:
@@ -275,7 +275,7 @@
             
             \begin{figure}[ht] \centering 
                 \input{figures/simple_bipartite_matching}
-                \caption{Solution of the mapping of bipartite matching to flow problem. The minimum cost of the matching is defined as the sum of the costs of the selected edges, which is 9 in this case.}
+                \caption[Solution of the mapping of bipartite matching to flow problem.]{Solution of the mapping of bipartite matching to flow problem. The minimum cost of the matching is defined as the sum of the costs of the selected edges, which is 9 in this case.}
                 \label{fig:solucao_mcmf}
             \end{figure}
             
@@ -291,119 +291,6 @@
             
             By exploring this approach, we can leverage theoretical advancements in MCMF algorithms, such as their use in parallelized processors \cite{akidau2013millwheel}, near-linear time algorithms \cite{9996881}, decentralized network computation \cite{alon2019decentralized}, and potentially quantum algorithms \cite{brandao2019quantum}.
              
-        
-        % \subsection{Vertex Cover}
-        
-        %     A vertex cover of a graph \( G = (V, E) \) is a subset of vertices \( C \subseteq V \) such that every edge in \( E \) has at least one endpoint in \( C \). Vertex covers are used in various optimization problems and are closely related to matching in graphs \cite{cormen2009introduction, papadimitriou1998combinatorial, vazirani2001approximation, garey1979computers}. 
-
-        %     \begin{figure}[!ht]
-        %         \centering
-        %         \begin{subfigure}{0.45\textwidth}
-        %             \centering
-        %             \begin{tikzpicture}[main/.style = {draw, circle}, dotted2/.style = {draw, dotted, circle}] 
-        %                 \node[main] (1) {$v_1$};
-        %                 \node[main] (4) [below of=1] {$v_4$};
-        %                 \node[main] (5) [below of=4] {$v_5$};
-                        
-    
-        %                 \node[dotted2] (2) [right of=1, xshift=2cm]{$v_2$};
-        %                 \node[dotted2] (3) [below of=2] {$v_3$};
-        %                 \node[dotted2] (6) [below of=3] {$v_6$};
-                        
-            
-        %                 \draw (2) -- (4);
-        %                 \draw (1) -- (2);
-        %                 \draw (4) -- (3);
-        %                 \draw (1) -- (3);
-        %                 \draw (2) -- (5);
-        %                 \draw (4) -- (6);
-        %             \end{tikzpicture}
-        %             \caption{Vertex Cover $C'$} 
-        %             \label{fig:vertex_cover_1}
-        %         \end{subfigure}
-        %         \hfill
-        %         \begin{subfigure}{0.45\textwidth}
-        %             \centering
-        %             \begin{tikzpicture}[main/.style = {draw, circle}, dotted2/.style = {draw, dotted, circle}] 
-        %                 \node[main] (1) {$v_1$};
-        %                 \node[main] (4) [below of=1] {$v_4$};
-        %                 \node[dotted2] (5) [below of=4] {$v_5$};
-                        
-    
-        %                 \node[main] (2) [right of=1, xshift=2cm]{$v_2$};
-        %                 \node[dotted2] (3) [below of=2] {$v_3$};
-        %                 \node[dotted2] (6) [below of=3] {$v_6$};
-                        
-            
-        %                 \draw (2) -- (4);
-        %                 \draw (1) -- (2);
-        %                 \draw (4) -- (3);
-        %                 \draw (1) -- (3);
-        %                 \draw (2) -- (5);
-        %                 \draw (4) -- (6);
-        %             \end{tikzpicture}
-        %             \caption{Vertex Cover $C''$}
-        %             \label{fig:vertex_cover_2}
-        %         \end{subfigure}
-        %         \caption{Two possible vertex subsets of Graph $G$ that are vertex covers.}
-        %     \end{figure}
-
-
-        % \subsection{Edge Cover}
-
-        %     An edge cover of a graph $G = (V, E)$ is a subset of edges $C \subseteq E$ such that every vertex in $V$ is incident to at least one edge in $C$. Edge covers are used in various optimization problems and are closely related to matchings in graphs \cite{cormen2009introduction, papadimitriou1998combinatorial, vazirani2001approximation, garey1979computers}.
-
-        %     \begin{figure}[!ht]
-        %         \centering
-        %         \begin{subfigure}{0.45\textwidth}
-        %             \centering
-        %             \begin{tikzpicture}[main/.style = {draw, circle}, dotted2/.style = {draw, dotted, circle}] 
-        %                 \node[main] (1) {$v_1$};
-        %                 \node[main] (4) [below of=1] {$v_4$};
-        %                 \node[main] (5) [below of=4] {$v_5$};
-                        
-    
-        %                 \node[main] (2) [right of=1, xshift=2cm]{$v_2$};
-        %                 \node[main] (3) [below of=2] {$v_3$};
-        %                 \node[main] (6) [below of=3] {$v_6$};
-                        
-            
-        %                 \draw[dotted] (2) -- (4);
-        %                 \draw[dotted] (1) -- (2);
-        %                 \draw[dotted] (4) -- (3);
-        %                 \draw (1) -- (3);
-        %                 \draw (2) -- (5);
-        %                 \draw (4) -- (6);
-        %             \end{tikzpicture}
-        %             \caption{An Edge Cover} 
-        %             \label{fig:edge_cover_1}
-        %         \end{subfigure}
-        %         \hfill
-        %         \begin{subfigure}{0.45\textwidth}
-        %             \centering
-        %             \begin{tikzpicture}[main/.style = {draw, circle}, dotted2/.style = {draw, dotted, circle}] 
-        %                 \node[main] (1) {$v_1$};
-        %                 \node[main] (4) [below of=1] {$v_4$};
-        %                 \node[main] (5) [below of=4] {$v_5$};
-                        
-    
-        %                 \node[main] (2) [right of=1, xshift=2cm]{$v_2$};
-        %                 \node[main] (3) [below of=2] {$v_3$};
-        %                 \node[main] (6) [below of=3] {$v_6$};
-                        
-            
-        %                 \draw (2) -- (4);
-        %                 \draw[dotted] (1) -- (2);
-        %                 \draw (4) -- (3);
-        %                 \draw (1) -- (3);
-        %                 \draw (2) -- (5);
-        %                 \draw (4) -- (6);
-        %             \end{tikzpicture}
-        %             \caption{A Non-Optimal Edge Cover}
-        %             \label{fig:edge_cover_2}
-        %         \end{subfigure}
-        %         \caption{Two possible edge subsets of Graph $G$ that are edge covers.}
-        %     \end{figure}
         
     \section{Set Cover} \label{WSC}
     
@@ -494,7 +381,7 @@
             \caption{A Optimal Set Cover. Subsets selected are $s_1$ and $s_2$.} 
             \label{fig:set_cover_2}
         \end{subfigure}
-        \caption{Example of Set Cover. Where $S=\{s_1, s_2, s_3\}$, $s_1=\{x_1, x_3, x_6, x_5\}$, $s_2=\{x_7, x_4, x_2, x_5\}$ and $s_3=\{x_3, x_4, x_2\}$.} 
+        \caption[Examples of Set Cover]{Example of Set Cover. Where $S=\{s_1, s_2, s_3\}$, $s_1=\{x_1, x_3, x_6, x_5\}$, $s_2=\{x_7, x_4, x_2, x_5\}$ and $s_3=\{x_3, x_4, x_2\}$.} 
         \label{fig:set_cover}
     \end{figure}
 
@@ -608,30 +495,6 @@ Subject.teachers = models.ManyToManyField(Teacher, through=Assignment, related_n
 
 
 Overall, ORM is a powerful tool in modern software development, offering significant benefits in terms of productivity and code maintainability. %However, developers must be aware of its limitations and carefully consider when and how to use it effectively.
-
-% \subsection{Advantages of ORM}
-%     ORM offers several advantages over traditional data access techniques:
-%     \begin{itemize}
-%         \item \textbf{Abstraction:} ORM provides a higher level of abstraction over database operations, allowing developers to work with objects instead of SQL queries.
-%         \item \textbf{Productivity:} by automating repetitive tasks such as CRUD (Create, Read, Update, Delete) operations, ORM frameworks reduce development time and effort.
-%         \item \textbf{Maintainability:} ORM promotes cleaner and more maintainable code by separating business logic from database access logic.
-%         \item \textbf{Portability:} ORM frameworks often support multiple database systems, making it easier to switch databases without significant code changes.
-%     \end{itemize}
-
-% \subsection{Challenges of ORM}
-%     Despite its advantages, ORM also presents certain challenges:
-%     \begin{itemize}
-%         \item \textbf{Performance:} ORM can introduce performance overhead due to the abstraction layer, especially for complex queries.
-%         \item \textbf{Complexity:} while ORM simplifies many aspects of database interactions, it can add complexity in understanding the framework itself and troubleshooting issues.
-%         \item \textbf{Flexibility:} ORM frameworks may impose restrictions on database design and operations, limiting the use of advanced database features.
-%     \end{itemize}
-
-%     Despite its advantages, ORM also presents certain challenges:
-%     \begin{itemize}
-%         \item \textbf{Performance:} ORM can introduce performance overhead due to the abstraction layer, especially for complex queries.
-%         \item \textbf{Complexity:} While ORM simplifies many aspects of database interactions, it can add complexity in understanding the framework itself and troubleshooting issues.
-%         \item \textbf{Flexibility:} ORM frameworks may impose restrictions on database design and operations, limiting the use of advanced database features.
-%     \end{itemize}
 
     \section{Genetic Algorithms} \label{sec:ga}
     

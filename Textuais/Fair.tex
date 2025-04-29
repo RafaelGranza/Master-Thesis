@@ -142,16 +142,21 @@
             
             \begin{figure}[!ht]
                 \centering
-                \input{figures/matching_unsolved}
-                \caption{Example of a possible mapping of Fair Bipartite Matching.}
-                \label{fig:mapeamento}
-            \end{figure}
-            
-            \begin{figure}[!ht]
-                \centering
-                \input{figures/matching_solved}
-                \caption{Solution to the same problem as Figure \ref{fig:mapeamento} if $u_1$, $u_2$, and $u_3$ belonged to quota $q_1$ and $u_5$ belonged to quota $q_2$. The selected elements are those whose edge flows are not 0. The unselected elements are faded out. Total cost of 12.}
-                \label{fig:solucao}
+                \begin{subfigure}[t]{.95\textwidth}
+                    \centering
+                    \input{figures/matching_unsolved}
+                    \caption{Example of a possible mapping of Fair Bipartite Matching.}
+                    \label{fig:mapeamento}
+                \end{subfigure}
+                \hfill
+                \begin{subfigure}[t]{0.8\textwidth}
+                    \centering
+                    \input{figures/matching_solved}
+                    \caption[Solution of the problem from Figure \ref{fig:mapeamento}]{Solution of the problem from Figure \ref{fig:mapeamento} if $u_1$, $u_2$, and $u_3$ belonged to quota $q_1$ and $u_5$ belonged to quota $q_2$. The selected elements are those whose edge flows are not 0. The unselected elements are faded out. Total cost of 12.}
+                    \label{fig:solucao}
+                \end{subfigure}
+                \caption{Examples of Fair Bipartite Matching mapping and its solution.}
+                \label{fig:matching_examples}
             \end{figure}
         
         \section{Proofs}
@@ -210,23 +215,28 @@
         
         \begin{figure}[!ht]
             \centering
-            \input{figures/examples/mapping_workers_jobs_unsolved}
-            \caption{Example of worker to positions mapping.}
-            \label{fig:workers_jobs_unsolved}
-        \end{figure}
-        
-        \begin{figure}[!ht]
-            \centering
-            \input{figures/examples/mapping_workers_jobs_solved}
-            \caption{Example of a solution for mapping workers to jobs in Figure \ref{fig:workers_jobs_unsolved}. In this example each quota has at least one assemble. Unselected workers and their proxies are faded out.}
-            \label{fig:workers_jobs_solved}
-        \end{figure}
-
-        \begin{figure}[!ht]
-            \centering
-            \input{figures/examples/mapping_workers_jobs_solved_no_wc}
-            \caption{Example of a solution for mapping workers to jobs in Figure \ref{fig:workers_jobs_unsolved}. In this example the `people with low mobility' quota has a minimum of 2 assembles, thus no wide competition is assembled. Unselected workers and their proxies are faded out.}
-            \label{fig:workers_jobs_solved_no_wc}
+            \begin{subfigure}[t]{0.8\textwidth}
+                \centering
+                \input{figures/examples/mapping_workers_jobs_unsolved}
+                \caption{Example of worker to positions mapping.}
+                \label{fig:workers_jobs_unsolved}
+            \end{subfigure}
+            \vspace{1em}
+            \begin{subfigure}[t]{0.8\textwidth}
+                \centering
+                \input{figures/examples/mapping_workers_jobs_solved}
+                \caption[Example of a solution for mapping workers to jobs in Figure \ref{fig:workers_jobs_unsolved}.]{Example of a solution for mapping workers to jobs in Figure \ref{fig:workers_jobs_unsolved}. In this example each quota has at least one assemble. Unselected workers and their proxies are faded out.}
+                \label{fig:workers_jobs_solved}
+            \end{subfigure}
+            \vspace{1em}
+            \begin{subfigure}[t]{0.8\textwidth}
+                \centering
+                \input{figures/examples/mapping_workers_jobs_solved_no_wc}
+                \caption[Example of a solution for mapping workers to jobs in Figure \ref{fig:workers_jobs_unsolved}.]{Example of a solution for mapping workers to jobs in Figure \ref{fig:workers_jobs_unsolved}. In this example the `people with low mobility' quota has a minimum of 2 assembles, thus no wide competition is assembled. Unselected workers and their proxies are faded out.}
+                \label{fig:workers_jobs_solved_no_wc}
+            \end{subfigure}
+            \caption{Examples of worker to positions mapping and their solutions. (a) shows the initial mapping, (b) presents a solution with at least one assemble per quota, and (c) shows a solution where no wide competition is assembled.}
+            \label{fig:workers_jobs_example}
         \end{figure}
         
          
@@ -235,19 +245,24 @@
         \subsection{Fairness in server to services allocation}
         
         In the second example, we address a resource allocation problem within a network of services belonging to a single application. The goal is to assign these services to servers, each of which possesses distinct attributes, such as geolocation and backup methods. The objective is to ensure the most diverse and optimal distribution of services across the available servers. An evaluation process assigns costs based on factors like latency, representing the suitability of each service-server pair. This cost structure ensures that resources are allocated in a way that balances fairness and efficiency while maximizing server characteristics that minimize overall costs.
-        
+
         \begin{figure}[!ht]
+            \centering
+            \begin{subfigure}[t]{0.8\textwidth}
             \centering
             \input{figures/examples/mapping_server_services_unsolved}
-            \caption{Example of server to services mapping.}
+            \caption{Server to services mapping.}
             \label{fig:server_services_unsolved}
-        \end{figure}
-        
-        \begin{figure}[!ht]
+            \end{subfigure}
+            \vspace{1em}
+            \begin{subfigure}[t]{0.8\textwidth}
             \centering
             \input{figures/examples/mapping_server_services_solved}
-            \caption{Example of the solution to server to services mapping in Figure \ref{fig:server_services_unsolved}. Note that no element was selected trough WC, since $n_{wc}$ (See Section \ref{sec:wc})}
+            \caption{Solution to server to services mapping.}
             \label{fig:server_services_solved}
+            \end{subfigure}
+            \caption{Example of server to services allocation. (a) shows the initial mapping, and (b) presents the solution.}
+            \label{fig:server_services_example}
         \end{figure}
         
         Ultimately, this approach leads to optimization of resource allocation by prioritizing diverse server attributes and minimizing latency costs, achieving an efficient and fair solution.

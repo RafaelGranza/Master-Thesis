@@ -34,12 +34,12 @@ Comentários gerais:
 
 ✅ No exemplo da Seção 6.5.1, cada posição é de uma única vaga? quero dizer, o que aconteceria se tivessem duas vagas para a mesma posição?
 
-🔄 Achei que o Capítulo 6 ficou um pouco deslocado do restante do texto.
+✅ Achei que o Capítulo 6 ficou um pouco deslocado do restante do texto.
 
 🔄 Ao meu ver, um aspecto que deve ser considerado, considerando a problemática levantada (dificuldades da indústria), é a modelagem do problema em um problema do tipo MCMF. Talvez o trabalho deva incluir um passo, uma sequência, um algoritmo, de como chegar na modelagem. Você poderia considerar como um estudo de caso do framework.
 
-Juntar figuras com instancia e solucao do problema
+✅ Juntar figuras com instancia e solucao do problema
 
-Diminuir o tamnaho dos captions usando \caption[NOME CURTO]{}
+✅ Diminuir o tamanho dos captions usando \caption[NOME CURTO]{}
 
-Falar de Clustering em trabalho futuro.
+✅ Falar de Clustering em trabalho futuro.
