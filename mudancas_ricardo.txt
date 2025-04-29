@@ -43,3 +43,9 @@ Comentários gerais:
 ✅ Diminuir o tamanho dos captions usando \caption[NOME CURTO]{}
 
 ✅ Falar de Clustering em trabalho futuro.
+
+Implementação cap 4 e cap 5
+
+Exemplo nao trivial de Set Cover no cap 2
+
+Melhorar pontilhados de Set Cover no cap 2
