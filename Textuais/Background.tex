@@ -9,7 +9,7 @@
 
         \subsection{Vertices and Edges}
         
-            The primary components of a graph are vertices and edges\cite{cormen, bondy1976graph}. A vertex (singular of vertices) represents a discrete entity in the graph, often denoted as \( v \in V \). An edge connects two vertices and represents the relationship between them. An edge is typically denoted as \( e = (u, v) \in E \), where \( u, v \in V \).
+            The primary components of a graph are vertices and edges \cite{cormen, bondy1976graph}. A vertex (singular of vertices) represents a discrete entity in the graph, often denoted as \( v \in V \). An edge connects two vertices and represents the relationship between them. An edge is typically denoted as \( e = (u, v) \in E \), where \( u, v \in V \).
             %
             In Figure \ref{fig:base_graph}, the vertices are represented as circles and the edges are represented as lines.
 
@@ -36,11 +36,11 @@
         
         \subsection{Subgraphs}
         
-            A subgraph \( G' \) of a graph \( G \) is a graph formed from a subset of the vertices and edges of \( G \)\cite{cormen, bondy1976graph}. Formally, \( G' = (V', E') \) is a subgraph of \( G = (V, E) \) if \( V' \subseteq V \) and \( E' \subseteq E \). Figure \ref{fig:subgraphs} provide examples of subgraphs of Graph G presented in Figure \ref{fig:base_graph}.
+            A subgraph \( G' \) of a graph \( G \) is a graph formed from a subset of the vertices and edges of \( G \) \cite{cormen, bondy1976graph}. Formally, \( G' = (V', E') \) is a subgraph of \( G = (V, E) \) if \( V' \subseteq V \) and \( E' \subseteq E \). Figure \ref{fig:subgraphs} provide examples of subgraphs of Graph G presented in Figure \ref{fig:base_graph}.
 
             \begin{figure}[!ht]
                 \centering
-                \begin{subfigure}{0.45\textwidth}
+                \begin{subfigure}{0.24\textwidth}
                     \centering
                     \begin{tikzpicture}[main/.style = {draw, circle}] 
                         \node[main] (1) {$v_1$};
@@ -51,11 +51,11 @@
                         \draw (1) -- (2);
                         \draw (1) to [out=90,in=180,looseness=1.5] (3);
                     \end{tikzpicture}
-                    \caption{Subgraph $G'$} 
+                    \caption{Subgraph $G_1$} 
                     \label{fig:subgraph_1}
                 \end{subfigure}
                 \hfill
-                \begin{subfigure}{0.45\textwidth}
+                \begin{subfigure}{0.24\textwidth}
                     \centering
                     \begin{tikzpicture}[main/.style = {draw, circle}] 
                         \node[main] (2) {$v_2$};
@@ -65,16 +65,50 @@
                         \draw (2) -- (4);
                         \draw (2) to [out=270,in=180,looseness=1.5] (5);
                     \end{tikzpicture}
-                    \caption{Subgraph $G''$} 
+                    \caption{Subgraph $G_2$} 
                     \label{fig:subgraph_2}
                 \end{subfigure}
-                \caption{Two possible subgraphs of Graph $G$ (See Figure \ref{fig:base_graph}).}
+                \hfill
+                \begin{subfigure}{0.24\textwidth}
+                    \centering
+                    \begin{tikzpicture}[main/.style = {draw, circle}] 
+                        \node[main] (1) {$v_1$};
+                        \node[main] (2) [above right of=1] {$v_2$};
+                        \node[main] (3) [above right of=2] {$v_3$}; 
+                        \node[main] (4) [below right of=2] {$v_4$};
+
+                        \draw (2) -- (4);
+                        \draw (1) -- (2);
+                        \draw (4) -- (3);
+                        \draw (1) to [out=90,in=180,looseness=1.5] (3);
+                    \end{tikzpicture}
+                    \caption{Subgraph $G_3$} 
+                    \label{fig:subgraph_3}
+                \end{subfigure}
+                \hfill
+                \begin{subfigure}{0.24\textwidth}
+                    \centering
+                    \begin{tikzpicture}[main/.style = {draw, circle}] 
+                        \node[main] (1) {$v_1$};
+                        \node[main] (2) [above right of=1] {$v_2$};
+                        \node[main] (3) [above right of=2] {$v_3$}; 
+                        \node[main] (4) [below right of=2] {$v_4$};
+
+                        \draw (2) -- (4);
+                        \draw (1) -- (2);
+                        \draw (4) -- (3);
+                        \draw (1) to [out=90,in=180,looseness=1.5] (3);
+                    \end{tikzpicture}
+                    \caption{Subgraph $G_4$} 
+                    \label{fig:subgraph_4}
+                \end{subfigure}
+                \caption{Four possible subgraphs of Graph $G$ (See Figure \ref{fig:base_graph}).}
                 \label{fig:subgraphs}
             \end{figure}
         
         \subsection{Subsets of Vertices}
         
-            Subsets of vertices play a crucial role in various graph algorithms and properties\cite{cormen, bondy1976graph}. Given a graph \( G = (V, E) \), a subset of vertices \( S \subseteq V \) can be used to define induced subgraphs, vertex covers, and other structures. For example, the induced subgraph \( G[S] \) is formed by the vertices in \( S \) and all the edges between them in \( G \). Figure \ref{fig:subset_of_vertices} shows a subset of vertices of $G''$ (See Figure \ref{fig:subgraph_2}).
+            Subsets of vertices play a crucial role in various graph algorithms and properties \cite{cormen, bondy1976graph}. Given a graph \( G = (V, E) \), a subset of vertices \( S \subseteq V \) can be used to define induced subgraphs, vertex covers, and other structures. For example, the induced subgraph \( G[S] \) is formed by the vertices in \( S \) and all the edges between them in \( G \). Figure \ref{fig:subset_of_vertices} shows a subset of vertices of $G_2$ (See Figure \ref{fig:subgraph_2}).
 
             \begin{figure}[!ht]
                 \centering
@@ -90,13 +124,13 @@
 
         \subsection{Bipartite Graphs}
 
-            A bipartite graph is a graph \( G = (V, E) \) whose vertices can be divided into two disjoint sets \( V_1 \) and \( V_2 \) such that every edge in \( E \) connects a vertex in \( V_1 \) to a vertex in \( V_2 \)\cite{cormen, bondy1976graph}.
+            A bipartite graph is a graph \( G = (V, E) \) whose vertices can be divided into two disjoint sets \( V_1 \) and \( V_2 \) such that every edge in \( E \) connects a vertex in \( V_1 \) to a vertex in \( V_2 \) \cite{cormen, bondy1976graph}.
             Formally, a graph \( G \) is bipartite if \( V \) can be partitioned into two sets \( V_1 \) and \( V_2 \) such that \( V_1 \cap V_2 = \emptyset \) and every edge in \( E \) has one endpoint in \( V_1 \) and the other in \( V_2 \). Figure \ref{fig:G_bipartite_by_layer} depics examples of bipartite graphs and Figure \ref{fig:non_bipartite_graph} shows an example of a non-bipartite graph.
             
-            Bipartite graphs have many applications in various fields, including computer science, biology, and social sciences. They are used to model relationships between two different classes of objects, such as students and courses, users and items, or proteins and genes. One common algorithmic problem on bipartite graphs is the maximum bipartite matching problem, which aims to find the largest subset of edges in the graph such that no two edges share a common vertex.
+            Bipartite graphs have many applications in various fields, including computer science, biology, and social sciences. They are used to model relationships between two different classes of objects, such as students and courses, users and items, or proteins and genes. 
+            %
+            One common algorithmic problem on bipartite graphs is the maximum bipartite matching problem, which aims to find the largest subset of edges in the graph such that no two edges share a common vertex.
             
-            % Bipartite graphs can be represented using an adjacency matrix \( A \), where \( A_{ij} = 1 \) if there is an edge between vertex \( i \) in \( V_1 \) and vertex \( j \) in \( V_2 \), and \( A_{ij} = 0 \) otherwise. Another common representation is the bipartite adjacency list, where each vertex in \( V_1 \) is associated with a list of vertices in \( V_2 \) that it is connected to.
-
         \begin{figure}[!ht]
             \centering
             \begin{subfigure}{0.3\textwidth}
@@ -192,11 +226,9 @@
         
         This graph contains a cycle of length 3 (vertices \(v_1\), \(v_2\), and \(v_3\)), which is an odd-length cycle. Therefore, it is not possible to divide the vertices into two sets where all edges connect vertices from different sets, making this graph non-bipartite.
         
-
-
         \section{Matching}
 
-            A matching in a graph \( G = (V, E) \) is a set of edges \( M \subseteq E \) such that no two edges in \( M \) share a common vertex\cite{cormen, bondy1976graph}. Matchings are used to model relationships in various applications, such as assigning tasks to workers or pairs in social networks. Figure \ref{fig:possible_matching} shows a possible matching o Graph G (see Figure \ref{fig:base_graph}).
+            A matching in a graph \( G = (V, E) \) (strictly in the context of graph theory) is a set of edges \( M \subseteq E \) such that no two edges in \( M \) share a common vertex \cite{cormen, bondy1976graph}. Matchings are used to model relationships in various applications, such as assigning tasks to workers or pairs in social networks. Figure \ref{fig:possible_matching} shows a possible matching of Graph G (see Figure \ref{fig:base_graph}).
             
             In a bipartite graph, a matching (also called bipartite matching) is a subset of edges \( M \subseteq E \) such that each vertex is incident to at most one edge in \( M \). Finding a maximum matching in a bipartite graph can be efficiently solved using algorithms like the Hopcroft-Karp algorithm \cite{west2001introduction, diestel2017graph}.
 
@@ -227,11 +259,11 @@
             Bipartite Matching, also known as bipartite pairing is a fundamental problem in graph theory, with many practical applications, including resource allocation, market design, and job assignment.
             We have two distinct sets of elements, and the objective is to find corresponding pairs between them while also optimizing some criteria.
             
-            In order to formalize the problem, let us consider two distinct sets, \(U\) and \(V\). The objective is to find a set of edges \(M\) that connect elements from \(U\) to \(V\) in such a manner that any pair of vertices can only be connected by at most one edge. This configuration is also known as a \textit{matching} \cite{hopcroft1973n}.
+            To formalize the problem, consider a graph \( G = (V, E) \), where the vertex set \( V \) is partitioned into two disjoint subsets \( V_1 \) and \( V_2 \), such that \( V = V_1 \cup V_2 \) and \( V_1 \cap V_2 = \emptyset \). The goal is to identify a set of edges \( M \subseteq E \) that connect vertices from \( V_1 \) to \( V_2 \), ensuring that no two edges in \( M \) share a common vertex. This configuration is commonly referred to as a \textit{matching} \cite{hopcroft1973n}.
             
             It is important to note that in some cases, sets have different sizes, and thus it is not possible to match every vertex of both sets.
             
-            \subsection{Fairness in Matching}
+        \subsection{Fairness in Matching}
             
             Fairness in matching consists in take into account specific attributes of the set of vertices and their proportionality in the solution.
             
@@ -248,13 +280,13 @@
             
             This definition of quotas aligns with the fairness proposed by \cite{sankar}, where the imposition of quotas becomes essential to maximize equity in the resources allocated. The next session approaches how this definition of fairness is represented in the mapping to the MCMF problem. 
             
-            \subsection{Minimum Cost Maximum Flow}
+        \subsection{Minimum Cost Maximum Flow}
             
-            The minimum cost maximum flow problem refers to the search for the maximum amount of possible flow in a network, considering costs associated with the passage of flow through certain uniderected edges\cite{korte2018combinatorial, ford1956maximal}. In other words, the objective of such problems is to optimize the transportation of resources from one point to another while minimizing the costs involved in this process.
+            The minimum cost maximum flow problem refers to the search for the maximum amount of possible flow in a network, considering costs associated with the passage of flow through certain uniderected edges \cite{korte2018combinatorial, ford1956maximal}. In other words, the objective of such problems is to optimize the transportation of resources from one point to another while minimizing the costs involved in this process.
             
             This concept has broad applications, often used in transportation problems, network design, and linear programming, among others. Efficient resolution of Minimum-Cost Maximum Flow (MCMF) problems is crucial in various fields, contributing to the efficiency and economy of resources.
             
-            \subsection{Solving Bipartite Matching with MCMF}\label{subsubsec:resolucao-fluxo-matching}
+        \subsection{Solving Bipartite Matching with MCMF}\label{subsubsec:resolucao-fluxo-matching}
             
             To clarify the methodology of mapping a Bipartite Matching problem to a Minimum-Cost Maximum Flow (MCMF) problem, a method that is already well-known and documented \cite{ahuja1993network, edmonds1972theoretical, tarjan1997dynamic}, we present a detailed visual representation of this process in Figure~\ref{fig:mcmf}.
             
@@ -404,9 +436,12 @@
 
     \section{ORM (Object-Relational Mapping)} \label{sec:orm}
 
-ORM (Object-Relational Mapping) is a programming technique that allows developers to map objects from object-oriented programming languages to relational database tables \cite{ambler2002object}. This technique facilitates the integration between the object-oriented and relational paradigms by automating the conversion of data between incompatible systems. In ORM, each class in an object-oriented system becomes a table/entity in a relational database, and the attributes of the class correspond to the columns of the table.
+    ORM (Object-Relational Mapping) is a programming technique that allows developers to map objects from object-oriented programming languages to relational database tables \cite{ambler2002object}.
+    This technique facilitates the integration between the object-oriented and relational paradigms by automating the conversion of data between incompatible systems.
+    In ORM, each class in an object-oriented system becomes a table/entity in a relational database, and the attributes of the class correspond to the columns of the table.
 
-Relationships between classes are also represented in ORM \cite{fowler2003patterns}. For example, a one-to-many relationship between two classes would be represented by a foreign key in the database table of the "many" class, pointing to the primary key of the "one" class. This mapping ensures that the relational database structure reflects the object-oriented design of the application. Figure \ref{fig:uml_teacher_subject_implicit_example} demonstrates these relations, with examples of one-to-one, many-to-one and many-to-many relations. In order to implement a many-to-many relation, a relation class is created, as shown in Figures \ref{fig:uml_teacher_subject_implicit_example} and \ref{fig:uml_teacher_new_class}.
+    Relationships between classes are also represented in ORM \cite{fowler2003patterns}. For example, a one-to-many relationship between two classes would be represented by a foreign key in the database table of the "many" class, pointing to the primary key of the "one" class. This mapping ensures that the relational database structure reflects the object-oriented design of the application. Figure \ref{fig:uml_teacher_subject_implicit_example} demonstrates these relations, with examples of one-to-one, many-to-one and many-to-many relations. 
+    In order to implement a many-to-many relation, a relation class is created, as shown in Figures \ref{fig:uml_teacher_subject_implicit_example} and \ref{fig:uml_teacher_new_class}.
 
 \input{Desenhos/orm_relation_examples}
 
@@ -498,11 +533,11 @@ Overall, ORM is a powerful tool in modern software development, offering signifi
 
     \section{Genetic Algorithms} \label{sec:ga}
     
-    Genetic algorithms (GAs) are optimization methods inspired by the principles of natural selection and genetics\cite{holland1992adaptation}. These algorithms aim to find solutions to problems by evolving a population of candidate solutions over time. In this section, we will explore the key components of genetic algorithms and the processes involved in evolving solutions.
+    Genetic algorithms (GAs) are optimization methods inspired by the principles of natural selection and genetics \cite{holland1992adaptation}. These algorithms aim to find solutions to problems by evolving a population of candidate solutions over time. In this section, we will explore the key components of genetic algorithms and the processes involved in evolving solutions.
     
     \subsection{Genes, Chromosomes, and Population}
     
-    In genetic algorithms, the concept of a gene, chromosome (or genotype), and population is crucial to understanding how solutions are encoded and evolved\cite{holland1992adaptation}. 
+    In genetic algorithms, the concept of a gene, chromosome (or genotype), and population is crucial to understanding how solutions are encoded and evolved \cite{holland1992adaptation}. 
     
     A gene represents the smallest unit of information in a genetic algorithm, similar to how a gene in biology contains hereditary information. Several genes together form a chromosome, which is a complete candidate solution to the problem being addressed. Finally, a population is a set of chromosomes representing a diverse set of possible solutions.
     
@@ -514,7 +549,7 @@ Overall, ORM is a powerful tool in modern software development, offering signifi
     
     \subsection{Mutations and Crossovers}
     
-    Genetic algorithms rely on two primary genetic operators to evolve the population of chromosomes: mutation and crossover\cite{holland1992adaptation}. These operators introduce variety into the population, allowing the algorithm to explore new solution spaces and avoid premature convergence to local optima.
+    Genetic algorithms rely on two primary genetic operators to evolve the population of chromosomes: mutation and crossover \cite{holland1992adaptation}. These operators introduce variety into the population, allowing the algorithm to explore new solution spaces and avoid premature convergence to local optima.
     
     The mutation operator introduces random changes to one or more genes within a chromosome. This randomness simulates natural mutations in biological organisms, helping to maintain genetic diversity in the population and explore previously unexplored regions of the solution space.
     

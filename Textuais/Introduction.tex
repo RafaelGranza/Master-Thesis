@@ -2,9 +2,9 @@
 
 Matching problems are fundamental in various real-world applications, including job and task assignment, scheduling, resource distribution, and recommendation systems. The efficiency of solving such problems directly impacts operational performance in multiple industries, from logistics and healthcare to finance and human resources. Despite their significance, many matching problems are computationally complex, often requiring advanced optimization techniques.
 
-Existing approaches typically rely on specialized optimization frameworks or domain-specific heuristics\cite{ieee_survey}. While these methods can be effective, they present challenges regarding accessibility and adaptability. Many existing frameworks require extensive expertise in combinatorial optimization, making them difficult to adopt for professionals without specialized knowledge. Additionally, rigid modeling approaches may not generalize well to different industry needs, limiting their applicability.
+Existing approaches typically rely on specialized optimization frameworks or domain-specific heuristics \cite{ieee_survey}. While these methods can be effective, they present challenges regarding accessibility and adaptability. Many existing frameworks require extensive expertise in combinatorial optimization, making them difficult to adopt for professionals without specialized knowledge. Additionally, rigid modeling approaches may not generalize well to different industry needs, limiting their applicability.
 
-Given these challenges, this dissertation proposes a flexible and accessible framework for solving various matching and grouping problems. The framework leverages relational data and user-defined optimization constraints, allowing for intuitive problem formulation while maintaining computational efficiency. By bridging the gap between theoretical optimization techniques and practical implementation, the proposed framework seeks to provide an effective tool for a broad audience of developers and industry professionals.
+Given these challenges, this dissertation proposes a flexible and accessible framework for solving various matching problems. The framework leverages relational data and user-defined optimization constraints, allowing for intuitive problem formulation while maintaining computational efficiency. By bridging the gap between theoretical optimization techniques and practical implementation, the proposed framework seeks to provide an effective tool for a broad audience of developers and industry professionals.
 
 \section{Motivation}
 Many matching problems belong to the class of NP-hard problems (see \cite{karp1972reducibility}), requiring sophisticated algorithms to obtain near-optimal solutions within feasible time constraints. However, the practical adoption of these techniques is hindered by the lack of accessible tools that can be adapted to different industrial contexts. Existing solutions often require dedicated teams of experts, increasing implementation costs and reducing scalability.
@@ -13,12 +13,13 @@ By developing a framework that simplifies the formulation and resolution of matc
 
 \section{Research Objectives} 
 
-The primary objective of this research is to develop a comprehensive framework capable of addressing a broad range of matching problems through configurable optimization strategies. Specifically, this work seeks to:
+The primary objective of this research is to develop a comprehensive framework capable of addressing a broad range of matching problems through configurable optimization strategies.
+Specifically, this work has the following Research Objectives (RO):
 
 \begin{itemize}
     \item[\textbf{RO1.}]\label{ro1} Design an adaptable framework that supports various types of matching problems, including one-to-one, many-to-many, and constrained matchings.
     
-    \item[\textbf{RO2.}]\label{ro2} Integrate different solution methodologies, including exact algorithms and heuristics, to balance computational efficiency and solution quality.
+    \item[\textbf{RO2.}]\label{ro2} Integrate in the framework different solvers, including exact algorithms and heuristics, to balance computational efficiency and solution quality.
     
     \item[\textbf{RO3.}]\label{ro3} Provide an intuitive interface for defining problem constraints, allowing users to customize matching models without requiring deep expertise in optimization.
 
@@ -27,10 +28,10 @@ The primary objective of this research is to develop a comprehensive framework c
 
 \section{Structure of the Dissertation}
 The remainder of this dissertation is structured as follows.
-
+%
 Chapter~\ref{chap:background} presents fundamental concepts in matching problems, graph theory, optimization techniques, and relational diagram usage.
 Chapter~\ref{chap:grouping_problems} reviews related work, highlighting existing algorithms and new tendencies.
 Chapter~\ref{chap:design} describes the proposed framework’s architecture and design principles.
-Chapter~\ref{chap:framework} details a preliminary implementation, illustrating the framework’s adaptability through real-world applications.
 Chapter~\ref{chap:fair_matching} presents an algorithm for matching under minimum quotas.
+Chapter~\ref{chap:framework} details a preliminary implementation, illustrating the framework’s adaptability through real-world applications.
 Finally, Chapter~\ref{chap:conclusion} summarizes the contributions, discusses limitations, and outlines directions for future research.
