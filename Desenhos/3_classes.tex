@@ -20,9 +20,9 @@
             \attribute {classBId : String}
             \attribute {classCId : String}
         \end{class}
-        \association {Class A}{}{1..1}{Grouping}{0..1}{}
-        \association {Grouping}{}{0..1}{Class B}{1..1}{}
-        \association {Class C}{}{1..1}{Grouping}{0..1}{}
+        \association {Class A}{}{1:1}{Grouping}{0:1}{}
+        \association {Grouping}{}{0:1}{Class B}{1:1}{}
+        \association {Class C}{}{1:1}{Grouping}{0:1}{}
     \end{tikzpicture}
     }
     \caption{Representation of the relation between 3 differents Classes.}
@@ -41,7 +41,7 @@
             \attribute {id : String}
             \attribute {ids : Set<String>}
         \end{class}
-        \association {Class A}{}{1..N}{Grouping}{0..N}{}
+        \association {Class A}{}{1:N}{Grouping}{0:N}{}
     \end{tikzpicture}
     }
     \caption{Representation of the relation between elements of a same Class.}

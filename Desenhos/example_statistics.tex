@@ -17,8 +17,8 @@
                 \attribute {Person2Id : String}
                 \attribute {\textbf{Preference : int}}
             \end{class}
-            \association {Worker}{}{0..1}{Grouping}{1..1}{}
-            \association {Grouping}{}{0..1}{Job}{1..1}{}
+            \association {Worker}{}{0:1}{Grouping}{1:1}{}
+            \association {Grouping}{}{0:1}{Job}{1:1}{}
         \end{tikzpicture}
         }
         \caption{Stable Marriage Problem.}
@@ -42,8 +42,8 @@
                 \attribute {WorkerId : String}
                 \operation {\textbf{Cost(Job, Worker) : double}}
             \end{class}
-            \association {Worker}{}{0..1}{Grouping}{1..1}{}
-            \association {Grouping}{}{1..1}{Job}{1..1}{}
+            \association {Worker}{}{0:1}{Grouping}{1:1}{}
+            \association {Grouping}{}{1:1}{Job}{1:1}{}
         \end{tikzpicture}
         }
         \caption{Job Assignment Problem.}

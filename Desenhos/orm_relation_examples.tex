@@ -21,9 +21,9 @@
             \attribute {id : String}
             
         \end{class}
-        \association {Teacher}{}{0..N}{Subject}{0..N}{}
-        \association {Teacher}{}{0..1}{Person}{0..1}{}
-        \association {Course}{}{0..1}{Subject}{0..N}{}
+        \association {Teacher}{}{0:N}{Subject}{0:N}{}
+        \association {Teacher}{}{0:1}{Person}{0:1}{}
+        \association {Course}{}{0:1}{Subject}{0:N}{}
     \end{tikzpicture}
     }
     \caption{Representation of simple relations between entities of a school.}
@@ -55,13 +55,14 @@
             \attribute {professorId : String}
             \attribute {classId : String}
         \end{class}
-        \association {Teacher}{}{0..1}{Assignment}{0..1}{}
-        \association {Assignment}{}{0..1}{Subject}{0..1}{}
-        \association {Teacher}{}{0..1}{Person}{0..1}{}
-        \association {Course}{}{0..1}{Subject}{0..N}{}
+        \association {Teacher}{}{0:1}{Assignment}{0:1}{}
+        \association {Assignment}{}{0:1}{Subject}{0:1}{}
+        \association {Teacher}{}{0:1}{Person}{0:1}{}
+        \association {Course}{}{0:1}{Subject}{0:N}{}
     \end{tikzpicture}
     }
     \caption{New Class \textit{Assignment} to represent the many-to-many relation of Figure \ref{fig:uml_teacher_subject_implicit_example}.}
     \label{fig:uml_teacher_new_class}
     \end{subfigure}
+    \caption{Examples of implicit relations and their representation in UML.}
 \end{figure}

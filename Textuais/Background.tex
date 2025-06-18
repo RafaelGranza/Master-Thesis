@@ -86,23 +86,22 @@
                     \label{fig:subgraph_3}
                 \end{subfigure}
                 \hfill
-                \begin{subfigure}{0.24\textwidth}
-                    \centering
-                    \begin{tikzpicture}[main/.style = {draw, circle}] 
-                        \node[main] (1) {$v_1$};
-                        \node[main] (2) [above right of=1] {$v_2$};
-                        \node[main] (3) [above right of=2] {$v_3$}; 
-                        \node[main] (4) [below right of=2] {$v_4$};
+                % \begin{subfigure}{0.24\textwidth}
+                %     \centering
+                %     \begin{tikzpicture}[main/.style = {draw, circle}] 
+                %         \node[main] (1) {$v_1$};
+                %         \node[main] (2) [above right of=1] {$v_2$};
+                %         \node[main] (3) [above right of=2] {$v_3$}; 
+                %         \node[main] (4) [below right of=2] {$v_4$};
 
-                        \draw (2) -- (4);
-                        \draw (1) -- (2);
-                        \draw (4) -- (3);
-                        \draw (1) to [out=90,in=180,looseness=1.5] (3);
-                    \end{tikzpicture}
-                    \caption{Subgraph $G_4$} 
-                    \label{fig:subgraph_4}
-                \end{subfigure}
-                \caption{Four possible subgraphs of Graph $G$ (See Figure \ref{fig:base_graph}).}
+                %         \draw (2) -- (4);
+                %         \draw (1) -- (2);
+                %         \draw (4) -- (3);
+                %     \end{tikzpicture}
+                %     \caption{Subgraph $G_4$} 
+                %     \label{fig:subgraph_4}
+                % \end{subfigure}
+                \caption{Three possible subgraphs of Graph $G$ (See Figure \ref{fig:base_graph}).}
                 \label{fig:subgraphs}
             \end{figure}
         
@@ -228,7 +227,7 @@
         
         \section{Matching}
 
-            A matching in a graph \( G = (V, E) \) (strictly in the context of graph theory) is a set of edges \( M \subseteq E \) such that no two edges in \( M \) share a common vertex \cite{cormen, bondy1976graph}. Matchings are used to model relationships in various applications, such as assigning tasks to workers or pairs in social networks. Figure \ref{fig:possible_matching} shows a possible matching of Graph G (see Figure \ref{fig:base_graph}).
+            A matching (strictly in the context of graph theory) in a graph \( G = (V, E) \) is a set of edges \( M \subseteq E \) such that no two edges in \( M \) share a common vertex \cite{cormen, bondy1976graph}. Matchings are used to model relationships in various applications, such as assigning tasks to workers or pairs in social networks. Figure \ref{fig:possible_matching} shows a possible matching of Graph G (see Figure \ref{fig:base_graph}).
             
             In a bipartite graph, a matching (also called bipartite matching) is a subset of edges \( M \subseteq E \) such that each vertex is incident to at most one edge in \( M \). Finding a maximum matching in a bipartite graph can be efficiently solved using algorithms like the Hopcroft-Karp algorithm \cite{west2001introduction, diestel2017graph}.
 
@@ -266,12 +265,12 @@
         \subsection{Fairness in Matching}
             
             Fairness in matching consists in take into account specific attributes of the set of vertices and their proportionality in the solution.
-            
-            Inspired by the work of \cite{sankar}, the notion of fairness adopted by this study is delegated to an external operator. This impartial entity does not directly engage with the sets being matched. Instead, it has the responsibility to judge what is fair or not in the matching context.
+            %%
+            Inspired by the work of \cite{sankar}, the notion of fairness adopted by this study is delegated to an external operator. This impartial operator does not directly engage with the sets being matched. Instead, it has the responsibility to judge the fairness in the matching context.
             
             In the search for pairing a set $U$ and a set $V$, the concept of giving priority to some specific subset of $U$ that contains specific traits is proposed. This different approach to the original problem is particularly relevant in scenarios where prioritizing different characteristics alongside minimal cost is desired.
             
-            To operationalize this prioritization, this paper employs the concept of minimum quotas, which establish a minimum number of vacancies reserved for specific subsets. 
+            To operationalize this prioritization, this work employs the concept of minimum quotas, which establish a minimum number of vacancies reserved for specific subsets. 
             These minimum quotas, act as instruments to promote equity in the matching process, ensuring those specific subsets receive adequate representation.
             
             The quotas refer to the predetermined allocation of a minimum number of matchings to each special subset, thereby establishing a fair distribution of pairings. This definition is crucial for ensuring representativity and preventing imbalances in the allocations.
@@ -289,15 +288,15 @@
         \subsection{Solving Bipartite Matching with MCMF}\label{subsubsec:resolucao-fluxo-matching}
             
             To clarify the methodology of mapping a Bipartite Matching problem to a Minimum-Cost Maximum Flow (MCMF) problem, a method that is already well-known and documented \cite{ahuja1993network, edmonds1972theoretical, tarjan1997dynamic}, we present a detailed visual representation of this process in Figure~\ref{fig:mcmf}.
-            
+            %%
             % In this bipartite graph, the sets of nodes $U$ and $V$. 
             In this figure, the bipartite graph being matched is the set of nodes $U = \{u_1, \ldots, u_6\}$ (in red/dashed) and $V = \{v_1, \ldots, v_3\}$ (in blue/dotted). 
             %The edges connecting these sets have two parameters: the first number denotes the capacity, indicating the maximum number of flows that can be assigned to a given task, while the second number represents the cost associated with the edge. 
-            The edges connecting the sets $U$ and $V$ have two parameters: the first number denotes the capacity, indicating the maximum number of flows that can be assigned to a given task, while the second number represents the cost associated with the edge. 
-            
+            The edges connecting the sets $U$ and $V$ have two parameters ($K;C$): the first parameter $K$, denotes the capacity, indicating the maximum number of flows that can be assigned to a given task, while the second parameter $C$, represents the cost associated with the edge. 
+
             The mapping strategy involves representing the bipartite graph as a flow network. 
             Two other nodes are added, a Source, connected to all nodes in Set $U$, and a Sink, connected to all nodes in Set $V$. 
-            It is worth noting that the edges connected to the Source and Sink sets have zero cost and unit capacity to guarantee that the added connections do not affect the overall cost minimization.
+            It is worth noting that the edges connected to the Source and Sink sets have zero cost and unit capacity ($1;0$) to guarantee that the added connections do not affect the overall cost minimization.
             
             \begin{figure}[ht] \centering
                 \input{figures/mapping_bipartite_matching}
@@ -422,16 +421,17 @@
     The exact set cover problem is a variant where each element in $X$ must be covered exactly once by the selected sets. This variant is particularly relevant in scenarios where overlapping cover is not allowed or desired, such as certain types of resource allocation and exact sequence alignment in computational biology. Finding an exact set cover is also an NP-complete problem, requiring sophisticated algorithms or approximation techniques for large instances.
     
     \subsection{Weighted Set Cover}
-    In the weighted set cover problem, each set in the collection $S$ is assigned a positive weight (representing its cost), and the objective is to find a set cover that minimizes the total weight. The unweighted set cover problem can be seen as a special case where all sets in $S$ have a uniform weight of 1.
-    
-    \begin{itemize}
-        \item \textbf{Definition:} formally, let $X$ be a set of $n$ elements and $S = \{S_1, S_2, \ldots, S_m\}$ be a collection of $m$ subsets of $X$. Each set $S_i$ is associated with a weight $w_i$. The goal is to find a sub-collection $C \subseteq S$ such that the union of the sets in $C$ equals $X$ and the sum of the weights of the sets in $C$ is minimized.
-        \item \textbf{Applications:} the weighted set cover problem has practical applications in various domains. For example, in network design, where different network configurations have different costs, the goal is to cover all network nodes with minimum cost. In sensor placement, each sensor has a different deployment cost, and the objective is to cover a region with the least expense. Another example is the timing table problem, which can be represented as a weighted set cover problem. In this context, various tasks need to be scheduled within a timing table, where each task has a different cost associated with its execution time, and the goal is to cover all required tasks with the minimum total cost.
-        \item \textbf{Complexity:} similar to the unweighted version, the weighted set cover problem is NP-hard. This means that there is no known polynomial-time algorithm to solve the problem exactly for large instances. However, there are approximation algorithms that can provide near-optimal solutions in reasonable time.
-    \end{itemize}
-    
-    The set cover problem, whether weighted or unweighted, is a fundamental problem in theoretical computer science and has motivated the development of various algorithmic techniques, including greedy algorithms, linear programming relaxations, and randomized algorithms. Understanding and solving the set cover problem is crucial for tackling more complex optimization problems in various fields.
-    
+
+        In the weighted set cover problem, each set in the collection $S$ is assigned a positive weight, which represents its cost. The objective is to find a set cover that minimizes the total weight. The unweighted version of the problem can be understood as a particular case in which all sets in $S$ have the same weight, typically equal to 1.
+
+        Formally, let $X$ be a set of $n$ elements and let $S = \{S_1, S_2, \ldots, S_m\}$ be a collection of $m$ subsets of $X$. Each subset $S_i$ is associated with a weight $w_i$. The objective is to find a sub-collection $C \subseteq S$ such that the union of all sets in $C$ equals $X$, and the total weight, defined as the sum of the weights of the sets in $C$, is minimized.
+
+        This problem appears in several practical situations. In network design, for instance, different network configurations may have different costs, and the goal is to ensure that all network nodes are covered while minimizing the overall cost. In the context of sensor placement, each sensor may have a specific deployment cost, and the aim is to cover a given region using the least expensive combination of sensors. Another relevant example is the timing table problem, where tasks must be scheduled within a predefined timeline. Each task may have a different cost associated with its execution time, and the objective is to schedule all required tasks while minimizing the total cost.
+
+        As with the unweighted version, the weighted set cover problem is classified as NP-hard. This implies that there is no known algorithm capable of solving all instances of the problem exactly in polynomial time. Nonetheless, there are approximation algorithms that provide solutions close to the optimal within a feasible time frame, even for large problem instances.
+
+        The set cover problem, whether in its weighted or unweighted form, is a fundamental topic in theoretical computer science. It has inspired the development of many algorithmic techniques, such as greedy strategies, linear programming relaxations, and randomized methods. A thorough understanding of this problem is crucial for addressing more complex optimization challenges in diverse domains.
+
 
 
     \section{ORM (Object-Relational Mapping)} \label{sec:orm}
@@ -461,8 +461,8 @@ For example, in a system where each individual has one unique passport, the rela
 
 The cardinality constraints for this relationship are:
 \begin{itemize}
-    \item \(0..1\): An optional relationship where an entity might not be linked (e.g., a person without a passport).
-    \item \(1..1\): A mandatory one-to-one relationship where both entities must exist.
+    \item \(0:1\): An optional relationship where an entity might not be linked (e.g., a person without a passport).
+    \item \(1:1\): A mandatory one-to-one relationship where both entities must exist. (Usally, this is not the case in practice, as it would be too restrictive and would require to create both entities at the same time.)
 \end{itemize}
 
 \subsubsection{One-to-Many (1:N) Relationship} A \textbf{one-to-many relationship} occurs when a single instance of an entity relates to multiple instances of another entity. This relationship is commonly used to represent hierarchical or ownership relationships.
@@ -471,8 +471,8 @@ For example, consider the relationship between \texttt{Department} and \texttt{E
 
 The cardinality constraints are the following.
 \begin{itemize}
-    \item \(1..N\): A department must have at least one employee.
-    \item \(0..N\): A department can exist without any employees.
+    \item \(1:N\): A department must have at least one employee.
+    \item \(0:N\): A department can exist without any employees.
 \end{itemize}
 
 \subsubsection{Many-to-Many (N:N) Relationship} A \textbf{many-to-many relationship} arises when multiple instances of an entity are related to multiple instances of another entity. This relationship is often implemented using an intermediate or junction table that connects the two entities, storing the relationships explicitly.
@@ -488,7 +488,7 @@ The cardinality for such relationships is:
 
 To maintain logical consistency and integrity, certain rules and constraints govern the relationships between entities:
 \begin{enumerate}
-    \item \textbf{Cardinality Rules:} Define the minimum and maximum number of objects allowed on each side of the relationship (e.g., \(0..1\), \(1..N\), \(N..N\)).
+    \item \textbf{Cardinality Rules:} Define the minimum and maximum number of objects allowed on each side of the relationship (e.g., \(0:1\), \(1:N\), \(N..N\)).
     \item \textbf{Ownership Rules:} Specify which entity is the owner or controller of the relationship, determining how changes propagate between related entities.
     \item \textbf{Cascade Rules:} Define the behavior of related objects when an entity is modified or deleted. For example, cascading deletes ensure that when a \texttt{Department} is deleted, all associated \texttt{Employee} records are also removed.
 \end{enumerate}
@@ -497,7 +497,7 @@ These constraints are critical in ensuring that relationships remain coherent an
 
 
 \subsection{Example of ORM Usage}
-Script \ref{script:orm} is an example of how ORM can be used in Python with Django.
+Script \ref{script:orm} is an example of how ORM can be used in Python with Django. It implements the relationships described in Figure \ref{fig:uml_teacher_new_class}.
 
 
 \begin{lstlisting}[language=Python, caption={Example of ORM usage in Python with Django.}, label={script:orm}]
@@ -537,22 +537,77 @@ Overall, ORM is a powerful tool in modern software development, offering signifi
     
     \subsection{Genes, Chromosomes, and Population}
     
-    In genetic algorithms, the concept of a gene, chromosome (or genotype), and population is crucial to understanding how solutions are encoded and evolved \cite{holland1992adaptation}. 
-    
-    A gene represents the smallest unit of information in a genetic algorithm, similar to how a gene in biology contains hereditary information. Several genes together form a chromosome, which is a complete candidate solution to the problem being addressed. Finally, a population is a set of chromosomes representing a diverse set of possible solutions.
-    
-    Figure \ref{fig:ga} visually demonstrates these relationships. Each black rectangle in the diagram corresponds to a gene, and groups of genes form chromosomes. The entire collection of chromosomes is known as the population.
-    
-    \input{Desenhos/genetic_algotihm}
-    
-    In summary, the success of a genetic algorithm heavily depends on how well the problem is encoded into genes, chromosomes, and populations, as these structures form the foundation for all subsequent evolutionary processes.
+        In genetic algorithms, the concept of a gene, chromosome (or genotype), and population is crucial to understanding how solutions are encoded and evolved \cite{holland1992adaptation}. 
+        %%
+        A gene represents the smallest unit of information in a genetic algorithm, similar to how a gene in biology contains hereditary information. Several genes together form a chromosome, which is a complete candidate solution to the problem being addressed. Finally, a population is a set of chromosomes representing a diverse set of possible solutions.
+        %%
+        Figure \ref{fig:ga} visually demonstrates these relationships. Each black rectangle in the diagram corresponds to a gene, and groups of genes form chromosomes. The entire collection of chromosomes is known as the population.
+        
+        \input{Desenhos/genetic_algotihm}
+        
+        In summary, the success of a genetic algorithm heavily depends on how well the problem is encoded into genes, chromosomes, and populations, as these structures form the foundation for all subsequent evolutionary processes.
     
     \subsection{Mutations and Crossovers}
     
-    Genetic algorithms rely on two primary genetic operators to evolve the population of chromosomes: mutation and crossover \cite{holland1992adaptation}. These operators introduce variety into the population, allowing the algorithm to explore new solution spaces and avoid premature convergence to local optima.
-    
-    The mutation operator introduces random changes to one or more genes within a chromosome. This randomness simulates natural mutations in biological organisms, helping to maintain genetic diversity in the population and explore previously unexplored regions of the solution space.
-    
-    The crossover operator combines two parent chromosomes to produce offspring. During this process, the genetic material from each parent is exchanged, creating new chromosomes that contain traits from both parents. This operator simulates sexual reproduction in biology, where offspring inherit features from both parents, contributing to the evolution of better solutions over generations.
-    
-    In conclusion, the mutation and crossover operators are vital for balancing the trade-off between exploration (searching new areas of the solution space) and exploitation (refining existing good solutions) in genetic algorithms.
+        Genetic algorithms rely on two primary genetic operators to evolve the population of chromosomes: mutation and crossover \cite{holland1992adaptation}. These operators introduce variety into the population, allowing the algorithm to explore new solution spaces and avoid premature convergence to local optima.
+        
+        The mutation operator introduces random changes to one or more genes within a chromosome. This randomness simulates natural mutations in biological organisms, helping to maintain genetic diversity in the population and explore previously unexplored regions of the solution space.
+        
+        The crossover operator combines two parent chromosomes to produce offspring. During this process, the genetic material from each parent is exchanged, creating new chromosomes that contain traits from both parents. This operator simulates sexual reproduction in biology, where offspring inherit features from both parents, contributing to the evolution of better solutions over generations.
+
+        In conclusion, the mutation and crossover operators are vital for balancing the trade-off between, respectively, exploration (searching new areas of the solution space) and exploitation (refining existing good solutions) in genetic algorithms.
+
+    \subsection{Selection}
+        The selection process in genetic algorithms is responsible for choosing which chromosomes will contribute to the next generation of the population \cite{holland1992adaptation}. This process is crucial for guiding the evolution of solutions toward better fitness levels.
+        
+        There are several selection methods, including:
+        \begin{itemize}
+            \item \textbf{Roulette Wheel Selection:} Chromosomes are selected based on their fitness proportionally to the total fitness of the population. Higher fitness chromosomes have a higher chance of being selected.
+            \item \textbf{Tournament Selection:} A subset of chromosomes is randomly chosen, and the best chromosome from this subset is selected for reproduction.
+            \item \textbf{Rank Selection:} Chromosomes are ranked based on their fitness, and selection is performed based on this ranking.
+        \end{itemize}
+        
+        The selection process ensures that better solutions have a higher chance of being passed on to future generations, allowing the algorithm to converge toward optimal or near-optimal solutions over time.
+
+    \subsection{Algorithm}
+        
+        The genetic algorithm is an iterative process that evolves a population of candidate solutions over generations. The algorithm typically follows the steps shown in Figure \ref{fig:ga_flowchart}.
+        
+\begin{figure}[ht]
+    \centering
+    \resizebox{0.25\textwidth}{!}{%
+        \begin{tikzpicture}[node distance=1.5cm]
+            \usetikzlibrary{shapes.geometric, arrows.meta, positioning}
+
+            \tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=gray!20]
+            \tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black]
+            \tikzstyle{decision} = [diamond, aspect=4, minimum width=2cm, text centered, draw=black, fill=orange!20]
+            \tikzstyle{arrow} = [thick, ->, >=stealth]
+
+            % Nodes
+            \node (init) [startstop] {Initialization};
+            \node (eval) [process, below of=init] {Evaluation};
+            \node (select) [process, below of=eval] {Selection};
+            \node (cross) [process, below of=select] {Crossover};
+            \node (mutate) [process, below of=cross] {Mutation};
+            \node (replace) [process, below of=mutate] {Replacement};
+            \node (term) [decision, below of=replace, yshift=-0.5cm] {Termination criterion met?};
+            \node (end) [startstop, below of=term, yshift=-1cm] {End};
+
+            % Arrows
+            \draw [arrow] (init) -- (eval);
+            \draw [arrow] (eval) -- (select);
+            \draw [arrow] (select) -- (cross);
+            \draw [arrow] (cross) -- (mutate);
+            \draw [arrow] (mutate) -- (replace);
+            \draw [arrow] (replace) -- (term);
+            \draw [arrow] (term) -- node[right] {Yes} (end);
+            \draw [arrow] (term.west) .. controls +(-2,0) and +(-2,0) .. (eval.west) node[midway,left] {No};
+        \end{tikzpicture}
+    }
+    \caption{Flowchart of a Genetic Algorithm.}
+    \label{fig:ga_flowchart}
+\end{figure}
+        
+        Genetic algorithms are versatile and can be applied to various optimization problems, including scheduling, routing, and function optimization. Their ability to explore large solution spaces and adapt over time makes them powerful tools for solving complex problems.
+

@@ -16,8 +16,8 @@
                 \attribute {UserId : String}
                 \attribute {ItemId : String}
             \end{class}
-            \association {User}{}{1..1}{Grouping}{0..1}{}
-            \association {Grouping}{}{0..1}{Item}{1..1}{}
+            \association {User}{}{1:1}{Grouping}{0:1}{}
+            \association {Grouping}{}{0:1}{Item}{1:1}{}
         \end{tikzpicture}
         }
         \caption{An user has to be assigned to a single item.}
@@ -40,8 +40,8 @@
                 \attribute {UserId : String}
                 \attribute {ItemId : String}
             \end{class}
-            \association {User}{}{1..1}{Grouping}{0..1}{}
-            \association {Grouping}{}{0..1}{Item}{1..N}{}
+            \association {User}{}{1:1}{Grouping}{0:1}{}
+            \association {Grouping}{}{0:1}{Item}{1:N}{}
         \end{tikzpicture}
         }
         \caption{An user can be assigned to multiple items.}

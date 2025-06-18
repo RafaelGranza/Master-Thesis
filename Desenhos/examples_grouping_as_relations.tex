@@ -16,8 +16,8 @@
                 \attribute {JobId : String}
                 \attribute {WorkerId : String}
             \end{class}
-            \association {Worker}{}{1..1}{Grouping}{0..1}{}
-            \association {Grouping}{}{1..1}{Job}{1..1}{}
+            \association {Worker}{}{1:1}{Grouping}{0:1}{}
+            \association {Grouping}{}{1:1}{Job}{1:1}{}
         \end{tikzpicture}
         }
         \caption{Job Assignment Problem.}
@@ -43,9 +43,9 @@
                 \attribute {fundId : String}
                 \attribute {projectId : String}
             \end{class}
-            \association {Room}{}{1..N}{Grouping}{0..1}{}
-            \association {Grouping}{}{0..N}{Fund}{0..N}{}
-            \association {Project}{}{1..1}{Grouping}{1..1}{}
+            \association {Room}{}{1:N}{Grouping}{0:1}{}
+            \association {Grouping}{}{0:N}{Fund}{0:N}{}
+            \association {Project}{}{1:1}{Grouping}{1:1}{}
         \end{tikzpicture}
         }
         \caption{Resource Allocation Problem.}
@@ -68,8 +68,8 @@
                 \attribute {UserId : String}
                 \attribute {ItemrId : String}
             \end{class}
-            \association {User}{}{1..1}{Grouping}{1..1}{}
-            \association {Grouping}{}{1..1}{Item}{1..N}{}
+            \association {User}{}{1:1}{Grouping}{1:1}{}
+            \association {Grouping}{}{1:1}{Item}{1:N}{}
         \end{tikzpicture}
         }
         \caption{User-Item recommendation Problem.}
@@ -89,7 +89,7 @@
                 \attribute {image1Id : String}
                 \attribute {image2Id : String}
             \end{class}
-            \association {Image}{}{2..2}{Grouping}{0..1}{}
+            \association {Image}{}{2..2}{Grouping}{0:1}{}
         \end{tikzpicture}
         }
         \caption{Image Matching Problem.}

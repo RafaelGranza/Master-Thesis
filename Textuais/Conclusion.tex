@@ -36,13 +36,6 @@ This work presented a framework designed to address a wide range of matching and
         Depending on the chosen algorithm, it is not necessary to have all relationships between the elements of each set precalculated, which can reduce memory usage and processing time.
         
         In summary, the approach offers great flexibility, allowing it to be computed by various algorithms, thus providing a wide range of options for solving the problem.
-        
-        \subsubsection{Future Work}
-        
-        In future work, we will explore the concept of fairness in relation to more than two sets. 
-        For example, in the timetable problem, one may be required to match rooms, modules, lectures, and students' timetables subjected to constraints based on fair allocation principles.
-        In another future work, we will study the application of fairness in bipartite graphs based on maximum quota principles.
-
 
 \subsection{Review of Recent Developments in Matching Problems and Algorithms}
 
@@ -50,8 +43,15 @@ This work presented a framework designed to address a wide range of matching and
 
 
 \section{Future Work}
-    Future work could focus on several areas to enhance the framework's capabilities and usability. 
-    One priority is to expand the library of built-in solvers to cover a wider variety of matching problems, reducing the need for users to implement custom solvers for specific configurations. 
-    Another area for improvement is the automation of fitness functions or the development of built-in options that cover common optimization criteria, making the framework more accessible to non-expert users. 
-    Furthermore, optimizing the metaheuristic solver to better handle large datasets and incorporating support for multi-criteria optimization in fair matching could make the framework even more robust and versatile. 
-    Additionally, the Set Cover Framework (SCF) could be extended to address clustering problems by mapping them to grouping problems, enabling the framework to handle scenarios where elements need to be grouped based on similarity or other clustering criteria.
+
+    Future work could focus on several areas to enhance the framework's capabilities and usability. One key direction is expanding the library of built-in solvers to support a broader range of matching problems, thereby reducing the need for users to implement custom solvers for specific configurations. 
+    %
+    Another important improvement involves automating the definition of fitness functions or providing built-in options that address common optimization criteria, which would make the framework more accessible to non-expert users. 
+    %
+    In addition, optimizing the metaheuristic solver to handle large-scale datasets more efficiently, as well as incorporating support for multi-criteria optimization in fair matching problems, could significantly increase the framework's robustness and versatility.
+
+    The Set Cover Framework (SCF) could also be extended to tackle clustering problems by mapping them into grouping problems. This would enable the framework to address scenarios where elements need to be grouped based on similarity or other clustering criteria.
+    %
+    Furthermore, we plan to explore fairness concepts beyond bipartite settings. For instance, in timetabling problems, it may be necessary to match rooms, modules, lectures, and student schedules under fairness constraints. 
+    %
+    Lastly, we will investigate fairness in bipartite graphs based on maximum quota principles, exploring how such constraints affect the structure and solutions of fair matching problems.

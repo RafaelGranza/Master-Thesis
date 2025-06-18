@@ -6,14 +6,18 @@
     
     Finally, we discuss recent developments in the field of grouping problems, including advanced algorithms for solving matching problems efficiently and applications in diverse fields such as quantum computing \cite{quantum_matching}, artificial inteligence \cite{gnn_graph_matching, cross_modal_matching}, and Humanitarian and Resource Allocation \cite{humanitarian_routing}. By examining these developments, we aim to provide a comprehensive overview of the current state of grouping problems and their significance in various domains \cite{ieee_survey}.
     
-\section{How to Define an Industry Matching Problem}
+\section{How to Define an Industry Matching (Grouping) Problem}
 
-    As the name indicates, they are problems where the objective is to match some elements, usually the matching optimizes a function.
-    
-    When faced with a set of objects, such as job oppenings and candidates, the objective is to group these objects, assing candidates to jobs in this context, where each group generate a set of statistics, and this statistics are used to optimize an objective function. This concept is well-established in the field of operations research and combinatorial optimization \cite{manlove2013algorithmics}.
+    In industry, matching problems are problems where the objective is to match some elements, usually the optimizing an objective function.
+    %%
+    Importantly, in industry, the concept of matching problems is often not bounded to the graph theory definition of matching problems.
+    %%
+    For that reason, we refer to grouping problems as a larger set of problems, which includes not only graph theory's matching problems, but also other problems that can be represented as a graph, where the objective is to group objects based on some criteria.
+
+    When faced with a set of objects, such as job openings and candidates, the objective is to group these objects, assigning candidates to jobs in this context, where each group generates a set of statistics, and this statistics are used to optimize an objective function. This concept is well-established in the field of operations research and combinatorial optimization \cite{manlove2013algorithmics}.
 
     \subsection{Job Assignment} \label{subsec:job_assignment}
-        One of the most well-known examples of a matching problem is job assignment. The objective is to match job positions with candidates who possess the necessary skills, experience, and qualifications. The process involves considering the specific requirements of each position and the attributes of the candidates, aiming to maximize overall efficiency or satisfaction. This type of problem has been widely studied, particularly in the context of labor markets and automated recruitment systems \cite{roth1990two}.
+        One of the most well-known examples of a grouping problem is job assignment. The objective is to match job positions with candidates who possess the necessary skills, experience, and qualifications. The process involves considering the specific requirements of each position and the attributes of the candidates, aiming to maximize overall efficiency or satisfaction. This type of problem has been widely studied, particularly in the context of labor markets and automated recruitment systems \cite{roth1990two}.
 
     \subsection{Resource Allocation} \label{subsec:resource_allocation}
         Resource allocation problems involve distributing limited resources—such as rooms, equipment, or funds—among competing tasks or projects. The challenge lies in ensuring that the allocation maximizes efficiency while meeting constraints, such as availability and demand. These problems are critical in industries like healthcare, manufacturing, and project management, where effective resource distribution directly impacts outcomes \cite{schrijver2003combinatorial}.

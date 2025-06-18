@@ -10,7 +10,7 @@
     %
     However, it does not often consider attributes among specific sub-sets of $U$ and $V$, which may possess distinct traits that are essential in various contexts.
     %
-    Considering such sub-sets characteristics makes the bipartite matching problem relevant to a large set of real-world applications, we call this the \emph{Fair Bipartite Matching Problem}.
+    Considering such sub-sets' characteristics makes the bipartite matching problem relevant to a large set of real-world applications, we call this the \emph{Fair Bipartite Matching Problem}.
     %
 
     %
@@ -19,7 +19,7 @@
     %
     By incorporating \emph{minimum quotas} for sub-sets, the proposed method aims for both: operational efficiency and equity in the distribution of resources among sub-sets. 
     %
-    In this Chapter, we present a reduction from the Fair Bipartite Matching Problem with \emph{minimum quota} to the MCMF.
+    In this chapter, we present a reduction from the Fair Bipartite Matching Problem with \emph{minimum quota} to the MCMF.
     %
 
     %
@@ -30,7 +30,7 @@
     %
     
     %    
-    Several works already address the concept of fairness, which has become increasingly important. However, most approaches rely on heuristic \cite{hatfield2005matching, rostami2018fairness, pappalardo2020algorithmic} or metaheuristic methods \cite{manlove2017algorithmics, yan2021metaheuristic, chapman2017matching}. Here, however, we aim to develop and present a deterministic model in polynomial time, introducing an innovative approach to solving the Fair Bipartite Matching problem. The central proposal involves applying the concept of Minimum-Cost Maximum Flow (MCMF) through an effective mapping of the problem, allowing for the incorporation of fairness criteria, such as minimum quotas for specific sets.
+    Several works already address the concept of fairness, which has become increasingly important. However, most approaches rely on heuristic \cite{hatfield2005matching, rostami2018fairness, pappalardo2020algorithmic} or metaheuristic methods \cite{manlove2017algorithmics, yan2021metaheuristic, chapman2017matching}. Here, however, we develop and present a deterministic model in polynomial time, introducing an innovative approach for solving the Fair Bipartite Matching problem. The central proposal involves applying the concept of Minimum-Cost Maximum Flow (MCMF) through an effective mapping of the problem, allowing for the incorporation of fairness criteria, such as minimum quotas for specific sets.
     %
 
     \section{Related Works}
@@ -42,14 +42,14 @@
             \toprule
             Methods & Exact & Fair & Minimum Quotas \\
             \midrule
-            Proposed & Yes & Yes & Yes \\
+            \textbf{Proposed} & \textbf{Yes} & \textbf{Yes} & \textbf{Yes} \\
             \cite{ahuja1993network}; \cite{edmonds1972theoretical}; \cite{tarjan1997dynamic} & Yes & No & No \\
             \cite{hatfield2005matching}; \cite{rostami2018matching}; \cite{pappalardo2020combining}; \cite{manlove2017algorithmics}; \cite{yan2021evolutionary}; \cite{chapman2017multi} & No & Yes & No \\
             \cite{sankar2021set} & No & Yes & Yes \\
             \cite{garcia2020fair} & Yes & Yes & No \\
             \bottomrule
           \end{tabular}
-          \caption{Comparison of Allocation Methods in Terms of Accuracy, Fairness, and Minimum Quotas.}
+          \caption{Comparison of Allocation Methods, proposed and from literature, in Terms of Accuracy, Fairness, and Minimum Quotas.}
           \label{tab:related_work}
         \end{table}
         
@@ -64,7 +64,7 @@
         
         \section{Solution Modeling}
         
-            As discussed in Section {\ref{subsubsec:resolucao-fluxo-matching}}, the MCMF algorithm is traditionally employed to solve matching problems without considering the concept of fairness. In this Section, we present how to extend the use of MCMF to the proposed concept of fairness. This extension will be achieved through a mapping that constructs a graph to be processed by an MCMF algorithm to solve the original problem.
+            As discussed in Section {\ref{subsubsec:resolucao-fluxo-matching}}, the MCMF algorithm is traditionally employed to solve matching problems without considering the concept of fairness. We present how to extend the use of MCMF to the proposed concept of fairness. This extension will be achieved through a mapping that constructs a graph to be processed by an MCMF algorithm to solve the original problem.
             
             \subsection{Objective}
             
@@ -74,12 +74,12 @@
                 
                 The solution aims to meet the following points:
                 
-                \begin{enumerate} \item \textbf{Comply for Minimum Quotas}: Ensure that the predefined minimum quotas for the sets are fully fulfill (if possible) during the matching process, promoting equity and inclusion. \item \textbf{Cost Minimization}: In situations where there are various matching alternatives, the objective is to minimize the costs associated with these matchings, providing operational and economic efficiency. \end{enumerate}
+                \begin{enumerate} \item \textbf{Comply for Minimum Quotas}: Ensure that the predefined minimum quotas for all subsets are fully fulfill (if possible) during the matching process, promoting equity and inclusion. \item \textbf{Cost Minimization}: In situations where there are various matching alternatives, the objective is to minimize the costs associated with these matchings, providing operational and economic efficiency. \end{enumerate}
         
         
-        \section{Adaptations for Including Fairness in Bipartite Matching}
+        \section{Modifications to Include Fairness in Bipartite Matching}
         
-            The fundamental changes made to the mapping aim to make it impossible for the flow to avoid paths with minimum quota elements, as well as to prevent the repeated selection of the same element.
+            The fundamental changes made to the mapping aim to make it impossible for the flow to avoid paths with minimum quota elements (in other words, to force the flow through paths with minimum quota elements), as well as to prevent the repeated selection of the same element.
             Subsequently, the reduction of the Fair Matching problem to MCMF is addressed, along with the proofs of the modeling.
             
             \subsection{Minimum Quotas}
@@ -87,16 +87,15 @@
                 The sets of minimum quota members are defined as subsets of vertices of the same class (e.g., workers) that share one or more characteristics (e.g., workers with disability) and have a minimum number of \textit{matches} if the maximum match is achieved.
                 
                 Each set of minimum quota members is represented by a vertex, where the incoming edge has a capacity equivalent to the number of \textit{matches} the set needs to obtain, with an associated cost of zero. This configuration encourages the passage of the maximum flow through this vertex, as part of the total flow is required to transit through the quota vertices.
+                Considering a graph with a total possible of $N$ \textit{matches} and having $|Q|$ sets of quotas, where the \( i \)-th quota, $q_i$ has $n_{q_i}$ slots.
+                In Equation \ref{eq:quota_sum} we define the total matches assigned to quota slots, $N_Q$ as:
+
+                \begin{equation}
+                    N_Q = \sum_{i=1}^{|Q|} n_{q_i} \leq N
+                    \label{eq:quota_sum}
+                \end{equation}
                 
-                Considering a graph with a total possible of $N$ \textit{matches} and having $k$ set of quotas, where the \( i \)-th quota, $q_i$ has $n_{q_i}$ slots, we define that:
-                
-                {\centering
-                    \[
-                    N_q = \sum_{i=1}^{k} n_{q_i} \leq N
-                    \]
-                }
-                
-                Thus, a set with $n_{q_i}$ quota, with the described mapping, ensures that the other vertices can only contribute a maximum of $N - N_q$ flow units. This guarantees that if there is a maximum flow passing through the quota set, it will be selected.
+                Thus, a set with $n_{q_i}$ quota, with the described mapping, ensures that the other vertices can only contribute a maximum of $N - N_Q$ flow units. This guarantees that if there is a maximum flow passing through the quota set, it will be selected.
                 %
                 In Figures~\ref{fig:mapeamento}~and~\ref{fig:solucao}, these vertices are shown in purple / loosely dash-dotted.
                 
@@ -105,20 +104,25 @@
         
             \subsection{Wide Competition (WC)} \label{sec:wc}
             
-                Represents the remaining set of quotas, $WC$, the wide competition indicates the number of \textit{matches} that have not been previously assigned to any quota set. Let $N$ be the total possible matches overall, and $N_q$ the total matching assigned to quota slots, the wide competition slots, $n_{wc}$, will be:
-                \[
-                n_{wc} =
-                \begin{cases}
-                    N - N_q & \text{if } N > N_q \\
-                    0 & \text{otherwise}
-                \end{cases}
-                \]
+                The Wide Competition (WC) indicates the number of \textit{matches} that have not been previously assigned to any quota set. Let $N$ be the total possible matches overall, and $N_q$ the total matching assigned to quota slots. The wide competition slots, $n_{wc}$, is defined by Equation \ref{eq:n_wc}.
+                \begin{equation}
+                    n_{wc} =
+                    \begin{cases}
+                        N - N_Q & \text{if } N > N_Q \\
+                        0 & \text{otherwise}
+                    \end{cases}
+                    \label{eq:n_wc}
+                \end{equation}
                 
-                Without loss of generality, the rest set can be understood as a quota. All elements are part of the wide competition. This configuration ensures that there will be no shortage of matches if the maximum matching is possible. In Figures~\ref{fig:mapeamento} and~\ref{fig:solucao}, this vertex is represented in gray.
+                Without loss of generality, the WC set can be understood as a quota. All elements are part of the wide competition. This configuration ensures that there will be no shortage of matches if the maximum matching is possible. In Figures~\ref{fig:mapeamento} and~\ref{fig:solucao}, this vertex is represented in gray.
             
             \subsection{Proxies}
             
-                A proxy is an entity represented by a vertex, whose outgoing edge has unit capacity. There is always a proxy at the entrance of each element of the set where quotas are applied. The utility of this proxy is to ensure that each element is selected only once when it participates in multiple quota groups (e.g., a worker that is both disable and female, or a worker that is both at WC and a quota group). In Figures~\ref{fig:mapeamento} and~\ref{fig:solucao}, this vertex is identified in dark green / dash-dotted.
+                A proxy is an entity represented by a vertex, whose outgoing edge has unit capacity.
+                %
+                There is always a proxy at the entrance of each element of the set where quotas are applied.
+                %
+                This proxy ensures that each element is selected only once when it participates in multiple quota groups (e.g., a worker that belongs to both, disable and female subsets, or a worker that belongs to both, WC and quota group). In Figures~\ref{fig:mapeamento} and~\ref{fig:solucao}, this vertex is identified in dark green / dash-dotted.
             
             \subsection{Mapping}
             
@@ -142,14 +146,14 @@
             
             \begin{figure}[!ht]
                 \centering
-                \begin{subfigure}[t]{.95\textwidth}
+                \begin{subfigure}[!ht]{.95\textwidth}
                     \centering
                     \input{figures/matching_unsolved}
                     \caption{Example of a possible mapping of Fair Bipartite Matching.}
                     \label{fig:mapeamento}
                 \end{subfigure}
                 \hfill
-                \begin{subfigure}[t]{0.8\textwidth}
+                \begin{subfigure}[!ht]{0.8\textwidth}
                     \centering
                     \input{figures/matching_solved}
                     \caption[Solution of the problem from Figure \ref{fig:mapeamento}]{Solution of the problem from Figure \ref{fig:mapeamento} if $u_1$, $u_2$, and $u_3$ belonged to quota $q_1$ and $u_5$ belonged to quota $q_2$. The selected elements are those whose edge flows are not 0. The unselected elements are faded out. Total cost of 12.}
@@ -166,7 +170,7 @@
         \subsection{Respecting Minimum Quotas}
         
         \begin{lemma}
-           The total amount of flow passing through the vertices representing a quota $q_i$ will not exceed $|q_i|$.
+           The total amount of flow passing through the vertices representing a quota $q_i$ will not exceed $n_{q_i}$.
         \end{lemma}
         
         To ensure that the predefined minimum quotas for the sets are fully respected during the matching process, it is crucial that the capacity configuration is well-defined. Each vertex in Layer 2 (quotas $q_i$ and wide competition $wc$) is connected to the \textit{Source} vertex with capacities defined as $n_{q_i}$ for $q_i$ and $n_{wc}$ for $wc$. This guarantees that the maximum number of flows for each $q_i$ is $n_{q_i}$, respecting the minimum quotas.
@@ -176,11 +180,11 @@
         \subsection{Cost Minimization}
         
         \begin{lemma}
-           \cite{edmonds1972theoretical} MCMF maximizes the flow in a graph, and among all maximum flows, it finds the one whose sum of edge costs is the smallest.
+           MCMF maximizes the flow in a graph, and among all maximum flows, it finds the one whose sum of edge costs is the smallest \cite{edmonds1972theoretical}.
         \end{lemma}
         
         \begin{lemma}
-           \cite{edmonds1972theoretical} The edges between the elements that optimize the MCMF represent the matchings between the elements of groups $U$ and $V$.
+           The edges between the elements that optimize the MCMF represent the matchings between the elements of groups $U$ and $V$ \cite{edmonds1972theoretical}.
         \end{lemma}
         
         To minimize the costs associated with the matchings, the edges between the elements of $U$ and $V$ in Layers 4 and 5 have associated costs that represent the cost of matching. The MCMF algorithm minimizes the total cost of the flow by choosing the lowest-cost matchings between $U$ and $V$.

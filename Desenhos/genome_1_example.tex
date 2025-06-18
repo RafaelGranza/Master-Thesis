@@ -5,6 +5,11 @@
             \resizebox{\textwidth}{!}{%
             \begin{circuitikz}
                 \tikzstyle{every node}=[font=\LARGE]
+
+                \node at (18.5,8.5) {\textcolor{blue}{\huge $s_1$}};
+                \node at (23,9) {\textcolor[RGB]{0,143,2}{\huge $s_2$}};
+                \node at (18.5,14) {\textcolor{red}{\huge $s_3$}};
+
                 
                 \draw [, line width=1pt ] (9,13.25) circle (0.75cm) node {$x_1$};
                 \draw [, line width=1pt ] (20.25,15.25) circle (0.75cm) node {$x_2$};
@@ -104,6 +109,6 @@
             \caption{} 
             \label{fig:genome_1_example}
         \end{subfigure}
-        \caption[Example of a chromosome 1]{Example of a chromosome from a problem where the allowed Grouping Objects are predefined. (a) Allowed Grouping Objects are $s_1$, $s_2$, and $s_3$. (b) Chromosome binary representation. Each line is a different chromosome that represents the selected groups.} 
+        \caption[Example of a chromosome 1]{Example of a chromosome from a problem where the allowed Grouping Objects are predefined. (a) Allowed Grouping Objects are $s_1$, $s_2$, and $s_3$. (b) Several chromosomes binary representation. Each line is a different chromosome that represents the selected groups.} 
         \label{fig:genome_1}
     \end{figure}

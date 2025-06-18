@@ -101,8 +101,9 @@
 
         The assigner gathers information from the statistics and metadata from the grouping to identify a specific and specialized solver for that particular grouping problem, if no one is available, a metaheuristic one is assigned.
 
-        Figure \ref{fig:flow_chart} shows a simplified version of the assigner; a more advanced assigner can be implemented in future works.
-
+        Figure \ref{fig:flow_chart} shows a simplified version of the assigner; a more advanced assigner can be implemented in future work.
+        %% give breath explanation of Preference, Cost, Usage Limit and Ranking
+        For this example, the assigner analyzes the size of the grouping, if the relations have preferences (i.e. each element has a preference for which element to be grouped with), if the relations have costs (i.e. each element has a cost to be grouped with another element), and if there is a ranking (i.e. each element has a ranking with respect to the other elements). Based on these characteristics, it selects the appropriate solver.
         \input{Desenhos/assigner_flowchart}
 
     \subsection{Solvers}
@@ -121,13 +122,7 @@
         \subsubsection{Gene and Chromosome Representation} \label{sec:gene}
             The design allows the user to enter two types of input, the allowed Grouping Objects, or all instances of classes that can be part of the groupings.
             %%
-            
-            %%
             For the first case, the chromosome is a bit mask $b$ of size $n$, where $n$ is the number of allowed Grouping Objects. The $i$-th bit in $b$ indicates whether or not the $i$-th grouping object is selected at that solution option. Figure \ref{fig:genome_1} shows an example of it.
-            %%
-
-            \input{Desenhos/genome_1_example}
-
             %%
             For the second case, the chromosome is a list of $n$ bit masks (a matrix). 
             Therefore, we have a predefined maximum of $n$ grouping.
@@ -138,12 +133,12 @@
             The $i$-th bit of the $j$-th bit mask indicates whether the $i$-th instance is part of the $j$-th grouping. 
             Therefore, the chromosome is a matrix of size $n\times m$. 
             This can generate invalid groupings, so they need to be checked after mutations and cross-overs. Figure \ref{fig:genome_2} shows an example of it.
-
+            \input{Desenhos/genome_1_example}
             \input{Desenhos/genome_2_example}
 
             These representations are not optimized, but can cover all the cases.
-    
-            As these representations are binary, there is no need to elaborate new mutations and crossovers, since the literature already implements many operations (e.g. single-point crossover, multi-point crossover, flip mutation) \cite{galib}.
+            %%
+            As these representations are binary, there is no need to elaborate specific mutations and crossover operations, since the literature already implements many operations (e.g. single-point crossover, multi-point crossover, flip mutation) \cite{galib}.
 
         
      \subsection{Mapping Inputs and Outputs of Solvers}
