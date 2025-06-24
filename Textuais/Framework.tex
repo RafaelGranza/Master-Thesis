@@ -1,7 +1,7 @@
 \chapter{Framework} \label{chap:framework}
 
-    Building upon the ideas presented in Chapter \ref{chap:design}, we outline how an prototype Python framework was implemented. In this chapter, we demonstrate the construction process, focusing on a problem-agnostic approach. To maintain generality, some classes have been mocked, allowing us to emphasize the framework's core design principles rather than problem-specific details.
-    The implementation of the framework is available on GitHub\footnote{\url{https://github.com/RafaelGranza/Matching-Optimization-Core}} \cite{myframework}.
+    Building upon the ideas presented in Chapter \ref{chap:design}, we outline how an prototype Python framework was implemented. In this chapter, we demonstrate the construction process, focusing on a problem-agnostic approach. To maintain generality, some classes have been simplified, allowing us to emphasize the framework's core design principles rather than problem-specific details.
+    The implementation of the framework is available on GitHub\footnote{\url{https://github.com/RafaelGranza/Matching-Optimization-Framework}} \cite{myframework}.
 
     \section{Representing Relations}
         % To represent the relations, we provide the class         \textit{GroupingRule}, which stores each classes that can be part of a Grouping, the specifications, and also represents the geometry of the Grouping, i.e. how many relations each object can be part of, can ahve and so on. 
@@ -18,7 +18,7 @@ class GroupRule:
     # Sets the objective function (string or callable).
     def set_objective_function(self, function)
 
-    # Defines min/max cardinality for a class in the grouping.
+    # Add classes to the relation of a group and defines min/max cardinality for this class' relation.
     def set_cardinality(self, cls, min_count, max_count)
 
     # Adds a validator function for group validation.
