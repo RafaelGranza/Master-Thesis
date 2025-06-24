@@ -106,7 +106,7 @@
         For this example, the assigner analyzes the size of the grouping, if the relations have preferences (i.e. each element has a preference for which element to be grouped with), if the relations have costs (i.e. each element has a cost to be grouped with another element), and if there is a ranking (i.e. each element has a ranking with respect to the other elements). Based on these characteristics, it selects the appropriate solver.
         \input{Desenhos/assigner_flowchart}
 
-    \subsection{Solvers}
+    \subsection{Solvers} \label{sec:solvers}
     
         According to the problem identified by the assigner, it is important to have algorithm-specific solvers. In cases where there is no predefined specification for the problem, a metaheuristic algorithm based on genetic algorithms will be used to solve the problem.
 
@@ -138,7 +138,7 @@
 
             These representations are not optimized, but can cover all the cases.
             %%
-            As these representations are binary, there is no need to elaborate specific mutations and crossover operations, since the literature already implements many operations (e.g. single-point crossover, multi-point crossover, flip mutation) \cite{galib}.
+            As these representations are binary, there is no need to elaborate specific mutations and crossover operations, since the literature already implements many operations (e.g. single-point crossover, multi-point crossover, flip mutation) \cite{deap}.
 
         
      \subsection{Mapping Inputs and Outputs of Solvers}
