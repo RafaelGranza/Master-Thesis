@@ -99,6 +99,7 @@ class Assigner:
         HungarianAlgorithm,
         BinSearchHungarianAlgorithm,
         StableMarriage,
+        FairBipartiteMatching,
         GeneticAlgorithm, # Metaheuristic solver
         # Add more solvers here as needed (e.g., SimulatedAnnealing)
     ]
@@ -169,7 +170,7 @@ class Solver:
     In this section, we describe the different solvers that were implemented to address the grouping problems. Each solver is chosen based on its suitability for the problem at hand, ranging from optimization-based techniques like the Hungarian Algorithm to more heuristic-based approaches such as Genetic Algorithms. We also delve into a solver designed for specific cases like the Stable Marriage problem, which ensures a stable matching between two groups.
 
     It is important to notice that for this work, it is enough to demonstrate possibilities, indicating an arbitrary amount of solvers can be implemented and added to this framework in the future.
-    The solvers implemented in this framework are available at Appendices \ref{app:solver_ga}, \ref{app:solver_hungarian}, \ref{app:solver_binary_search} and \ref{app:solver_stable_marriage}.
+    The solvers implemented in this framework are available at Appendices \ref{app:solver_hungarian}, \ref{app:solver_binary_search}, \ref{app:solver_stable_marriage}, \ref{app:solver_ga} and \ref{app:solver_fair}.
 
     \subsubsection{Metaheuristic}
         To implement the genetic algorithm, we utilized the DEAP library \cite{deap}, which provides a flexible framework for evolutionary algorithms in Python.
@@ -211,6 +212,12 @@ class Solver:
     
     This algorithm is particularly effective in applications where stability are more important than optimization, such as job candidate assignment or college admissions. The result is a matching that respects individual preferences while maintaining stability across the entire system.
 
+    \subsubsection{Fair Bipartite Matching}
+
+    The theoretical foundations for this solver are presented in Chapter~\ref{chap:fair_matching}.  
+    For the graph-related implementation, we used both the \texttt{networkx} and \texttt{igraph} libraries~\cite{hagberg2008exploring, igraph}, which offer tools for graph manipulation and for solving minimum-cost maximum-flow problems.
+
+
     \section{Solve}
     For the purpose of this framework, we provide a simple \textit{solve} function that selects the appropriate solver based on the problem's characteristics and solves the problem.
     The \textit{solve} function provides a direct interface for solving grouping problems.
@@ -231,6 +238,8 @@ def solve(gr: GroupRule, instances: List[object]):
 
     \section{Problem Examples} \label{sec:examples}
 To illustrate the flexibility of the framework in solving various grouping problems, this section presents three distinct problems, each one with its unique requirements.
+Note that whilst the classes and instances are manually created in the examples, in a real application this could come from a database or other data source, and the framework would still be able to handle it seamlessly.
+
 
 \subsection{Job Assignment}
 In this example, the goal is to match workers to jobs while minimizing a cost metric (e.g., skill) as described at Section \ref{subsec:job_assignment}.
@@ -484,10 +493,84 @@ print(solve(gr, all_groups))
 \end{lstlisting}
 
 To see more information about resource allocation problems, see Section \ref{subsec:resource_allocation}.
-Note that whilst the classes and instances are manually created in the examples, in a real application this could come from a database or other data source, and the framework would still be able to handle it seamlessly.
 
 
-\section{Fairness}
+\subsection{Fair Bipartite Matching}
 
-\subsection{Solver}
-\subsection{Example}
+For the purpose of this work, an algorithm for the Fair Bipartite Matching Problem was implemented, as detailed in Chapter~\ref{chap:fair_matching}.  
+This implementation allows the framework to address scenarios in which fairness criteria—such as quotas or diversity constraints—must be taken into account during grouping or resource allocation.
+
+Script~\ref{script:fair_bipartite_matching} illustrates an example similar to Script~\ref{script:job_assignement}, with the main difference being the inclusion of quotas.  
+This example corresponds to the scenario represented in Figure~\ref{fig:workers_jobs_example}.
+
+\begin{lstlisting}[language=Python, caption={Creating and solving a Fair Matching Problem using this framework.}, label={script:fair_bipartite_matching}]
+from src.group import GroupRule
+import random
+from typing import List, Type
+from src.solve import solve
+
+class Worker:
+    def __init__(self, ID, Disabilities):
+        self.ID = ID
+        self.skills = random.randint(1, int(1e6)) # Simulating skills
+        self.Disabilities = Disabilities
+    def __repr__(self):
+        return f"Worker(ID={self.ID}, Disabilities='{self.Disabilities}')"
+class Job:
+    def __init__(self, ID):
+        self.ID = ID
+        self.skills = random.randint(1, int(1e6)) # Simulating skills required
+    def __repr__(self):
+        return f"Job({self.ID})"
+
+def skill_allignment(members: dict[Type, List]):
+    """
+    Example statistic function that calculates the difference between Workers' and Jobs' skills.
+    """
+    workers = members.get(Worker, [None])[0]
+    jobs = members.get(Job, [None])[0]
+
+    if workers is None or jobs is None:
+        return float('inf')  # Return a high value if either is missing
+
+    return abs(workers.skills - jobs.skills)
+
+
+def gen_jobs(qnt):
+    # Generate a list of Job instances
+    list = []
+    for i in range(qnt):
+        list.append(Job(ID=i))
+    return list
+
+def gen_workers(qnt):
+    # Generate a list of Worker instances, with some having disabilities
+    list = []
+    disabilities = ["Low Visibility", "Low Mobility", "None"]
+    for i in range(0, int(qnt*0.8)):
+        list.append(Worker(
+            ID=i,
+            Disabilities=disabilities[2]
+        ))
+    for i in range(int(qnt*0.8), qnt):
+        list.append(Worker(
+            ID=i,
+            Disabilities=disabilities[random.randint(0,len(disabilities)-1)]
+        ))
+    return list
+
+instances = gen_jobs(3) + gen_workers(6)
+
+# Define the problem rules
+gr = GroupRule()
+# Two slots for both low mobility and low visibility
+gr.quotas = {"Disabilities":[["Low Visibility", 2],["Low Mobility", 2]]}
+gr.set_cardinality(Job, 1, 1)           # Each group must have exactly 1 job
+gr.set_cardinality(Worker, 1, 1)        # Each group must have exactly 1 worker
+gr.add_statistic(skill_allignment)      # Add the skill alignment statistic
+# Use the sum of the statistic as the objective function
+gr.set_objective_function("maximize_sum_of_single_statistic")  
+
+# Optimization
+print("Answer: ", solve(gr, instances))
+\end{lstlisting}
