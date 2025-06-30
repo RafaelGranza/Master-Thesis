@@ -4,19 +4,653 @@
 % ----------------------------------------------------------
 
 % ---
-% Inicia os apêndices
-% ---
-% \begin{apendicesenv}
+\begin{apendicesenv}
 
-% % Imprime uma página indicando o início dos apêndices
-% %\partapendices
+% Imprime uma página indicando o início dos apêndices
+%\partapendices
 
-% % ----------------------------------------------------------
-% \chapter{TÍTULO}
-% % ----------------------------------------------------------
+\chapter{GroupRule and Group Class}
+\label{app:group_source_code}
+
+\begin{lstlisting}[language=Python, caption={GroupRule and Group Class Source Code}]
+from collections import defaultdict
+
+class Group:
+    """
+    A container of members, which can be any type of object.
+    Members are organized by their class type.
+    """
+
+    def __init__(self):
+        self.members = defaultdict(list)
+
+    def add_member(self, *instances):
+        if len(instances) == 1 and isinstance(instances[0], (list, set, tuple)):
+            instances = instances[0]
+        for instance in instances:
+            cls = type(instance)
+            self.members[cls].append(instance)
+        return self
+
+    def remove_member(self, *instances):
+        if len(instances) == 1 and isinstance(instances[0], (list, set, tuple)):
+            instances = instances[0]
+        for instance in instances:
+            cls = type(instance)
+            if instance in self.members[cls]:
+                self.members[cls].remove(instance)
+            else:
+                raise ValueError(f"Instance {instance} not found in group.")
+        return self
+
+    def get_members(self, cls=None):
+        if cls is None:
+            return self.members
+        return self.members.get(cls, [])
+
+    def get_members_as_list(self, cls=None):
+        if cls is None:
+            return [instance for instances in self.members.values() for instance in instances]
+        return self.members.get(cls, [])
+
+    def __repr__(self):
+        members_repr = (instance for instances in self.members.values() for instance in instances)
+        return f"Group({', '.join(map(str, members_repr))})"
+
+class GroupRule:
+    """
+    A class to manage a group of objects with cardinality constraints and validation.
+    It allows setting cardinality rules, adding statistics and validators, and defining objective functions.
+    """
+
+    objective_function = lambda stats: 0
+    objective_function_name = "no_statistic"
+
+    """
+    A flag to indicate if the matching should be stable.
+    If True, the matching will be stable.
+    The instances MUST have a "preference" attribute for this to work.
+    """
+    stable_match = False
+
+    valid_functions = {
+        "minimize_sum_of_single_statistic": lambda stats: sum(stats),
+        "minimize_min_of_single_statistic": lambda stats: min(stats),
+        "minimize_max_of_single_statistic": lambda stats: max(stats),
+        "maximize_sum_of_single_statistic": lambda stats: -sum(stats),
+        "maximize_min_of_single_statistic": lambda stats: -min(stats),
+        "maximize_max_of_single_statistic": lambda stats: -max(stats),
+        "no_statistic": lambda stats: 0, # No statistic, just return 0
+    }
+
+    def __init__(self):
+        self.cardinality_rules = {}
+        self.statistics = []
+        self.validators = []
+        self.types = []
+        self.objective_function_name = None
+
+    def set_objective_function(self, function):
+        if isinstance(function, str):
+            function_name = function.lower()
+            if function_name not in self.valid_functions:
+                raise ValueError(f"Invalid objective function name: {function_name}")
+            self.objective_function_name = function_name
+            self.objective_function = self.valid_functions[function_name]
+        else:
+            if not callable(function):
+                raise ValueError("Objective function must be callable.")
+            self.objective_function = function
+            self.objective_function_name = "arbitrary"
+
+    def set_cardinality(self, cls, min_count, max_count):
+        self.cardinality_rules[cls] = (min_count, max_count)
+        if cls not in self.types:
+            self.types.append(cls)
+
+    def add_validator(self, validator_fn):
+        self.validators.append(validator_fn)
+
+    def add_statistic(self, statistic):
+        if not callable(statistic):
+            raise ValueError("statistic must be a callable.")
+        self.statistics.append(statistic)
+
+    def validate_or_raise(self, group: Group):
+        for cls, (min_count, max_count) in self.cardinality_rules.items():
+            count = len(group.members[cls])
+            if not (min_count <= count <= max_count):
+                raise ValueError(f"Cardinality constraint violated for class {cls.__name__}: found {count}, expected from {min_count} to {max_count}.")
+
+        for validator in self.validators:
+            if not validator(group.members):
+                raise ValueError(f"Custom validator '{validator.__name__}' failed.")
+
+    def validate(self, groups: Group):
+        try:
+            self.validate_or_raise(groups)
+        except ValueError as e:
+            return False
+        return True
+
+    def set_stable_match(self, stable_match: bool):
+        self.stable_match = stable_match
+\end{lstlisting}
+
+\chapter{Hungarian Algorithm Solver}
+\label{app:solver_hungarian}
+\begin{lstlisting}[language=Python, caption={Hungarian Algorithm Solver Source Code}]
+from src.solvers.base_solver import Solver
+from src.group import Group, GroupRule
+from typing import List, Type
+import numpy as np
+from scipy.optimize import linear_sum_assignment
 
 
+def build_cost_matrix_from_groups(group_rule, groups):
+    """
+    Build a cost matrix from the given groups, considering two types of objects.
+    """
+    # count the unique instances of each type in the groups
+    unique_instances = {}
+    for group in groups:
+        for cls, instance   in group.members.items():
+            if cls not in unique_instances:
+                unique_instances[cls] = list()
+            for i in instance:
+                if i not in unique_instances[cls]:
+                    unique_instances[cls].append(i)
+
+    [type_a, type_b] = unique_instances.values()
+    n = len(type_a)
+    m = len(type_b)
+    cost_matrix = np.zeros((n, m))
+
+    for i in range(n):
+        for j in range(m):
+            group = Group()
+            group.add_member(unique_instances[group_rule.types[0]][i])
+            group.add_member(unique_instances[group_rule.types[1]][j])
+            cost_matrix[i][j] = group_rule.statistics[0](group.members)
+    
+    return cost_matrix
+
+def recover_groups_from_groups(matching, groups):
+    """
+    Recover the groups from the matching result.
+    """
+    unique_instances = {}
+    for group in groups:
+        for cls, instance   in group.members.items():
+            if cls not in unique_instances:
+                unique_instances[cls] = list()
+            for i in instance:
+                if i not in unique_instances[cls]:
+                    unique_instances[cls].append(i)
+
+    types = list(unique_instances.keys())
+    
+    result_groups = []
+    for i, j in matching:
+        group = Group()
+        group.add_member(unique_instances[types[0]][i])
+        group.add_member(unique_instances[types[1]][j])
+        result_groups.append(group)
+    return result_groups
 
 
-% \end{apendicesenv}
+def build_cost_matrix(group_rule, type_a, type_b):
+    """
+    Build a cost matrix from the given instances, considering two types of objects.
+    """
+    n, m = len(type_a), len(type_b)
+    cost_matrix = np.zeros((n, m))
+    
+    for i in range(n):
+        for j in range(m):
+            group = Group()
+            group.add_member(type_a[i])
+            group.add_member(type_b[j])
+            cost_matrix[i][j] = group_rule.statistics[0](group.members)
+    
+    return cost_matrix
+
+def recover_groups(matching, type_a, type_b):
+    """
+    Recover the groups from the matching result.
+    """
+    groups = []
+    for i, j in matching:
+        group = Group()
+        group.add_member(type_a[i])
+        group.add_member(type_b[j])
+        groups.append(group)
+    return groups
+
+class HungarianAlgorithm(Solver):
+    """
+    Solver using the Hungarian algorithm for assignment problems.
+    """
+
+    @staticmethod
+    def can_solve(group_rule: GroupRule):
+        if len(group_rule.cardinality_rules) != 2:
+            return False
+        for cls, (min_count, max_count) in group_rule.cardinality_rules.items():
+            if min_count != 1 or max_count != 1:
+                return False
+        return group_rule.objective_function_name == "minimize_sum_of_single_statistic"
+
+    @staticmethod
+    def solve_from_instances(group_rule: GroupRule, instances: List[object]):
+
+        type_a = [inst for inst in instances if isinstance(inst, group_rule.types[0])]
+        type_b = [inst for inst in instances if isinstance(inst, group_rule.types[1])]
+
+        matrix = build_cost_matrix(group_rule, type_a, type_b)
+        row_ind, col_ind = linear_sum_assignment(matrix)
+        matching = list(zip(row_ind, col_ind))
+        return recover_groups(matching, type_a, type_b)
+
+    @staticmethod
+    def solve_from_valid_groups(group_rule: GroupRule, groups: List[Group]):
+        matrix = build_cost_matrix_from_groups(group_rule, groups)
+        row_ind, col_ind = linear_sum_assignment(matrix)
+        matching = list(zip(row_ind, col_ind))
+        return recover_groups_from_groups(matching, groups)
+\end{lstlisting}
+
+\chapter{Hungarian Algorithm with Binary Search Solver}
+\label{app:solver_binary_search}
+\begin{lstlisting}[language=Python, caption={Hungarian Algorithm with Binary Search Solver Source Code}]
+from src.solvers.base_solver import Solver
+from src.group import Group, GroupRule
+from typing import List, Type
+import numpy as np
+from scipy.optimize import linear_sum_assignment
+
+
+def build_cost_matrix_from_groups(group_rule, groups):
+    """
+    Build a cost matrix from the given groups, considering two types of objects.
+    """
+    # count the unique instances of each type in the groups
+    unique_instances = {}
+    for group in groups:
+        for cls, instance   in group.members.items():
+            if cls not in unique_instances:
+                unique_instances[cls] = list()
+            for i in instance:
+                if i not in unique_instances[cls]:
+                    unique_instances[cls].append(i)
+
+    [type_a, type_b] = unique_instances.values()
+    n = len(type_a)
+    m = len(type_b)
+    cost_matrix = np.zeros((n, m))
+
+    for i in range(n):
+        for j in range(m):
+            group = Group()
+            group.add_member(unique_instances[group_rule.types[0]][i])
+            group.add_member(unique_instances[group_rule.types[1]][j])
+            cost_matrix[i][j] = group_rule.statistics[0](group.members)
+    
+    return cost_matrix
+
+def recover_groups_from_groups(matching, groups):
+    """
+    Recover the groups from the matching result.
+    """
+    unique_instances = {}
+    for group in groups:
+        for cls, instance   in group.members.items():
+            if cls not in unique_instances:
+                unique_instances[cls] = list()
+            for i in instance:
+                if i not in unique_instances[cls]:
+                    unique_instances[cls].append(i)
+
+    types = list(unique_instances.keys())
+    
+    result_groups = []
+    for i, j in matching:
+        group = Group()
+        group.add_member(unique_instances[types[0]][i])
+        group.add_member(unique_instances[types[1]][j])
+        result_groups.append(group)
+    return result_groups
+
+
+def bin_search(matrix):
+    matching = []
+    l = 0
+    r = max(all_costs := matrix.flatten())
+    iters = 100
+
+    while iters:
+        mid = (l + r) / 2
+        aux_matrix = np.where(matrix > mid, np.inf, matrix)
+
+        row_ind, col_ind = linear_sum_assignment(matrix)
+        matching = list(zip(row_ind, col_ind))
+        if matrix[row_ind, col_ind].sum() >= np.inf:
+            r = mid
+        else:
+            l = mid
+        iters -= 1
+    return matching
+
+def build_cost_matrix(group_rule, type_a, type_b):
+    """
+    Build a cost matrix from the given instances, considering two types of objects.
+    """
+    n, m = len(type_a), len(type_b)
+    cost_matrix = np.zeros((n, m))
+    
+    for i in range(n):
+        for j in range(m):
+            group = Group()
+            group.add_member(type_a[i])
+            group.add_member(type_b[j])
+            cost_matrix[i][j] = group_rule.statistics[0](group.members)
+    
+    return cost_matrix
+
+def recover_groups(matching, type_a, type_b):
+    """
+    Recover the groups from the matching result.
+    """
+    groups = []
+    for i, j in matching:
+        group = Group()
+        group.add_member(type_a[i])
+        group.add_member(type_b[j])
+        groups.append(group)
+    return groups
+
+class BinSearchHungarianAlgorithm(Solver):
+    """
+    Solver using a binary search approach combined with the Hungarian algorithm.
+    This solver is specifically designed for the case where there are exactly two types of objects
+    and each type has a cardinality of 1.
+    It finds the Minumum individual cost for each group and returns the groups.
+    """
+
+    @staticmethod
+    def can_solve(group_rule: GroupRule):
+        if len(group_rule.cardinality_rules) != 2:
+            return False
+        for cls, (min_count, max_count) in group_rule.cardinality_rules.items():
+            if min_count != 1 or max_count != 1:
+                return False
+        return group_rule.objective_function_name == "minimize_max_of_single_statistic"
+
+    @staticmethod
+    def solve_from_instances(group_rule: GroupRule, instances: List[object]):
+
+        type_a = [inst for inst in instances if isinstance(inst, group_rule.types[0])]
+        type_b = [inst for inst in instances if isinstance(inst, group_rule.types[1])]
+
+        matrix = build_cost_matrix(group_rule, type_a, type_b)
+        matching = bin_search(matrix)
+        return recover_groups(matching, type_a, type_b)
+
+    @staticmethod
+    def solve_from_valid_groups(group_rule: GroupRule, groups: List[Group]):
+        matrix = build_cost_matrix_from_groups(group_rule, groups)
+        matching = bin_search(matrix)
+        return recover_groups_from_groups(matching, groups)
+\end{lstlisting}
+
+\chapter{Stable Marriage Solver}
+\label{app:solver_stable_marriage}
+\begin{lstlisting}[language=Python, caption={Stable Marriage Solver Source Code}]
+from src.solvers.base_solver import Solver
+from src.group import Group, GroupRule
+from typing import List, Type
+
+
+def check_preference(prefer, n, m0, m1):
+    """
+    Check if element N prefers element M0 over element M1.
+    """
+    return prefer[wn.index(m1)] < prefer[n].index(m0)
+
+
+def make_stable_pairs(type_a, type_b):
+    """
+    Stable Marriage algorithm to find stable pairs between two types.
+    """
+    # Assume type_a and type_b have a 'preference' attribute that is a list of preferences
+    for a in type_a:
+        if not hasattr(a, 'preference'):
+            raise ValueError(f"Instances of type {type(a).__name__} must have a 'preference' attribute.")
+    for b in type_b:
+        if not hasattr(b, 'preference'):
+            raise ValueError(f"Instances of type {type(b).__name__} must have a 'preference' attribute.")
+
+    # Build preference lists
+    prefer = {a: a.preference for a in type_a}
+    prefer.update({b: b.preference for b in type_b})
+
+    w_partner = {b: None for b in type_b}  # Women's partners
+    m_free = set(type_a)  # Free men
+
+    while m_free:
+        m = m_free.pop()
+        for w in prefer[m]:
+            if w_partner[w] is None:  # Woman is free
+                w_partner[w] = m
+                break
+            else:  # Woman is already engaged
+                m1 = w_partner[w]
+                if not check_preference(prefer, w, m, m1):
+                    w_partner[w] = m
+                    m_free.add(m1)
+                    break
+
+    return [(m, w) for w, m in w_partner.items()]
+
+def build_groups(stable_pairs):
+    """
+    Build groups from stable pairs.
+    """
+    groups = []
+    for m, w in stable_pairs:
+        group = Group()
+        group.add_member(m)
+        group.add_member(w)
+        groups.append(group)
+    return groups
+
+
+class StableMarriage(Solver):
+    """
+    Solver using the Stable Marriage algorithm for assignment problems.
+    """
+
+    @staticmethod
+    def can_solve(group_rule: GroupRule):
+        """
+        Check if the group rule can be solved using the Stable Marriage algorithm.
+        """
+        if len(group_rule.cardinality_rules) != 2:
+            return False
+        for _, (min_count, max_count) in group_rule.cardinality_rules.items():
+            if min_count != 1 or max_count != 1:
+                return False
+        return group_rule.stable_match and group_rule.objective_function_name == "no_statistic"
+
+    @staticmethod
+    def solve_from_instances(group_rule: GroupRule, instances: List[object]):
+        """
+        Solve the problem using the Stable Marriage algorithm.
+        """
+        type_a = [inst for inst in instances if isinstance(inst, group_rule.types[0])]
+        type_b = [inst for inst in instances if isinstance(inst, group_rule.types[1])]
+
+        stable_pairs = make_stable_pairs(type_a, type_b)
+        return build_groups(stable_pairs)
+
+    @staticmethod
+    def solve_from_valid_groups(group_rule: GroupRule, groups: List[Group]):
+
+        unique_instances = {}
+        for group in groups:
+            for cls, instance in group.members.items():
+                if cls not in unique_instances:
+                    unique_instances[cls] = list()
+                for i in instance:
+                    if i not in unique_instances[cls]:
+                        unique_instances[cls].append(i)
+
+        [type_a, type_b] = unique_instances.values()
+
+        stable_pairs = make_stable_pairs(type_a, type_b)
+        return build_groups(stable_pairs)
+\end{lstlisting}
+
+\chapter{Genetic Algorithm Solver}
+\label{app:solver_ga}
+\begin{lstlisting}[language=Python, caption={Genetic Algorithm Solver Source Code}]
+from src.solvers.base_solver import Solver
+from src.group import Group, GroupRule
+from typing import List, Type
+import numpy as np
+
+
+def optimize_by_instances(instances: List[object], group_rule: GroupRule, n_groups=3, n_generations=10000, pop_size=40, mutation_prob=0.5) -> List[Group]:
+    '''
+    The chromosome is a binary vector of size n_groups * n_instances, representing a n_groups x n_instances matrix.
+    An element can belong to more than one group.
+    '''
+    from deap import base, creator, tools, algorithms
+    import random
+    import numpy as np
+
+    m = len(instances)
+    n = n_groups
+
+    creator.create("FitnessMax", base.Fitness, weights=(2.0,))
+    creator.create("Individual", list, fitness=creator.FitnessMax)
+
+    toolbox = base.Toolbox()
+
+    def random_individual():
+        # Binary vector of size n*m
+        return [random.randint(0, 1) for _ in range(n * m)]
+
+    toolbox.register("individual", tools.initIterate, creator.Individual, random_individual)
+    toolbox.register("population", tools.initRepeat, list, toolbox.individual)
+
+    def mate(parent1, parent2):
+        # Uniform crossover per gene
+        child1 = [parent1[i] if random.random() < 0.5 else parent2[i] for i in range(n * m)]
+        child2 = [parent2[i] if random.random() < 0.5 else parent1[i] for i in range(n * m)]
+        return creator.Individual(child1), creator.Individual(child2)
+
+    def mutate(ind):
+        for i in range(n * m):
+            if random.random() < mutation_prob:
+                ind[i] = 1 - ind[i]
+        return (ind,)
+
+    def eval_grouping(ind):
+        # Converts vector to n x m matrix
+        mat = np.array(ind).reshape((n, m))
+        group_objs = []
+        for i in range(n):
+            members = [instances[j] for j in range(m) if mat[i, j] == 1]
+            if members:
+                g = Group()
+                g.add_member(members)
+                group_objs.append(g)
+        score = 0
+        # Validation
+        for g in group_objs:
+            if not group_rule.validate(g):
+                score += -1e8
+        # Statistics
+        score += group_rule.objective_function(group_objs) if group_objs else 0
+        return (score,)
+
+    toolbox.register("evaluate", eval_grouping)
+    toolbox.register("mate", mate)
+    toolbox.register("mutate", mutate)
+    toolbox.register("select", tools.selTournament, tournsize=3)
+
+    pop = toolbox.population(n=pop_size)
+    hof = tools.HallOfFame(1)
+
+    algorithms.eaSimple(pop, toolbox, cxpb=0.7, mutpb=0.3, ngen=n_generations, halloffame=hof, verbose=False)
+
+    best = hof[0]
+    mat = np.array(best).reshape((n, m))
+    group_objs = []
+    for i in range(n):
+        members = [instances[j] for j in range(m) if mat[i, j] == 1]
+        if members:
+            g = Group()
+            g.add_member(members)
+            group_objs.append(g)
+    return group_objs
+
+def optimize_by_groups(groups: List[Group], group_rule: GroupRule, n_generations=10000, pop_size=30, mutation_prob=0.2) -> List[Group]:
+    """
+    The chromosome is a bit mask b of size n, where n is the number of
+    allowed Grouping Objects. The i-th bit in b indicates whether or not the i-th grouping object is
+    selected at that solution option.
+    """
+    from deap import base, creator, tools, algorithms
+    import random
+
+    n = len(groups)
+
+    creator.create("FitnessMax", base.Fitness, weights=(1.0,))
+    creator.create("Individual", list, fitness=creator.FitnessMax)
+
+    toolbox = base.Toolbox()
+    toolbox.register("attr_bool", random.randint, 0, 1)
+    toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_bool, n)
+    toolbox.register("population", tools.initRepeat, list, toolbox.individual)
+
+    def eval_selection(individual):
+        selected_groups = [g for i, g in enumerate(groups) if individual[i]]
+        score = 0
+        # Statistics
+        score = group_rule.objective_function(selected_groups) if selected_groups else 0
+        return (score,)
+
+    toolbox.register("evaluate", eval_selection)
+    toolbox.register("mate", tools.cxTwoPoint)
+    toolbox.register("mutate", tools.mutFlipBit, indpb=mutation_prob)
+    toolbox.register("select", tools.selTournament, tournsize=3)
+
+    pop = toolbox.population(n=pop_size)
+    hof = tools.HallOfFame(1)
+
+    algorithms.eaSimple(pop, toolbox, cxpb=0.7, mutpb=0.3, ngen=n_generations, halloffame=hof, verbose=False)
+
+    best = hof[0]
+    selected_groups = [g for i, g in enumerate(groups) if best[i]]
+    return selected_groups
+
+class GeneticAlgorithm(Solver):
+
+    @staticmethod
+    def can_solve(group_rule: GroupRule):
+        return True
+
+    @staticmethod
+    def solve_from_instances(group_rule: GroupRule, instances: List[object]):
+        answers = optimize_by_instances(instances, group_rule, n_groups=len(instances))
+        return answers
+    
+    def solve_from_valid_groups(group_rule: GroupRule, groups: List[Group]):
+        answers = optimize_by_groups(groups, group_rule)
+        return answers
+\end{lstlisting}
+
+\end{apendicesenv}
 % % ---
