@@ -12,33 +12,42 @@
 
         \begin{lstlisting}[language=Python, caption={\textit{GroupRule} class that defines valid \textit{Groups} and its specifications. Such as min/max cardinality of each relation, group validation functions, statistic functions, and object function.}, label={script:groupingrule}]
 class GroupRule:
-    # Initializes the grouping rule object.
-    def __init__(self):
-
     # Sets the objective function (string or callable).
-    def set_objective_function(self, function)
+    def set_objective_function(self, function):
+       # omitted code
 
-    # Add classes to the relation of a group and defines min/max cardinality for this class' relation.
-    def set_cardinality(self, cls, min_count, max_count)
+    # Add classes to the group's relation and defines its min/max cardinality relation.
+    def set_cardinality(self, cls, min_count, max_count):
+       # omitted code
 
     # Adds a validator function for group validation.
-    def add_validator(self, validator_fn)
+    def add_validator(self, validator_fn):
+       # omitted code
 
     # Adds a statistic function for the grouping.
-    def add_statistic(self, statistic)
+    def add_statistic(self, statistic):
+       # omitted code
 
     # Validates group, raises exception if invalid.
-    def validate_or_raise(self, group)
+    def validate_or_raise(self, group):
+       # omitted code
 
     # Validates group(s), returns True if valid.
     def validate(self, groups)
+       # omitted code
 
     # Enables or disables stable matching.
-    def set_stable_match(self, stable_match)
+    def set_stable_match(self, stable_match):
+       # omitted code
 \end{lstlisting}
 
+    Note that the \textit{GroupRule} class supports defining cardinality constraints, validation functions, and statistics functions that can be used to evaluate the quality of the grouping.
+    The validator functions are used to ensure that the grouping adheres to the specified rules, while the statistics functions can be used to gather information about the grouping, such as the number of members in each class or the average cost of the grouping.
+
     %One can see some examples of how to create a \textit{GroupingRule} at Section \ref{sec:examples}.
-    The \textit{Group} class serves as a flexible container for objects, as demonstrated in Script \ref{script:grouping}. It represents the elements (instances) that are grouped together, i.e., members of a group. Importantly, these objects can be instances of any class, and they are organized by their class type.
+    The \textit{Group} class is a flexible container for objects, as demonstrated in Script \ref{script:grouping}.
+    It represents the elements (instances) that are grouped together, i.e., members of a group.
+    Importantly, these objects can be instances of any class, and they are organized by their class type.
 
     \begin{lstlisting}[language=Python, caption={\textit{Group} Class. It represents the elements (instances) that are grouped together.}, label={script:grouping}]
 class Group:
@@ -47,24 +56,28 @@ class Group:
     Members are organized by their class type.
     """
 
-    # Initializes the Group object with an empty members dictionary.
-    def __init__(self):
-
     # Adds a member to the group, allowing multiple instances.
     def add_member(self, *instances):
+        # omitted code
 
     # Removes a member from the group, allowing multiple instances.
     def remove_member(self, *instances):
+        # omitted code
 
     # Retrieves a dictionary of members divided by class type, optionally filtered by only one class type.
     def get_members(self, cls=None):
+        # omitted code
 
     # Retrieves members of the group as a list, optionally filtered by class type.
     def get_members_as_list(self, cls=None):
+       # omitted code
 
     # Returns a string representation of the group, showing all members and their types.
     def __repr__(self):
+       # omitted code
     \end{lstlisting}
+
+    The complete implementations of Script \ref{script:groupingrule} and Script \ref{script:grouping} can be found at Appendix \ref{app:group_source_code}.
 
     \section{Solvers}
         As described in Section \ref{sec:solvers}, the framework is designed to accommodate various solvers, each tailored to specific grouping problems. These solvers are implemented as classes that inherit from the abstract class \textit{Solver} (see Script \ref{script:solver}).
@@ -117,8 +130,6 @@ class Assigner:
             The assigner iterates through a predefined list of solvers, selecting the first one that successfully resolves the given problem. The Genetic Algorithm is positioned as the last resort, ensuring that it is only employed when no specialized solver is available.
 
         \subsection{Adding Solvers}
-            Integrating new solvers into the framework is straightforward.
-            %
             A new solver can be implemented by creating a class that inherits from \textit{Solver} (see Script \ref{script:solver}) and by overriding the necessary virtual functions.
             %
             Once implemented, the solver must be added to the assigner's list, as demonstrated in Script \ref{script:assinger}.
@@ -158,6 +169,7 @@ class Solver:
     In this section, we describe the different solvers that were implemented to address the grouping problems. Each solver is chosen based on its suitability for the problem at hand, ranging from optimization-based techniques like the Hungarian Algorithm to more heuristic-based approaches such as Genetic Algorithms. We also delve into a solver designed for specific cases like the Stable Marriage problem, which ensures a stable matching between two groups.
 
     It is important to notice that for this work, it is enough to demonstrate possibilities, indicating an arbitrary amount of solvers can be implemented and added to this framework in the future.
+    The solvers implemented in this framework are available at Appendix \ref{app:solvers_source_code}.
 
     \subsubsection{Metaheuristic}
         To implement the genetic algorithm, we utilized the DEAP library \cite{deap}, which provides a flexible framework for evolutionary algorithms in Python.
@@ -167,7 +179,7 @@ class Solver:
     \subsubsection{Hungarian Algorithm}
     The Hungarian Algorithm, also known as the Kuhn-Munkres algorithm, was implemented to solve assignment problems where the goal is to find an optimal, minimum-cost matching between two sets of objects. The algorithm operates in polynomial time, making it an efficient choice for solving balanced bipartite matching problems \cite{kuhn1955hungarian}. 
     
-    In this implementation, we followed the standart approach of constructing a cost matrix, where each element represents the "cost" or "penalty" of matching a pair of objects. The algorithm then attempts to minimize the total cost by identifying the optimal set of pairings that leads to the lowest overall value. This is particularly suited for scenarios where the goal is not only to match but to optimize a single objective, such as minimizing total distance or maximizing total compensation in the distribution of resources. The Hungarian Algorithm is deterministic, guaranteeing an optimal solution for these types of problems.
+    In this implementation, we followed the standart approach of constructing a cost matrix, where each element represents the "cost" or "penalty" of matching a pair of objects. The algorithm then attempts to minimize the total cost by identifying the optimal set of pairings that leads to the lowest overall value. This is particularly suited for scenarios where the goal is not only to match but to solve a single objective, such as minimizing total distance or maximizing total compensation in the distribution of resources. The Hungarian Algorithm is deterministic, guaranteeing an optimal solution for these types of problems.
 
     \subsubsection{Binary Search and Hungarian Algorithm}
 
@@ -199,15 +211,15 @@ class Solver:
     
     This algorithm is particularly effective in applications where stability are more important than optimization, such as job candidate assignment or college admissions. The result is a matching that respects individual preferences while maintaining stability across the entire system.
 
-    \section{Optimizer}
-    For the purpose of this framework, we provide a simple optimizer that selects the appropriate solver based on the problem's characteristics.
-    The optimizer is implemented in the \textit{optimize} function, which provides a direct interface for solving grouping problems.
+    \section{Solve}
+    For the purpose of this framework, we provide a simple \textit{solve} function that selects the appropriate solver based on the problem's characteristics and solves the problem.
+    The \textit{solve} function provides a direct interface for solving grouping problems.
     It accepts either a \textit{GroupRule} and a list of valid \textit{Groups}, or a \textit{GroupRule} and a list of instances.
-    The optimizer internally uses the \textit{Assigner} to select the appropriate solver and applies it to the problem, abstracting away the manual selection and invocation of solvers.
-    See Script \ref{script:optimizer} for details.
+    The function internally uses the \textit{Assigner} to select the appropriate solver and applies it to the problem, abstracting away the manual selection and invocation of solvers.
+    See Script \ref{script:solve} for details.
 
-    \begin{lstlisting}[language=Python, caption={Optimizer.}, label={script:optimizer}]
-def optimize(gr: GroupRule, instances: List[object]):
+    \begin{lstlisting}[language=Python, caption={Solve.}, label={script:solve}]
+def solve(gr: GroupRule, instances: List[object]):
     assigner = Assigner()
     solver = assigner.choose_solver(gr)
 
@@ -221,14 +233,15 @@ def optimize(gr: GroupRule, instances: List[object]):
 To illustrate the flexibility of the framework in solving various grouping problems, this section presents three distinct problems, each one with its unique requirements.
 
 \subsection{Job Assignment}
-In this example, the goal is to match workers to jobs while minimizing a cost metric (e.g., travel distance or time) as described at Section \ref{subsec:job_assignment}. In Script \ref{script:job_assignement}, we configure the framework with a cost function that dynamically evaluates the expense of assigning specific workers to jobs, enforcing a one-to-one assignment.
+In this example, the goal is to match workers to jobs while minimizing a cost metric (e.g., skill) as described at Section \ref{subsec:job_assignment}.
+In Script \ref{script:job_assignement}, we configure the framework with a cost function that evaluates the expense of assigning specific workers to jobs, with a one-to-one assignment.
 
 \begin{lstlisting}[language=Python, caption={Creating and solving the Job Assignment Problem using this framework.}, label={script:job_assignement}]
 from src.group import Group, GroupRule
 import random
 from typing import List, Type
 import itertools
-from src.optimizer import optimize
+from src.solve import solve
 
 # Define the Classes for the Example
 class Worker:
@@ -236,7 +249,6 @@ class Worker:
         self.name = name
         self.skills = random.randint(1, int(1e6)) # Simulating worker skill level
     def __repr__(self): return f"Worker({self.name})"
-
 class Job:
     def __init__(self, title):
         self.title = title
@@ -247,34 +259,28 @@ class Job:
 def skill_allignment(members: dict[Type, List]):
     workers = members.get(Worker, [None])[0]
     jobs = members.get(Job, [None])[0]
-
     return abs(workers.skills - jobs.skills)
 
 # Create instances
 workers = [
-    Worker("Alice"), Worker("Bob"), Worker("Charlie"),
-    Worker("Diana"), Worker("Eve"), Worker("Frank"),
-    Worker("Grace"), Worker("Hank"), Worker("Ivy"),
-    Worker("Jack"), Worker("Karen")
+    Worker("Alice"), Worker("Bob"), Worker("Charlie"), Worker("Diana"),
+    Worker("Eve"), Worker("Frank"), Worker("Grace"), Worker("Hank"),
+    Worker("Ivy"), Worker("Jack"), Worker("Karen"), Worker("Leo"),
 ]
-
 jobs = [
-    Job("Painting"), Job("Electrical"), Job("Plumbing"),
-    Job("Cleaning"), Job("Gardening")
+    Job("Painting"), Job("Driving"), Job("Plumbing"), Job("Cleaning"), Job("Gardening")
 ]
 
 # Create Groups
 groups = [Group().add_member(*comb) for comb in itertools.product(workers, jobs)]
 
-# Define the Group Rule
-gr = GroupRule()
+gr = GroupRule()                   # Define the Group Rule
 gr.set_cardinality(Worker, 1, 1)   # exactly 1 worker per job
 gr.set_cardinality(Job, 1, 1)      # exactly 1 job per worker
-gr.set_objective_function("minimize_sum_of_single_statistic")
 gr.add_statistic(skill_allignment) # adding the skill alignment statistic
+gr.set_objective_function("minimize_sum_of_single_statistic")
 
-# Optimizing from a list of Groups
-print("Answer: ", optimize(gr, groups))
+print("Answer: ", solve(gr, groups)) # Optimizing from a list of Groups
 \end{lstlisting}
 
 
@@ -286,7 +292,7 @@ The fitness function of the following function is shown in Algorithm \ref{algo:s
 from src.group import Group, GroupRule
 import random
 from typing import List, Type
-from src.optimizer import optimize
+from src.solve import solve
 
 # Define the Classes for the Example
 class Man:
@@ -388,16 +394,16 @@ gr.set_stable_match(True)                   # Enables stable matching
 gr.add_validator(stable_matching_validator) # Adds the validator function
 
 # Optimizing from a list of Instances, the groups are built automatically.
-print("Answer: ", optimize(gr, instances))
+print("Answer: ", solve(gr, instances))
 \end{lstlisting}
 
 \subsection{Timetable Scheduling}
-For complex scheduling scenarios, such as assigning professors, rooms, lectures, and times, we use a genetic algorithm. This example defines a fitness function to optimize resource allocation while meeting scheduling constraints. 
+For complex scheduling scenarios, such as assigning professors, rooms, lectures, and times, we use a genetic algorithm. This example defines a fitness function to solve resource allocation while meeting scheduling constraints. 
 
 \begin{lstlisting}[language=Python, caption={Creating and solving the Timetable Scheduling Problem using this framework.}, label={script:time_table}]
 from src.group import Group, GroupRule
 import itertools
-from src.optimizer import optimize
+from src.solve import solve
 
 
 # Define the Classes for the Example
@@ -473,8 +479,15 @@ gr.set_cardinality(Subject, 1, 1)
 gr.set_objective_function(objective_function)
 
 
-# Optimize from a list of Groups
-print(optimize(gr, all_groups))
+# solve from a list of Groups
+print(solve(gr, all_groups))
 \end{lstlisting}
 
 To see more information about resource allocation problems, see Section \ref{subsec:resource_allocation}.
+Note that whilst the classes and instances are manually created in the examples, in a real application this could come from a database or other data source, and the framework would still be able to handle it seamlessly.
+
+
+\section{Fairness}
+
+\subsection{Solver}
+\subsection{Example}
