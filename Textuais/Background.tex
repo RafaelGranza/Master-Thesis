@@ -457,8 +457,8 @@ In the context of object-relational mapping (ORM), the relation rules (relation 
 \subsubsection{One-to-One (1:1) Relationships}
  A \textbf{one-to-one relationship} represents a scenario where each instance of an entity is related to exactly one instance of another entity and vice versa. This type of relationship is typically used when an entity's attributes are logically split into separate tables for modularity or privacy purposes.
 
-For example, in a system where each individual has one unique passport, the relationship between the entities \texttt{Person} and \texttt{Passport} can be modeled as one-to-one. In ORM terms, the \texttt{Person} entity includes a foreign key that links to the \texttt{Passport} entity, and the reverse link is also maintained.
-
+For example, in a system where each individual has one unique passport, the relationship between the entities {Person} and {Passport} can be modeled as one-to-one. In ORM terms, the {Person} entity includes a foreign key that links to the {Passport} entity, and the reverse link is also maintained.
+%
 The cardinality constraints for this relationship are:
 \begin{itemize}
     \item \(0:1\): An optional relationship where an entity might not be linked (e.g., a person without a passport).
@@ -467,7 +467,7 @@ The cardinality constraints for this relationship are:
 
 \subsubsection{One-to-Many (1:N) Relationship} A \textbf{one-to-many relationship} occurs when a single instance of an entity relates to multiple instances of another entity. This relationship is commonly used to represent hierarchical or ownership relationships.
 
-For example, consider the relationship between \texttt{Department} and \texttt{Employee}. Each department can have multiple employees, but each employee belongs to a single department. In ORM, the \texttt{Department} entity has a collection of \texttt{Employee} entities, while each \texttt{Employee} contains a foreign key referencing the \texttt{Department}.
+For example, consider the relationship between {Department} and {Employee}. Each department can have multiple employees, but each employee belongs to a single department. In ORM, the {Department} entity has a collection of {Employee} entities, while each {Employee} contains a foreign key referencing the {Department}.
 
 The cardinality constraints are the following.
 \begin{itemize}
@@ -477,7 +477,7 @@ The cardinality constraints are the following.
 
 \subsubsection{Many-to-Many (N:N) Relationship} A \textbf{many-to-many relationship} arises when multiple instances of an entity are related to multiple instances of another entity. This relationship is often implemented using an intermediate or junction table that connects the two entities, storing the relationships explicitly.
 
-For example, in an academic setting, a \texttt{Student} can enroll in multiple \texttt{Courses}, and each \texttt{Course} can have multiple \texttt{Students}. The \texttt{Enrollment} table acts as the junction table, containing foreign keys referencing both \texttt{Student} and \texttt{Course} entities.
+For example, in an academic setting, a {Student} can enroll in multiple {Courses}, and each {Course} can have multiple {Students}. The {Enrollment} table acts as the junction table, containing foreign keys referencing both {Student} and {Course} entities.
 
 The cardinality for such relationships is:
 \begin{itemize}
@@ -488,9 +488,9 @@ The cardinality for such relationships is:
 
 To maintain logical consistency and integrity, certain rules and constraints govern the relationships between entities:
 \begin{enumerate}
-    \item \textbf{Cardinality Rules:} Define the minimum and maximum number of objects allowed on each side of the relationship (e.g., \(0:1\), \(1:N\), \(N..N\)).
+    \item \textbf{Cardinality Rules:} Define the minimum and maximum number of objects allowed on each side of the relationship (e.g., \(0:1\), \(1:N\), \(N:N\)).
     \item \textbf{Ownership Rules:} Specify which entity is the owner or controller of the relationship, determining how changes propagate between related entities.
-    \item \textbf{Cascade Rules:} Define the behavior of related objects when an entity is modified or deleted. For example, cascading deletes ensure that when a \texttt{Department} is deleted, all associated \texttt{Employee} records are also removed.
+    \item \textbf{Cascade Rules:} Define the behavior of related objects when an entity is modified or deleted. For example, cascading deletes ensure that when a {Department} is deleted, all associated {Employee} records are also removed.
 \end{enumerate}
 
 These constraints are critical in ensuring that relationships remain coherent and reflect the domain requirements. Using ORM frameworks, developers can abstract these rules into high-level representations, reducing the complexity of database interactions \cite{larman2004applying}.
@@ -575,7 +575,7 @@ Overall, ORM is a powerful tool in modern software development, offering signifi
         
 \begin{figure}[ht]
     \centering
-    \resizebox{0.25\textwidth}{!}{%
+    \resizebox{0.4\textwidth}{!}{%
         \begin{tikzpicture}[node distance=1.5cm]
             \usetikzlibrary{shapes.geometric, arrows.meta, positioning}
 

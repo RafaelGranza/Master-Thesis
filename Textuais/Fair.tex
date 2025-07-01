@@ -214,10 +214,11 @@
         For clarity and readability in the illustrations, the costs of the unsolved mappings will be suppressed.
         
         \subsection{Fairness in workers to positions allocation}
-        
+        \label{sec:workers_jobs_example}
+
         In the first scenario, we address the challenge of forming a diverse team where some workers have specific limitations, such as low vision or mobility. The objective is to assemble the most diverse and optimal team possible. Each worker expresses their preferences for available job roles, and an objective evaluation method—such as an exam—assigns costs based on prior performance, with lower costs corresponding to higher performance to maintain a minimum-cost solution. Given that the jobs differ in nature, the evaluation process assigns distinct costs to each job-choice vertex, reflecting each worker's suitability for those roles.
         
-        \begin{figure}[!ht]
+        \begin{figure}[]
             \centering
             \begin{subfigure}[t]{0.8\textwidth}
                 \centering
@@ -250,7 +251,7 @@
         
         In the second example, we address a resource allocation problem within a network of services belonging to a single application. The goal is to assign these services to servers, each of which possesses distinct attributes, such as geolocation and backup methods. The objective is to ensure the most diverse and optimal distribution of services across the available servers. An evaluation process assigns costs based on factors like latency, representing the suitability of each service-server pair. This cost structure ensures that resources are allocated in a way that balances fairness and efficiency while maximizing server characteristics that minimize overall costs.
 
-        \begin{figure}[!ht]
+        \begin{figure}[]
             \centering
             \begin{subfigure}[t]{0.8\textwidth}
             \centering

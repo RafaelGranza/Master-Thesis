@@ -134,7 +134,7 @@ class Assigner:
             A new solver can be implemented by creating a class that inherits from \textit{Solver} (see Script \ref{script:solver}) and by overriding the necessary virtual functions.
             %
             Once implemented, the solver must be added to the assigner's list, as demonstrated in Script \ref{script:assinger}.
-
+            %
             In Section \ref{sec:implemented_solvers}, four default solvers are introduced.
 
 \begin{lstlisting}[language=Python, caption={Solver Class.}, label={script:solver}]
@@ -170,7 +170,7 @@ class Solver:
     In this section, we describe the different solvers that were implemented to address the grouping problems. Each solver is chosen based on its suitability for the problem at hand, ranging from optimization-based techniques like the Hungarian Algorithm to more heuristic-based approaches such as Genetic Algorithms. We also delve into a solver designed for specific cases like the Stable Marriage problem, which ensures a stable matching between two groups.
 
     It is important to notice that for this work, it is enough to demonstrate possibilities, indicating an arbitrary amount of solvers can be implemented and added to this framework in the future.
-    The solvers implemented in this framework are available at Appendices \ref{app:solver_hungarian}, \ref{app:solver_binary_search}, \ref{app:solver_stable_marriage}, \ref{app:solver_ga} and \ref{app:solver_fair}.
+    The solvers implemented in this framework are available at Appendices \ref{app:solver_hungarian}, \ref{app:solver_binary_search}, \ref{app:solver_stable_marriage}, \ref{app:solver_ga}, and \ref{app:solver_fair}.
 
     \subsubsection{Metaheuristic}
         To implement the genetic algorithm, we utilized the DEAP library \cite{deap}, which provides a flexible framework for evolutionary algorithms in Python.
@@ -215,7 +215,7 @@ class Solver:
     \subsubsection{Fair Bipartite Matching}
 
     The theoretical foundations for this solver are presented in Chapter~\ref{chap:fair_matching}.  
-    For the graph-related implementation, we used both the \texttt{networkx} and \texttt{igraph} libraries~\cite{hagberg2008exploring, igraph}, which offer tools for graph manipulation and for solving minimum-cost maximum-flow problems.
+    For the graph-related implementation, we used both the networkx and igraph libraries~\cite{hagberg2008exploring, igraph}, which offer tools for graph manipulation and for solving minimum-cost maximum-flow problems.
 
 
     \section{Solve}
@@ -237,7 +237,7 @@ def solve(gr: GroupRule, instances: List[object]):
 \end{lstlisting}
 
     \section{Problem Examples} \label{sec:examples}
-To illustrate the flexibility of the framework in solving various grouping problems, this section presents three distinct problems, each one with its unique requirements.
+To illustrate the flexibility of the framework in solving various grouping problems, this section presents four distinct problems, each one with its unique requirements.
 Note that whilst the classes and instances are manually created in the examples, in a real application this could come from a database or other data source, and the framework would still be able to handle it seamlessly.
 
 
@@ -497,11 +497,12 @@ To see more information about resource allocation problems, see Section \ref{sub
 
 \subsection{Fair Bipartite Matching}
 
-For the purpose of this work, an algorithm for the Fair Bipartite Matching Problem was implemented, as detailed in Chapter~\ref{chap:fair_matching}.  
-This implementation allows the framework to address scenarios in which fairness criteria—such as quotas or diversity constraints—must be taken into account during grouping or resource allocation.
+An algorithm for the Fair Bipartite Matching Problem was implemented, as detailed in Chapter~\ref{chap:fair_matching}.  
+This implementation allows the framework to address scenarios in which minimum quotas must be taken into account during grouping or resource allocation.
 
-Script~\ref{script:fair_bipartite_matching} illustrates an example similar to Script~\ref{script:job_assignement}, with the main difference being the inclusion of quotas.  
-This example corresponds to the scenario represented in Figure~\ref{fig:workers_jobs_example}.
+Script~\ref{script:fair_bipartite_matching} illustrates an example similar to Script~\ref{script:job_assignement}, with the main difference being the inclusion of minimum quotas.
+Notably, the example from Script~\ref{script:fair_bipartite_matching} would be assigned to the \textit{HungarianAlgorithm} solver, in case the quotas were not defined.
+This example corresponds to the scenario represented in Section~\ref{sec:workers_jobs_example}.
 
 \begin{lstlisting}[language=Python, caption={Creating and solving a Fair Matching Problem using this framework.}, label={script:fair_bipartite_matching}]
 from src.group import GroupRule
@@ -523,19 +524,13 @@ class Job:
     def __repr__(self):
         return f"Job({self.ID})"
 
+# Define the Statistic Function
 def skill_allignment(members: dict[Type, List]):
-    """
-    Example statistic function that calculates the difference between Workers' and Jobs' skills.
-    """
     workers = members.get(Worker, [None])[0]
     jobs = members.get(Job, [None])[0]
-
-    if workers is None or jobs is None:
-        return float('inf')  # Return a high value if either is missing
-
     return abs(workers.skills - jobs.skills)
 
-
+# Create instances for the problem
 def gen_jobs(qnt):
     # Generate a list of Job instances
     list = []
@@ -569,8 +564,8 @@ gr.set_cardinality(Job, 1, 1)           # Each group must have exactly 1 job
 gr.set_cardinality(Worker, 1, 1)        # Each group must have exactly 1 worker
 gr.add_statistic(skill_allignment)      # Add the skill alignment statistic
 # Use the sum of the statistic as the objective function
-gr.set_objective_function("maximize_sum_of_single_statistic")  
+gr.set_objective_function("minimize_sum_of_single_statistic")  
 
-# Optimization
+# solve from a list of instances
 print("Answer: ", solve(gr, instances))
 \end{lstlisting}
