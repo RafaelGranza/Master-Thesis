@@ -547,9 +547,13 @@ Overall, ORM is a powerful tool in modern software development, offering signifi
     
         In genetic algorithms, the concept of a gene, chromosome (or genotype), and population is crucial to understanding how solutions are encoded and evolved \cite{holland1992adaptation}. 
         %%
-        A gene represents the smallest unit of information in a genetic algorithm, similar to how a gene in biology contains hereditary information. Several genes together form a chromosome, which is a complete candidate solution to the problem being addressed. Finally, a population is a set of chromosomes representing a diverse set of possible solutions.
+        A gene represents the smallest unit of information in a genetic algorithm, similar to how a gene in biology contains hereditary information. 
+        Several genes together form a chromosome, which is a complete candidate solution to the problem being addressed. 
+        Finally, a population is a set of chromosomes representing a diverse set of possible solutions.
         %%
-        Figure \ref{fig:ga} visually demonstrates these relationships. Each black rectangle in the diagram corresponds to a gene, and groups of genes form chromosomes. The entire collection of chromosomes is known as the population.
+        Figure \ref{fig:ga} visually demonstrates these relationships. 
+        Each black rectangle in the diagram corresponds to a gene, and groups of genes form chromosomes. 
+        The entire collection of chromosomes is known as the population.
         
         \input{Desenhos/genetic_algotihm}
         
@@ -557,7 +561,9 @@ Overall, ORM is a powerful tool in modern software development, offering signifi
     
     \subsection{Mutations and Crossovers}
     
-        Genetic algorithms rely on two primary genetic operators to evolve the population of chromosomes: mutation and crossover \cite{holland1992adaptation}. These operators introduce variety into the population, allowing the algorithm to explore new solution spaces and avoid premature convergence to local optima.
+        Genetic algorithms rely on two primary genetic operators to evolve the population of chromosomes: mutation and crossover \cite{holland1992adaptation}. 
+        These operators allow the algorithm to explore the solution space.
+        % These operators introduce variety into the population, allowing the algorithm to explore new solution spaces and avoid premature convergence to local optima.
         
         The mutation operator introduces random changes to one or more genes within a chromosome. This randomness simulates natural mutations in biological organisms, helping to maintain genetic diversity in the population and explore previously unexplored regions of the solution space.
         
@@ -566,7 +572,9 @@ Overall, ORM is a powerful tool in modern software development, offering signifi
         In conclusion, the mutation and crossover operators are vital for balancing the trade-off between, respectively, exploration (searching new areas of the solution space) and exploitation (refining existing good solutions) in genetic algorithms.
 
     \subsection{Selection}
-        The selection process in genetic algorithms is responsible for choosing which chromosomes will contribute to the next generation of the population \cite{holland1992adaptation}. This process is crucial for guiding the evolution of solutions toward better fitness levels.
+        The selection process in genetic algorithms is responsible for choosing which chromosomes will contribute to the next generation of the population \cite{holland1992adaptation}. 
+        The selection is guided by an evaluation function, which measures the quality of each solution for the problem, solutions with higher quality are more likely to be selected.
+        This process is crucial for guiding the evolution of solutions toward better fitness levels.
         
         There are several selection methods, including:
         \begin{itemize}
@@ -579,11 +587,18 @@ Overall, ORM is a powerful tool in modern software development, offering signifi
 
     \subsection{Algorithm}
         
-        The genetic algorithm is an iterative process that evolves a population of candidate solutions over generations. The algorithm typically follows the steps shown in Figure \ref{fig:ga_flowchart}.
+        % TODO: Check grammar and spelling in chatGPT
+        The genetic algorithm is an iterative process that evolves a population of candidate solutions over generations. 
+        The algorithm typically follows the steps shown in Figure \ref{fig:ga_flowchart}.
+        An inital population is generated, usually by random.
+        Each individual of the population is evaluated by a fitness function, which guides the selection step.
+        The selected individuals are subjected to the genetic operators, and the population is updated with the new individuals.
+        Until a termination criterion is achieved, the steps starting by the evaluation are repeated.
+        
         
 \begin{figure}[ht]
     \centering
-    \resizebox{0.4\textwidth}{!}{%
+    \resizebox{0.6\textwidth}{!}{%
         \begin{tikzpicture}[node distance=1.5cm]
             \usetikzlibrary{shapes.geometric, arrows.meta, positioning}
 
@@ -617,5 +632,6 @@ Overall, ORM is a powerful tool in modern software development, offering signifi
     \label{fig:ga_flowchart}
 \end{figure}
         
-        Genetic algorithms are versatile and can be applied to various optimization problems, including scheduling, routing, and function optimization. Their ability to explore large solution spaces and adapt over time makes them powerful tools for solving complex problems.
+        Genetic algorithms are versatile and can be applied to various optimization problems, including scheduling, routing, and function optimization. 
+        Their ability to explore large solution spaces and adapt over time makes them powerful tools for solving complex problems.
 

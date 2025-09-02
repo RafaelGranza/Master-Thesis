@@ -216,7 +216,9 @@
         \subsection{Fairness in workers to positions allocation}
         \label{sec:workers_jobs_example}
 
-        In the first scenario, we address the challenge of forming a diverse team where some workers have specific limitations, such as low vision or mobility. The objective is to assemble the most diverse and optimal team possible. Each worker expresses their preferences for available job roles, and an objective evaluation method—such as an exam—assigns costs based on prior performance, with lower costs corresponding to higher performance to maintain a minimum-cost solution. Given that the jobs differ in nature, the evaluation process assigns distinct costs to each job-choice vertex, reflecting each worker's suitability for those roles.
+        In the first scenario, we address the challenge of forming a diverse team where some workers have specific limitations, such as low vision or mobility. 
+        The objective is to assemble the most diverse and optimal team possible, guaranteeing that workers with low vision and low mobility are selected for the team. 
+        Each worker expresses their preferences for available job roles, and an objective evaluation method---such as an exam---assigns costs based on prior performance, with lower costs corresponding to higher performance to maintain a minimum-cost solution. Given that the jobs differ in nature, the evaluation process assigns distinct costs to each job-choice vertex, reflecting each worker's suitability for those roles.
         
         \begin{figure}[]
             \centering
@@ -269,6 +271,7 @@
             \caption{Example of server to services allocation. (a) shows the initial mapping, and (b) presents the solution.}
             \label{fig:server_services_example}
         \end{figure}
+        % TODO: for a paper, would be nice a figure c where P3 has both quota's characteristics (geolocation and robust backup), in this case, if p3 is selected, there would be a chance for p6 be selected. Also, mention in (b) that it is impossible to select P6, as there are only 2 slots and 2 quotas (and the elements of the 2 quota sets have no element in common).
         
         Ultimately, this approach leads to optimization of resource allocation by prioritizing diverse server attributes and minimizing latency costs, achieving an efficient and fair solution.
 
