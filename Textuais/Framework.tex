@@ -556,7 +556,7 @@ def gen_workers(qnt):
 
 instances = gen_jobs(3) + gen_workers(6)
 
-# Define the problem rules
+# Define the problem rules  
 gr = GroupRule()
 # Two slots for both low mobility and low visibility
 gr.quotas = {"Disabilities":[["Low Visibility", 2],["Low Mobility", 2]]}

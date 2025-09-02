@@ -2,7 +2,15 @@
 %\chapter{Background and related work}
 \chapter{Background} \label{chap:background}
 
-    This chapter presents fundamental concepts in matching problems, graph theory, relational diagram usage, and optimization techniques. This concepts are important for the understanding of the further development of this dissertation.
+    In order to understand and construct a framework capable of solving a wide variety of matching problems, it is essential to first explore the theoretical foundations that support this approach. This chapter presents the key concepts necessary for modeling, analyzing, and solving grouping problems in industry.
+
+    We begin by introducing basic elements from graph theory, which is the foundation for representing entities and relationships in matching problems. Then, we explore the formal concept of matching, including fairness constraints and cost optimization using flow networks. To complement this, we review the set cover problem, which offers a broader perspective on grouping scenarios that go beyond pairwise relations.
+
+    As the proposed solution is designed to be adaptable to real-world software systems, we also introduce the concept of Object-Relational Mapping (ORM), a widely used modeling paradigm in the software industry. This allows the framework to be integrated directly with relational data models in existing applications.
+
+    Finally, we present an overview of genetic algorithms, a class of metaheuristics suitable for solving complex optimization problems where exact methods may be infeasible. These algorithms will later be applied as solvers within the proposed framework.
+
+Together, these concepts provide the theoretical and practical basis for the design and implementation of the categorised grouping framework developed in this dissertation.
     \section{Graphs}
     
         Graphs are a fundamental concept in computer science and mathematics, widely used to represent relationships between objects. A graph \( G \) is defined as a pair \( (V, E) \), where \( V \) is a set of vertices (or nodes) and \( E \) is a set of edges \cite{cormen}. Each edge in \( E \) connects a pair of vertices.
@@ -325,7 +333,7 @@
         
     \section{Set Cover} \label{WSC}
     
-        Set cover is a classic problem in computer science and mathematics. Given a set $X$ of elements and a collection $S$ of subsets of $X$, the set cover problem is to find the smallest subcollection of $S$ whose union is equal to $X$\cite{cormen, bondy1976graph}. It has applications in scheduling, DNA sequencing, and data compression, and is one of Karp's 21 NP-complete problems \cite{karp1972reducibility}. 
+        Set cover is a classic problem in computer science and mathematics. Given a set $X$ of elements and a collection $S$ of subsets of $X$, the set cover problem is to find the smallest subcollection of $S$ whose union is equal to $X$\cite{cormen, bondy1976graph}. It has applications in scheduling, DNA sequencing, and data compression, and is one of Karp's 21 NP-complete problems \cite{Karp1972}. 
         Figure \ref{fig:set_cover} shows two examples of Set Cover, where both examples cover all elements in $X$. However, the first example is redundant, as it uses subsets $S_1$, $S_2$, and $S_3$, while the second example is optimal, as it uses only subsets $S_1$ and $S_2$ to cover all elements in $X$.
 
     \begin{figure}[!ht]
@@ -418,19 +426,19 @@
 
 
     \subsection{Exact Set Cover}
-    The exact set cover problem is a variant where each element in $X$ must be covered exactly once by the selected sets. This variant is particularly relevant in scenarios where overlapping cover is not allowed or desired, such as certain types of resource allocation and exact sequence alignment in computational biology. Finding an exact set cover is also an NP-complete problem, requiring sophisticated algorithms or approximation techniques for large instances.
-    
-    \subsection{Weighted Set Cover}
+        The exact set cover problem is a variant where each element in $X$ must be covered exactly once by the selected sets. This variant is particularly relevant in scenarios where overlapping cover is not allowed or desired, such as certain types of resource allocation~\cite{hochbaum1997approximation} and exact sequence alignment in computational biology~\cite{li2002mapping}. Finding an exact set cover is also an NP-complete problem~\cite{Karp1972}, requiring sophisticated algorithms or approximation techniques for large instances.
 
-        In the weighted set cover problem, each set in the collection $S$ is assigned a positive weight, which represents its cost. The objective is to find a set cover that minimizes the total weight. The unweighted version of the problem can be understood as a particular case in which all sets in $S$ have the same weight, typically equal to 1.
+        \subsection{Weighted Set Cover}
 
-        Formally, let $X$ be a set of $n$ elements and let $S = \{S_1, S_2, \ldots, S_m\}$ be a collection of $m$ subsets of $X$. Each subset $S_i$ is associated with a weight $w_i$. The objective is to find a sub-collection $C \subseteq S$ such that the union of all sets in $C$ equals $X$, and the total weight, defined as the sum of the weights of the sets in $C$, is minimized.
+            In the weighted set cover problem, each set in the collection $S$ is assigned a positive weight, which represents its cost. The objective is to find a set cover that minimizes the total weight. The unweighted version of the problem can be understood as a particular case in which all sets in $S$ have the same weight, typically equal to 1~\cite{chvatal1979greedy}.
 
-        This problem appears in several practical situations. In network design, for instance, different network configurations may have different costs, and the goal is to ensure that all network nodes are covered while minimizing the overall cost. In the context of sensor placement, each sensor may have a specific deployment cost, and the aim is to cover a given region using the least expensive combination of sensors. Another relevant example is the timing table problem, where tasks must be scheduled within a predefined timeline. Each task may have a different cost associated with its execution time, and the objective is to schedule all required tasks while minimizing the total cost.
+            Formally, let $X$ be a set of $n$ elements and let $S = \{S_1, S_2, \ldots, S_m\}$ be a collection of $m$ subsets of $X$. Each subset $S_i$ is associated with a weight $w_i$. The objective is to find a sub-collection $C \subseteq S$ such that the union of all sets in $C$ equals $X$, and the total weight, defined as the sum of the weights of the sets in $C$, is minimized.
 
-        As with the unweighted version, the weighted set cover problem is classified as NP-hard. This implies that there is no known algorithm capable of solving all instances of the problem exactly in polynomial time. Nonetheless, there are approximation algorithms that provide solutions close to the optimal within a feasible time frame, even for large problem instances.
+            This problem appears in several practical situations. In network design, for instance, different network configurations may have different costs~\cite{jia2002setcovering}, and the goal is to ensure that all network nodes are covered while minimizing the overall cost. In the context of sensor placement, each sensor may have a specific deployment cost~\cite{meguerdichian2001exposure}, and the aim is to cover a given region using the least expensive combination of sensors. Another relevant example is the timing table problem, where tasks must be scheduled within a predefined timeline~\cite{hochbaum1997approximation}. Each task may have a different cost associated with its execution time, and the objective is to schedule all required tasks while minimizing the total cost.
 
-        The set cover problem, whether in its weighted or unweighted form, is a fundamental topic in theoretical computer science. It has inspired the development of many algorithmic techniques, such as greedy strategies, linear programming relaxations, and randomized methods. A thorough understanding of this problem is crucial for addressing more complex optimization challenges in diverse domains.
+            As with the unweighted version, the weighted set cover problem is classified as NP-hard~\cite{garey1979computers}. This implies that there is no known algorithm capable of solving all instances of the problem exactly in polynomial time. Nonetheless, there are approximation algorithms that provide solutions close to the optimal within a feasible time frame, even for large problem instances~\cite{chvatal1979greedy}.
+
+            The set cover problem, whether in its weighted or unweighted form, is a fundamental topic in theoretical computer science. It has inspired the development of many algorithmic techniques, such as greedy strategies~\cite{chvatal1979greedy}, linear programming relaxations~\cite{vazirani2001approximation}, and randomized methods~\cite{motwani1995randomized}. A thorough understanding of this problem is crucial for addressing more complex optimization challenges in diverse domains.
 
 
 
